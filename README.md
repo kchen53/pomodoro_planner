@@ -1,4 +1,4 @@
-# Project Name: Planner
+# Project Name: Pomodoro Planner
 # Project Description: 
 Our website will be a planner for students to schedule meetings, study sessions, and classes as well as time how long you have been doing your work.
 # Project Members
