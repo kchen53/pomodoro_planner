@@ -6,7 +6,11 @@ I am a **site visitor** who want to create a task list so that I can plan out a 
 I am a **student member** who wants to subscribe to a teacher's class to receive class updates and assignment due dates. <br>
 
 ## Planned Issues
+### Front-End:
+<br>
 
+### Back-End:
+* Tasks can be added and removed from a list
 
 ## Completed Issues
 
