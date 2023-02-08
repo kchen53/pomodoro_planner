@@ -7,12 +7,9 @@ I am a **student member** who wants to subscribe to a teacher's class to receive
 I am a **student** who is on a time crunch and wants to study on a time interval. 
 
 ## Planned Issues
-*Running the website locally
-*Setting up API
-
 ### Front-End:
 <br>
-* A home page
+* A home page display
 * A display for the tasks
 * A login section
 * A timer display
@@ -20,8 +17,20 @@ I am a **student** who is on a time crunch and wants to study on a time interval
 ### Back-End:
 * Tasks can be added and removed from a list
 * Starting and ending the timer
+* Running the website locally
+* Setting up a basic API
 
 ## Completed Issues
-
+* A home page display
+* Running the website locally
+* Setting up a basic API
 
 ## Uncompleted Issues and why
+* A display for the tasks
+* A login section
+* A timer display
+* Tasks can be added and removed from a list
+* Starting and ending the timer
+
+These tasks are uncompleted because we had a hard time connecting golang and angular. Also, we need to set up a database
+for the login and add and remove tasks from a list. There are also some components we need to learn how to use so we can create a login section, a display for the tasks, and a timer.
