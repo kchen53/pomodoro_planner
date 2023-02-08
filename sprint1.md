@@ -8,7 +8,6 @@ I am a **student** who is on a time crunch and wants to study on a time interval
 
 ## Planned Issues
 ### Front-End:
-<br>
 * A home page display
 * A display for the tasks
 * A login section
