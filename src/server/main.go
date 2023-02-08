@@ -4,25 +4,35 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
-	"pomodoro_planner/src/server/utils"
 
-	"github.com/gorilla/mux"
+	//"os"
+	"pomodoro_planner/src/server/utils"
+	//"github.com/gorilla/mux"
 )
 
 func main() {
-	r := mux.NewRouter()
+	// r := mux.NewRouter()
 
-	r.HandleFunc("/hello-world", helloWorld)
+	// r.HandleFunc("/hello-world", helloWorld)
 
-	http.Handle("/", r)
+	// http.Handle("/", r)
 
-	srv := &http.Server{
-		Handler: r,
-		Addr:    ":" + os.Getenv("PORT"),
+	// srv := &http.Server{
+	// 	Handler: r,
+	// 	Addr:    ":" + os.Getenv("PORT"),
+	// }
+
+	// log.Fatal(srv.ListenAndServe())
+
+	fileServer := http.FileServer(http.Dir("./static"))
+	http.Handle("/", fileServer)
+	http.HandleFunc("/hello", helloWorld)
+
+	fmt.Printf("Starting server at port 8080\n")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		log.Fatal(err)
 	}
 
-	log.Fatal(srv.ListenAndServe())
 }
 
 func helloWorld(w http.ResponseWriter, r *http.Request) {
