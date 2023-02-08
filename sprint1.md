@@ -17,6 +17,7 @@ I am a **student** who is on a time crunch and wants to study on a time interval
 * Tasks can be added and removed from a list
 * Running the website locally
 * Setting up a basic API
+* Starting and ending the timer
 
 ## Completed Issues
 * A home page display
