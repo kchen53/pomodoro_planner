@@ -9,13 +9,12 @@ I am a **student** who is on a time crunch and wants to study on a time interval
 ## Planned Issues
 ### Front-End:
 * A home page display
-* A display for the tasks
 * A login section
 * A timer display
+* Basic navbar
 
 ### Back-End:
 * Tasks can be added and removed from a list
-* Starting and ending the timer
 * Running the website locally
 * Setting up a basic API
 
@@ -23,13 +22,12 @@ I am a **student** who is on a time crunch and wants to study on a time interval
 * A home page display
 * Running the website locally
 * Setting up a basic API
+* Basic navbar
 
 ## Uncompleted Issues and why
-* A display for the tasks
 * A login section
 * A timer display
 * Tasks can be added and removed from a list
 * Starting and ending the timer
 
-These tasks are uncompleted because we had a hard time connecting golang and angular. Also, we need to set up a database
-for the login and add and remove tasks from a list. There are also some components we need to learn how to use so we can create a login section, a display for the tasks, and a timer.
+These tasks are uncompleted because we had a hard time connecting golang and angular. Also, we need to set up a database for the login and to add and remove tasks from a list. There are also some components we need to learn how to use so we can create a login section and a display for the tasks.
