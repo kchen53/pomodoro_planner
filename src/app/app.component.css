@@ -1,5 +1,9 @@
-.image{
+/* .image{
   height:40em; background-size:cover; width:auto;
   background-image:url('../../images/background.jpg');
   background-position:50% 50%;
+} */
+
+.space{
+  flex: 1 1 auto;
 }
