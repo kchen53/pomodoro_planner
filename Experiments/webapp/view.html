@@ -1,0 +1,13 @@
+<h1>To Do List</h1>
+<div>
+    {{/* Displays Number of To Dos */}}
+    {{.ToDoCount}} To 
+    <a href="/new">
+        Add a To Do
+    </a>
+</div>
+<div>
+    {{range .ToDos}}
+    <p>{{.}}</p>
+    {{end}}
+</div>
