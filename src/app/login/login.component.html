@@ -1,9 +1,17 @@
-<body>
-<mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-</mat-card>
-</body>
+<div fxLayoutAlign ="center center" fxFlexFill class="main-div">
+  <mat-card fxFlex="30">
+    <mat-toolbar color="accent" fxLayoutAlign ="center center"> Login </mat-toolbar>
+    <form fxLayoutAlign="stretch" fxLayout="column" class="login-form">
+
+      <mat-form-field>
+        <input matInput placeholder="Username">
+      </mat-form-field>
+    
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password">
+      </mat-form-field>
+      <button color="accent" mat-raised-button type="submit">Submit</button>
+    </form>
+
+  </mat-card>
+</div>
