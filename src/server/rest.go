@@ -6,6 +6,8 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/kchen53/pomodoro_planner/pkg/routes"
 )
 
 // httpHandler creates the backend HTTP router for queries, types,
@@ -14,7 +16,8 @@ func httpHandler() http.Handler {
 	router := mux.NewRouter()
 	// Your REST API requests go here
 
-	router.HandleFunc("/books/{title}/page/{page}", handleBookGet).Methods("GET")
+	//router.HandleFunc("/books/{title}/page/{page}", handleBookGet).Methods("GET")
+	routes.RegisterToDoStoreRoutes(router)
 
 	// Add your routes here.
 	// WARNING: this route must be the last route defined.
