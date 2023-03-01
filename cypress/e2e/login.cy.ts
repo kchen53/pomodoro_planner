@@ -1,4 +1,4 @@
-describe('about-us page', () => {
+describe('login page', () => {
   beforeEach(() => {
     cy.visit('http://127.0.0.1:8081/login')
   })
