@@ -17,14 +17,13 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
 
 ### Contents  
 
-> [**Todo**](#todo)
->> [Create](#create)  <br>
->> [Get All](#get-all)  <br>
->> [Get By ID](#get-by-id)  <br>
->> [Update](#update)  <br>
->> [Delete](#delete) <br>
->
-> [**Login**](#login)
+- [**Todo**](#todo)
+    - [Create](#create)  <br>
+    - [Get All](#get-all)  <br>
+    - [Get By ID](#get-by-id)  <br>
+    - [Update](#update)  <br>
+    - [Delete](#delete) <br>
+- [**Login**](#login)
 
 ---
 
@@ -32,7 +31,7 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
 
 ####  Create
 
-> POST 127.0.0.1:8081/todo <br>
+> <font color="orange">POST</font> 127.0.0.1:8081/todo <br>
 
 Creates a new Todo item, returns the created Todo item<br>
 
@@ -47,12 +46,14 @@ Creates a new Todo item, returns the created Todo item<br>
 
 ###### Example Input:
 
-    {
-        "id":1,
-        "task":"Pay pomos",
-        "due":"Friday",
-        "complete":false
-    }
+```json
+{
+    "id":1,
+    "task":"Pay pomos",
+    "due":"Friday",
+    "complete":false
+}
+```
  
 ##### Output Fields:
 
@@ -69,16 +70,18 @@ Creates a new Todo item, returns the created Todo item<br>
 
 ###### Example Output:
 
-    {
-        "ID": 0,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "0001-01-01T00:00:00Z",
-        "DeletedAt": null,
-        "id": 1,
-        "task": "Pay pomos",
-        "due": "Friday",
-        "complete": false
-    }
+```json
+{
+    "ID": 0,
+    "CreatedAt": "0001-01-01T00:00:00Z",
+    "UpdatedAt": "0001-01-01T00:00:00Z",
+    "DeletedAt": null,
+    "id": 1,
+    "task": "Pay pomos",
+    "due": "Friday",
+    "complete": false
+}
+```
           
 #### Get All
 
@@ -101,28 +104,30 @@ Returns a list of all stored Todo items <br>
 
 ###### Example Output:
 
-    [
-        {
-            "ID": 0,
-            "CreatedAt": "0001-01-01T00:00:00Z",
-            "UpdatedAt": "0001-01-01T00:00:00Z",
-            "DeletedAt": null,
-            "id": 1,
-            "task": "Pay pomos",
-            "due": "Friday",
-            "complete": false
-        },
-        {
-            "ID": 0,
-            "CreatedAt": "0001-01-01T00:00:00Z",
-            "UpdatedAt": "0001-01-01T00:00:00Z",
-            "DeletedAt": null,
-            "id": 2,
-            "task": "Release doros",
-            "due": "Tuesday",
-            "complete": false
-        }
-    ]
+```json
+[
+    {
+        "ID": 0,
+        "CreatedAt": "0001-01-01T00:00:00Z",
+        "UpdatedAt": "0001-01-01T00:00:00Z",
+        "DeletedAt": null,
+        "id": 1,
+        "task": "Pay pomos",
+        "due": "Friday",
+        "complete": false
+    },
+    {
+        "ID": 0,
+        "CreatedAt": "0001-01-01T00:00:00Z",
+        "UpdatedAt": "0001-01-01T00:00:00Z",
+        "DeletedAt": null,
+        "id": 2,
+        "task": "Release doros",
+        "due": "Tuesday",
+        "complete": false
+    }
+]
+```
 
 #### Get by ID
 
@@ -145,18 +150,20 @@ Returns the Todo item with the id designated by the address
 
 ###### Example Output:
 
-> GET 127.0.0.1:8081/todo/1 <br>
+> GET 127.0.0.1:8081/todo/1
 
-    {
-        "ID": 0,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "0001-01-01T00:00:00Z",
-        "DeletedAt": null,
-        "id": 1,
-        "task": "Pay pomos",
-        "due": "Friday",
-        "complete": false
-    }
+```json
+{
+    "ID": 0,
+    "CreatedAt": "0001-01-01T00:00:00Z",
+    "UpdatedAt": "0001-01-01T00:00:00Z",
+    "DeletedAt": null,
+    "id": 1,
+    "task": "Pay pomos",
+    "due": "Friday",
+    "complete": false
+}
+```
 
 #### Update
 
@@ -175,12 +182,14 @@ Modifies the Todo item with the id designated by the address, returns the create
 
 ###### Example Input:
 
-    {
-        "id":1,
-        "task":"Pay pomos",
-        "due":"Friday",
-        "complete":true
-    }
+```json
+{
+    "id":1,
+    "task":"Pay pomos",
+    "due":"Friday",
+    "complete":true
+}
+```
  
 ##### Output Fields:
 
@@ -197,16 +206,18 @@ Modifies the Todo item with the id designated by the address, returns the create
 
 ###### Example Output:
 
-    {
-        "ID": 0,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "0001-01-01T00:00:00Z",
-        "DeletedAt": null,
-        "id": 1,
-        "task": "Pay pomos",
-        "due": "Friday",
-        "complete": true
-    }
+```json
+{
+    "ID": 0,
+    "CreatedAt": "0001-01-01T00:00:00Z",
+    "UpdatedAt": "0001-01-01T00:00:00Z",
+    "DeletedAt": null,
+    "id": 1,
+    "task": "Pay pomos",
+    "due": "Friday",
+    "complete": true
+}
+```
 
 #### Delete
 
@@ -229,16 +240,18 @@ Deletes the Todo items with the id designated by the address, returns the delete
 
 ###### Example Output:
 
-    {
-        "ID": 0,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "0001-01-01T00:00:00Z",
-        "DeletedAt": null,
-        "id": 0,
-        "task": "",
-        "due": "",
-        "complete": false
-    }
+```json
+{
+    "ID": 0,
+    "CreatedAt": "0001-01-01T00:00:00Z",
+    "UpdatedAt": "0001-01-01T00:00:00Z",
+    "DeletedAt": null,
+    "id": 0,
+    "task": "",
+    "due": "",
+    "complete": false
+}
+```
 
 ### Login
 
