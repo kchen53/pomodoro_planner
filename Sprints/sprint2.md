@@ -17,15 +17,14 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
 
 ### Contents  
 
-#### [Todo](#todo-1)
-
-[Create](#create)  <br>
-[Get All](#get-all)  <br>
-[Get By ID](#get-by-id)  <br>
-[Update](#update)  <br>
-[Delete](#delete)  <br>
-
-#### [Login](#login-1)
+> [**Todo**](#todo)
+>> [Create](#create)  <br>
+>> [Get All](#get-all)  <br>
+>> [Get By ID](#get-by-id)  <br>
+>> [Update](#update)  <br>
+>> [Delete](#delete) <br>
+>
+> [**Login**](#login)
 
 ---
 
@@ -38,7 +37,7 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
 Creates a new Todo item, returns the created Todo item<br>
 
 ##### Input Fields:
->
+
 >> **"id"** number <br>
 >> **"task"** string <br>
 >> **"due"** string <br>
@@ -88,7 +87,7 @@ Creates a new Todo item, returns the created Todo item<br>
 Returns a list of all stored Todo items <br>
 
 ##### Output Fields:
->
+
 >> **"ID"** number //Not currently used <br>
 >> **"CreatedAt"** string //Not currently used <br>
 >> **"UpdatedAt"** string //Not currently used <br>
@@ -166,7 +165,7 @@ Returns the Todo item with the id designated by the address
 Modifies the Todo item with the id designated by the address, returns the created Todo item<br>
 
 ##### Input Fields:
->
+
 >> **"id"** number <br>
 >> **"task"** string <br>
 >> **"due"** string <br>
