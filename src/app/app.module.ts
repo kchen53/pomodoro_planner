@@ -13,15 +13,27 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
+import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { TodoListComponent } from './todo/todoList.components';
+import { MatListModule } from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { TodoService } from './todo/todoService';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginComponent
-
+    LoginComponent,
+    HomeComponent,
+    TodoListComponent
   ],
+  
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -29,9 +41,12 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     FlexLayoutModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule,
+    MatIconModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
