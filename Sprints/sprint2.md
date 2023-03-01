@@ -57,10 +57,10 @@ Creates a new Todo item, returns the created Todo item<br>
  
 ##### Output Fields:
 
->> **"ID"** number //Not currently used <br>
->> **"CreatedAt"** string //Not currently used <br>
->> **"UpdatedAt"** string //Not currently used <br>
->> **"DeletedAt"** string //Not currently used <br>
+>> **"ID"** number :warning:Not currently used <br>
+>> **"CreatedAt"** string :warning:Not currently used <br>
+>> **"UpdatedAt"** string :warning:Not currently used <br>
+>> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
 >> **"task"** string <br>
 >> **"due"** string <br>
@@ -91,10 +91,10 @@ Returns a list of all stored Todo items <br>
 
 ##### Output Fields:
 
->> **"ID"** number //Not currently used <br>
->> **"CreatedAt"** string //Not currently used <br>
->> **"UpdatedAt"** string //Not currently used <br>
->> **"DeletedAt"** string //Not currently used <br>
+>> **"ID"** number :warning:Not currently used <br>
+>> **"CreatedAt"** string :warning:Not currently used <br>
+>> **"UpdatedAt"** string :warning:Not currently used <br>
+>> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
 >> **"task"** string <br>
 >> **"due"** string <br>
@@ -137,10 +137,10 @@ Returns the Todo item with the id designated by the address
 
 ##### Output Fields:
 
->> **"ID"** number //Not currently used <br>
->> **"CreatedAt"** string //Not currently used <br>
->> **"UpdatedAt"** string //Not currently used <br>
->> **"DeletedAt"** string //Not currently used <br>
+>> **"ID"** number :warning:Not currently used <br>
+>> **"CreatedAt"** string :warning:Not currently used <br>
+>> **"UpdatedAt"** string :warning:Not currently used <br>
+>> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
 >> **"task"** string <br>
 >> **"due"** string <br>
@@ -193,10 +193,10 @@ Modifies the Todo item with the id designated by the address, returns the create
  
 ##### Output Fields:
 
->> **"ID"** number //Not currently used <br>
->> **"CreatedAt"** string //Not currently used <br>
->> **"UpdatedAt"** string //Not currently used <br>
->> **"DeletedAt"** string //Not currently used <br>
+>> **"ID"** number :warning:Not currently used <br>
+>> **"CreatedAt"** string :warning:Not currently used <br>
+>> **"UpdatedAt"** string :warning:Not currently used <br>
+>> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
 >> **"task"** string <br>
 >> **"due"** string <br>
@@ -227,10 +227,10 @@ Deletes the Todo items with the id designated by the address, returns the delete
 
 ##### Output Fields:
 
->> **"ID"** number //Not currently used <br>
->> **"CreatedAt"** string //Not currently used <br>
->> **"UpdatedAt"** string //Not currently used <br>
->> **"DeletedAt"** string //Not currently used <br>
+>> **"ID"** number :warning:Not currently used <br>
+>> **"CreatedAt"** string :warning:Not currently used <br>
+>> **"UpdatedAt"** string :warning:Not currently used <br>
+>> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
 >> **"task"** string <br>
 >> **"due"** string <br>
