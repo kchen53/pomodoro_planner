@@ -162,7 +162,68 @@ func TestCreateToDo(t *testing.T) {
 
 	//Set Request
 	res := httptest.NewRecorder()
-	GetToDo(res, req)
+	CreateToDo(res, req)
 
 	//Check Models.list for todo
+	if !itemInList(todo.ID, models.GetList()) {
+		t.Errorf("Not in List")
+	}
+}
+
+/*func TestUpdateToDo(t *testing.T) {
+	//Populate array db with a todo
+	var todo models.ToDo
+	todo.ID = 1
+	todo.Task = "Test Name"
+	todo.Due = "Test Day"
+	todo.Complete = true
+	todo.CreateToDo()
+
+	//Populate array db with a todo
+	todo.Task = "Test Name 1"
+	todo.Due = "Test Day 2"
+	todo.Complete = false
+	todoDetails, _ := json.Marshal(todo)
+
+	//Create request
+	req, err := http.NewRequest("PUT", "/todo/1", bytes.NewReader(todoDetails))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	//Set variables
+	vars := make(map[string]string)
+	vars["i"] = strconv.FormatInt(todo.ID, 10)
+	req = mux.SetURLVars(req, vars)
+
+	//Send Request
+	res := httptest.NewRecorder()
+	UpdateToDo(res, req)
+
+	//Check Models.list for todo
+	for _, b := range models.GetList() {
+		if b.ID == todo.ID {
+			if b.Task != todo.Task {
+				fmt.Println(b.Task)
+				t.Errorf("Wrong Task")
+			}
+			if b.Due != todo.Due {
+				fmt.Println(b.Due)
+				t.Errorf("Wrong Due")
+			}
+			if b.Complete != todo.Complete {
+				fmt.Println(b.Complete)
+				t.Errorf("Wrong Complete")
+			}
+		}
+	}
+}*/
+
+func itemInList(a int64, list []models.ToDo) bool {
+	for _, b := range list {
+		if b.ID == a {
+			return true
+		}
+	}
+	return false
 }
