@@ -1,15 +1,21 @@
 # Sprint 2
 
 ## Work Completed
+- Set up backend server with angular frontend integration
 - Made a navbar with mutiple routes
 - Created timer, about-us, login, and to-do components
 - Made a basic login page that can take input
 - Made a basic to-do list that has front-end and back-end qualities (can post and delete)
+- Completed To Do list implementation
+- Succesfully used mysql to store data
+- Wrote API for routes completed so far
 
 ## Unit Tests
 
 ### Frontend:
+
 #### Unit tests for Angular using Karma and Jasmine:
+
 it('check if about-us page text displays', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
@@ -43,13 +49,14 @@ it('check if deleteTodo function was called', () => {
   expect(component.deleteTodo).toHaveBeenCalled;
 });
 
-it('check if the to-do list html header', () => {
+it('check the to-do list html header', () => {
   fixture.detectChanges();
   const compiled = fixture.nativeElement;
   expect(compiled.querySelector('mat-card-title').textContent).toContain('To-Do List');
 });
 
 #### Cypress:
+
 describe('login page', () => {
   beforeEach(() => {
     cy.visit('http://127.0.0.1:8081/login')
@@ -63,6 +70,12 @@ describe('login page', () => {
 })
 
 ### Backend:
+
+(pomodoro_planner\src\server\pkg\controllers\todo-controller_test.go)
+- TestGetToDo
+- TestGetToDoByID
+- TestCreateToDo
+- TestDeleteToDo
 
 ## API
 
