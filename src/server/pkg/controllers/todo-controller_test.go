@@ -1,10 +1,13 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"testing"
 
+	"github.com/gorilla/mux"
 	"github.com/kchen53/pomodoro_planner/pkg/models"
 	"github.com/kchen53/pomodoro_planner/pkg/utils"
 )
@@ -76,18 +79,23 @@ func TestGetToDoByID(t *testing.T) {
 	todo.CreateToDo()
 
 	//Create request
-	req, err := http.NewRequest("GET", "/todo", nil)
+	req, err := http.NewRequest("GET", "/todo/1", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
+	//Set variables
+	vars := make(map[string]string)
+	vars["i"] = strconv.FormatInt(todo.ID, 10)
+	req = mux.SetURLVars(req, vars)
 
 	//Get Response
 	res := httptest.NewRecorder()
 	GetToDoByID(res, req)
 
 	//Parse Response
-	resTodo := models.ToDo{}
-	utils.ParseBodyTest(res, &resTodo)
+	resTodo := &models.ToDo{}
+	fmt.Println(res.Body)
+	utils.ParseBodyTest(res, resTodo)
 
 	//Compare response to input
 	if resTodo.ID != todo.ID {
