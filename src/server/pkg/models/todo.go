@@ -68,3 +68,7 @@ func DeleteToDo(Id int64) ToDo {
 	}
 	return todo
 }
+
+func GetList() []ToDo {
+	return list
+}
