@@ -35,7 +35,7 @@ func TestGetToDo(t *testing.T) {
 	todo.CreateToDo()
 
 	//Create request
-	req, err := http.NewRequest("POST", "/todo", nil)
+	req, err := http.NewRequest("GET", "/todo", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
