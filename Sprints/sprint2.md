@@ -49,7 +49,7 @@ it('check if deleteTodo function was called', () => {
   expect(component.deleteTodo).toHaveBeenCalled;
 });
 
-it('check if the to-do list html header', () => {
+it('check the to-do list html header', () => {
   fixture.detectChanges();
   const compiled = fixture.nativeElement;
   expect(compiled.querySelector('mat-card-title').textContent).toContain('To-Do List');
