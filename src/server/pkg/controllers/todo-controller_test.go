@@ -1,7 +1,8 @@
 package controllers
 
 import (
-	"fmt"
+	"bytes"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
@@ -94,7 +95,6 @@ func TestGetToDoByID(t *testing.T) {
 
 	//Parse Response
 	resTodo := &models.ToDo{}
-	fmt.Println(res.Body)
 	utils.ParseBodyTest(res, resTodo)
 
 	//Compare response to input
@@ -110,4 +110,59 @@ func TestGetToDoByID(t *testing.T) {
 	if resTodo.Complete != todo.Complete {
 		t.Errorf("Incorrect completed state")
 	}
+}
+
+func TestDeleteToDo(t *testing.T) {
+	//Populate array db with a todo
+	var todo models.ToDo
+	todo.ID = 1
+	todo.Task = "Test Name"
+	todo.Due = "Test Day"
+	todo.Complete = true
+	todo.CreateToDo()
+
+	//Create request
+	req, err := http.NewRequest("GET", "/todo/1", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	//Set variables
+	vars := make(map[string]string)
+	vars["i"] = strconv.FormatInt(todo.ID, 10)
+	req = mux.SetURLVars(req, vars)
+
+	//Get Response
+	res := httptest.NewRecorder()
+	GetToDoByID(res, req)
+
+	//Parse Response
+	resTodos := []models.ToDo{}
+	utils.ParseBodyTest(res, &resTodos)
+
+	//Check Response
+	if len(resTodos) != 0 {
+		t.Errorf("Incorrect number of Todo's")
+	}
+}
+
+func TestCreateToDo(t *testing.T) {
+	//Populate array db with a todo
+	var todo models.ToDo
+	todo.ID = 1
+	todo.Task = "Test Name"
+	todo.Due = "Test Day"
+	todo.Complete = true
+	todoDetails, _ := json.Marshal(todo)
+
+	//Create request
+	req, err := http.NewRequest("GET", "/todo", bytes.NewReader(todoDetails))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	//Set Request
+	res := httptest.NewRecorder()
+	GetToDo(res, req)
+
+	//Check Models.list for todo
 }
