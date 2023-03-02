@@ -24,4 +24,14 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('check username and password if they start off empty', () => {
+    expect(component.username).toBe("");
+    expect(component.password).toBe("");
+  });
+
+  it('login console to be called', () => {
+    expect(component.login).toHaveBeenCalled;
+  });
+
 });

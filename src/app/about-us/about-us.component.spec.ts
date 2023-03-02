@@ -21,7 +21,10 @@ describe('AboutUsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('check if about-us page displays', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('p').textContent).toContain('about-us works!');
   });
+
 });
