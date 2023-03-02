@@ -1,10 +1,66 @@
 # Sprint 2
 
 ## Work Completed
+- Made a navbar with mutiple routes
+- Created timer, about-us, login, and to-do components
+- Made a basic login page that can take in input
+- Made a basic to-do list that has front-end and back-end qualities (can post and delete)
 
 ## Unit Tests
 
 ### Frontend:
+#### Unit tests for Angular using Karma and Jasmine:
+it('check if about-us page text displays', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('p').textContent).toContain('about-us works!');
+  });
+  
+it('check username and password if they start off empty', () => {
+  expect(component.username).toBe("");
+  expect(component.password).toBe("");
+});
+
+it('login console to be called', () => {
+  expect(component.login).toHaveBeenCalled;
+});
+
+it('check if timer page text displays', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('p').textContent).toContain('timer works!');
+  });
+  
+it('check if addTodo function was called', () => {
+  expect(component.addTodo).toHaveBeenCalled;
+});
+
+it('check if getTodo function was called', () => {
+  expect(component.getTodos).toHaveBeenCalled;
+});
+
+it('check if deleteTodo function was called', () => {
+  expect(component.deleteTodo).toHaveBeenCalled;
+});
+
+it('check if the to-do list html header', () => {
+  fixture.detectChanges();
+  const compiled = fixture.nativeElement;
+  expect(compiled.querySelector('mat-card-title').textContent).toContain('To-Do List');
+});
+
+#### Cypress:
+describe('login page', () => {
+  beforeEach(() => {
+    cy.visit('http://127.0.0.1:8081/login')
+  })
+  it('passes', () => {
+    cy.get('#login-content').contains('Login');
+    cy.get('input[name="username"]').type('user1')
+    cy.get('input[name="password"]').type('password')
+    cy.get('button[type="submit"]').click()
+  })
+})
 
 ### Backend:
 
