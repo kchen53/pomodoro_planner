@@ -76,7 +76,6 @@ describe('login page', () => {
 - TestGetToDoByID
 - TestCreateToDo
 - TestDeleteToDo
-- TestUpdateToDo
 
 ## API
 
