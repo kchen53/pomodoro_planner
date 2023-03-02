@@ -1,6 +1,10 @@
 # Sprint 2
 
 ## Work Completed
+- Made a navbar with mutiple routes
+- Created timer, about-us, login, and to-do components
+- Made a basic login page that can take in input
+- Made a basic to-do list that has front-end and back-end qualities (can post and delete)
 
 ## Unit Tests
 
