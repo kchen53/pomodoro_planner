@@ -155,7 +155,7 @@ func TestCreateToDo(t *testing.T) {
 	todoDetails, _ := json.Marshal(todo)
 
 	//Create request
-	req, err := http.NewRequest("GET", "/todo", bytes.NewReader(todoDetails))
+	req, err := http.NewRequest("POST", "/todo", bytes.NewReader(todoDetails))
 	if err != nil {
 		t.Fatal(err)
 	}
