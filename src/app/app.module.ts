@@ -12,13 +12,15 @@ import { LoginComponent } from './login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { TodoListComponent } from './todo/todoList.components';
 import { MatListModule } from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { TodoService } from './todo/todoService';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { TimerComponent } from './timer/timer.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { TodoService } from './todo/todoService';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    TodoListComponent
+    TodoListComponent,
+    AboutUsComponent,
+    TimerComponent
   ],
   
   imports: [
@@ -46,7 +50,9 @@ import { TodoService } from './todo/todoService';
     FormsModule
   ],
   providers: [TodoService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  
 })
 export class AppModule { }
 
