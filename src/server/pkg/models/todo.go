@@ -1,30 +1,32 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
+	"database/sql"
+
+	"github.com/kchen53/pomodoro_planner/pkg/config"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
-var db *gorm.DB
+var db *sql.DB
 var list []ToDo
 
 type ToDo struct {
-	gorm.Model
 	ID       int64  `json:"id"`
-	Task     string `gorm:"" json:"task"`
+	Task     string `json:"task"`
 	Due      string `json:"due"`
 	Complete bool   `json:"complete"`
 }
 
 func init() {
-	//config.Connect()
-	//db = config.GetDB()
-	//db.AutoMigrate(&ToDo{})
+	config.Connect()
+	db = config.GetDB()
+	//TODO: create Tables
 }
 
 //1:43:03
 func (t *ToDo) CreateToDo() *ToDo {
-	//db.NewRecord(t)
-	//db.Create(&t)
+	//TODO: Insert
 	list = append(list, *t)
 	return t
 }

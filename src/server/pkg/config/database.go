@@ -1,26 +1,53 @@
 package config
 
 import (
-	"fmt"
+	"database/sql"
+	"log"
+	"os"
 
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var (
-	db *gorm.DB
+	db *sql.DB
 )
 
 func Connect() {
-	fmt.Println("Connecting to mySQL database...")
-	d, err := gorm.Open("mysql", "root:yMm2nI217ABT3jSr@/simpleresttest?charset=utf8&parseTime=True&loc=Local")
+	// fmt.Println("Connecting to mySQL database...")
+	// d, err := gorm.Open("mysql", "root:yMm2nI217ABT3jSr@/simpleresttest?charset=utf8&parseTime=True&loc=Local")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// db = d
+
+	log.Println("Connecting to sqlite database...")
+	d, err := sql.Open("sqlite3", "./sqlite-database.db")
 	if err != nil {
-		panic(err)
+		log.Println("Creating sqlite-database.db...")
+		file, err := os.Create("sqlite-database.db")
+		if err != nil {
+			//log.Fatal(err.Error())
+			panic(err)
+		}
+		file.Close()
+		log.Println("sqlite-database.db created")
+		d, err := sql.Open("sqlite3", "./sqlite-database.db")
+		if err != nil {
+			//log.Fatal(err.Error())
+			panic(err)
+		}
+		db = d
+	} else {
+		db = d
 	}
-	db = d
+
 }
 
-func GetDB() *gorm.DB {
+func GetDB() *sql.DB {
 	return db
 }
+
+//TODO: CREATE TABLE
+//TODO: INSERT
+//TODO: GET
+//TODO: DELETE
