@@ -14,13 +14,14 @@ export class TodoListComponent implements OnInit {
 
   constructor(private todoService: TodoService) { }
 
+  //to perform a one-time initialization of tasks
   ngOnInit() {
     this.getTodos();
   }
 
-  getTodos(): void {
-    this.todoService.getTodos()
-      .subscribe(todos => this.todos = todos);
+  getTodos(): void { 
+    this.todoService.getTodos() //call to the getTodos() method of the todoService object returns an Observable
+      .subscribe(todos => this.todos = todos); //call to the subscribe method of the obervable and takes the array of todos as its argument
   }
 
   addTodo(task: string): void {

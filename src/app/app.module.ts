@@ -22,6 +22,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { TimerComponent } from './timer/timer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatListModule,
     MatIconModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent],
