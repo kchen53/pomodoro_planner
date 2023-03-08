@@ -1,14 +1,14 @@
 <div class="header">
 <mat-toolbar color="black" class="mat-elevation-z6">
     <span routerLink="Pomodoro Planner"> Pomodoro Planner </span>
-  
+
     <div class="spacer"></div>
-  
+
     <a mat-button routerLink="todo"> To Do </a>
     <a mat-button routerLink="about-us"> About Us </a>
     <a mat-button routerLink="timer"> Timer </a>
-    <a mat-raised-button color = "accent" routerLink="login"> Login </a>
+    <a mat-raised-button color = "accent" (click)="openDialog()"> Login </a>
     <a mat-raised-button color = "primary" routerLink="login"> Signup </a>
-  
+
   </mat-toolbar>
 </div>

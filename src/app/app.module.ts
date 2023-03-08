@@ -21,6 +21,7 @@ import { TodoService } from './todo/todoService';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TimerComponent } from './timer/timer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -33,7 +34,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     AboutUsComponent,
     TimerComponent
   ],
-  
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -47,12 +47,13 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     MatInputModule,
     MatListModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
-  
+
 })
 export class AppModule { }
 
