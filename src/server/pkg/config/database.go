@@ -48,9 +48,27 @@ func createTable(table string) {
 		log.Fatal(err.Error())
 	}
 	statement.Exec()
+	statement.Close()
 	log.Println("Table created")
 }
 
-//TODO: INSERT
+func insertTodo(name string, date string, time int, repeat int, complete bool) {
+	log.Println("Inserting", name, "...")
+	statement, err := db.Prepare(`
+	INSERT INTO todo(name, date, time, repeat, complete) VALUES (?, ?, ?, ?, ?)
+	`)
+	if err != nil {
+		log.Println("Failed to insert", name)
+		return
+	}
+	_, err = statement.Exec(name, date, time, repeat, complete)
+	if err != nil {
+		log.Println("Failed to insert", name)
+		statement.Close()
+		return
+	}
+	statement.Close()
+}
+
 //TODO: GET
 //TODO: DELETE
