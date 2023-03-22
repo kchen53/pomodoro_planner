@@ -3,6 +3,7 @@ package config
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -42,6 +43,7 @@ func GetDB() *sql.DB {
 }
 
 func CreateTable(table string) {
+	os.Setenv("CGO_ENABLED", "1")
 	log.Println("Creating table...")
 	statement, err := db.Prepare(table)
 	if err != nil {
