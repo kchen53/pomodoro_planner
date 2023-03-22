@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"log"
 
 	"github.com/kchen53/pomodoro_planner/pkg/config"
 
@@ -15,7 +16,7 @@ type ToDo struct {
 	Name     string `json:"name"`
 	Date     string `json:"date"` //YYYY-MM-DD
 	Time     int    `json:time`   //seconds
-	Repeat   int8   `json:repeat` //binaryflags: 0:6 = MTWRFSN
+	Repeat   int    `json:repeat` //binaryflags: 0:6 = MTWRFSN
 	Complete bool   `json:"complete"`
 }
 
@@ -23,20 +24,33 @@ func init() {
 	config.Connect()
 	db = config.GetDB()
 	config.CreateTable(`
-	CREATE TABLE TODO (
+	CREATE TABLE todo (
 		"name" TEXT NOT NULL PRIMARY KEY AUTOINCREMENT,
-		"date" TEXT,
+		"date" TEXT NOT NULL,
 		"time" integer,
-		"repeat" integer,
-		"complete" integer
+		"repeat" integer NOT NULL,
+		"complete" integer NOT NULL
 	);
 	`)
 }
 
 //1:43:03
 func (t *ToDo) CreateToDo() *ToDo {
-	//TODO: Insert
-	list = append(list, *t)
+	log.Println("Inserting", t.Name, "...")
+	statement, err := db.Prepare(`
+	INSERT INTO todo(name, date, time, repeat, complete) VALUES (?, ?, ?, ?, ?)
+	`)
+	if err != nil {
+		log.Println("Failed to insert", t.Name)
+		return t
+	}
+	_, err = statement.Exec(t.Name, t.Date, t.Time, t.Repeat, t.Complete)
+	if err != nil {
+		log.Println("Failed to insert", t.Name)
+		statement.Close()
+		return t
+	}
+	statement.Close()
 	return t
 }
 
