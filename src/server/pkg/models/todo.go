@@ -21,7 +21,13 @@ type ToDo struct {
 func init() {
 	config.Connect()
 	db = config.GetDB()
-	//TODO: create Tables
+	// config.CreateTable("
+	// CREATE TABLE TODO (
+	// 	\"id\" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	// 	\"task\" TEXT,
+	// 	\"due
+	// );
+	// ")
 }
 
 //1:43:03
