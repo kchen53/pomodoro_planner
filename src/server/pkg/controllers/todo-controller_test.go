@@ -20,7 +20,7 @@ import (
 // 	}
 
 // 	res := httptest.NewRecorder()
-// 	GetToDo(res, req)
+// 	GetTodo(res, req)
 
 // 	exp := "Hello World"
 // 	act := res.Body.String()
@@ -29,14 +29,14 @@ import (
 // 	}
 // }
 
-func TestGetToDo(t *testing.T) {
+func TestGetTodo(t *testing.T) {
 	//Populate array db with a todo
-	var todo models.ToDo
+	var todo models.Todo
 	todo.ID = 1
 	todo.Task = "Test Name"
 	todo.Due = "Test Day"
 	todo.Complete = true
-	todo.CreateToDo()
+	todo.CreateTodo()
 
 	//Create request
 	req, err := http.NewRequest("GET", "/todo", nil)
@@ -46,10 +46,10 @@ func TestGetToDo(t *testing.T) {
 
 	//Get Response
 	res := httptest.NewRecorder()
-	GetToDo(res, req)
+	GetTodo(res, req)
 
 	//Parse Response
-	resTodos := []models.ToDo{}
+	resTodos := []models.Todo{}
 	utils.ParseBodyTest(res, &resTodos)
 
 	//Compare response to input
@@ -70,14 +70,14 @@ func TestGetToDo(t *testing.T) {
 	}
 }
 
-func TestGetToDoByID(t *testing.T) {
+func TestGetTodoByID(t *testing.T) {
 	//Populate array db with a todo
-	var todo models.ToDo
+	var todo models.Todo
 	todo.ID = 1
 	todo.Task = "Test Name"
 	todo.Due = "Test Day"
 	todo.Complete = true
-	todo.CreateToDo()
+	todo.CreateTodo()
 
 	//Create request
 	req, err := http.NewRequest("GET", "/todo/1", nil)
@@ -91,7 +91,7 @@ func TestGetToDoByID(t *testing.T) {
 
 	//Get Response
 	res := httptest.NewRecorder()
-	GetToDoByID(res, req)
+	GetTodoByID(res, req)
 
 	//Parse Response
 	resTodo := &models.ToDo{}
@@ -112,14 +112,14 @@ func TestGetToDoByID(t *testing.T) {
 	}
 }
 
-func TestDeleteToDo(t *testing.T) {
+func TestDeleteTodo(t *testing.T) {
 	//Populate array db with a todo
-	var todo models.ToDo
+	var todo models.Todo
 	todo.ID = 1
 	todo.Task = "Test Name"
 	todo.Due = "Test Day"
 	todo.Complete = true
-	todo.CreateToDo()
+	todo.CreateTodo()
 
 	//Create request
 	req, err := http.NewRequest("GET", "/todo/1", nil)
@@ -133,10 +133,10 @@ func TestDeleteToDo(t *testing.T) {
 
 	//Get Response
 	res := httptest.NewRecorder()
-	GetToDoByID(res, req)
+	GetTodoByID(res, req)
 
 	//Parse Response
-	resTodos := []models.ToDo{}
+	resTodos := []models.Todo{}
 	utils.ParseBodyTest(res, &resTodos)
 
 	//Check Response
@@ -145,9 +145,9 @@ func TestDeleteToDo(t *testing.T) {
 	}
 }
 
-func TestCreateToDo(t *testing.T) {
+func TestCreateTodo(t *testing.T) {
 	//Populate array db with a todo
-	var todo models.ToDo
+	var todo models.Todo
 	todo.ID = 1
 	todo.Task = "Test Name"
 	todo.Due = "Test Day"
@@ -162,7 +162,7 @@ func TestCreateToDo(t *testing.T) {
 
 	//Set Request
 	res := httptest.NewRecorder()
-	CreateToDo(res, req)
+	CreateTodo(res, req)
 
 	//Check Models.list for todo
 	if !itemInList(todo.ID, models.GetList()) {
@@ -170,14 +170,14 @@ func TestCreateToDo(t *testing.T) {
 	}
 }
 
-/*func TestUpdateToDo(t *testing.T) {
+/*func TestUpdateTodo(t *testing.T) {
 	//Populate array db with a todo
-	var todo models.ToDo
+	var todo models.Todo
 	todo.ID = 1
 	todo.Task = "Test Name"
 	todo.Due = "Test Day"
 	todo.Complete = true
-	todo.CreateToDo()
+	todo.CreateTodo()
 
 	//Populate array db with a todo
 	todo.Task = "Test Name 1"
@@ -198,7 +198,7 @@ func TestCreateToDo(t *testing.T) {
 
 	//Send Request
 	res := httptest.NewRecorder()
-	UpdateToDo(res, req)
+	UpdateTodo(res, req)
 
 	//Check Models.list for todo
 	for _, b := range models.GetList() {
@@ -219,7 +219,7 @@ func TestCreateToDo(t *testing.T) {
 	}
 }*/
 
-func itemInList(a int64, list []models.ToDo) bool {
+func itemInList(a int64, list []models.Todo) bool {
 	for _, b := range list {
 		if b.ID == a {
 			return true

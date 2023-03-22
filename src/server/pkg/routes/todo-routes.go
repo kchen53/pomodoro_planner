@@ -6,10 +6,10 @@ import (
 )
 
 // var RegisterBookStoreRoutes = func(router *mux.Router) {
-func RegisterToDoStoreRoutes(router *mux.Router) {
-	router.HandleFunc("/todo", controllers.CreateToDo).Methods("POST")
-	router.HandleFunc("/todo", controllers.GetToDo).Methods("GET")
-	router.HandleFunc("/todo/{i}", controllers.GetToDoByID).Methods("GET")
-	router.HandleFunc("/todo/{i}", controllers.UpdateToDo).Methods("PUT")
-	router.HandleFunc("/todo/{i}", controllers.DeleteToDo).Methods("DELETE")
+func RegisterTodoStoreRoutes(router *mux.Router) {
+	router.HandleFunc("/todo", controllers.CreateTodo).Methods("POST")
+	router.HandleFunc("/todo", controllers.GetTodo).Methods("GET")
+	router.HandleFunc("/todo/{i}", controllers.GetTodoByID).Methods("GET")
+	router.HandleFunc("/todo/{i}", controllers.UpdateTodo).Methods("PUT")
+	router.HandleFunc("/todo/{i}", controllers.DeleteTodo).Methods("DELETE")
 }

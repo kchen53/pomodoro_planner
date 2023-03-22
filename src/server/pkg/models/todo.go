@@ -10,9 +10,8 @@ import (
 )
 
 var db *sql.DB
-var list []ToDo
 
-type ToDo struct {
+type Todo struct {
 	Name     string `json:"name"`
 	Date     string `json:"date"` //YYYY-MM-DD
 	Time     int    `json:time`   //seconds
@@ -35,7 +34,7 @@ func init() {
 }
 
 //1:43:03
-func (t *ToDo) CreateToDo() *ToDo {
+func (t *Todo) CreateToDo() *Todo {
 	log.Println("Inserting", t.Name, "...")
 	statement, err := db.Prepare(`
 	INSERT INTO todo(name, date, time, repeat, complete) VALUES (?, ?, ?, ?, ?)
@@ -44,46 +43,64 @@ func (t *ToDo) CreateToDo() *ToDo {
 		log.Println("Failed to insert", t.Name)
 		return t
 	}
+	defer statement.Close()
 	_, err = statement.Exec(t.Name, t.Date, t.Time, t.Repeat, t.Complete)
 	if err != nil {
 		log.Println("Failed to insert", t.Name)
-		statement.Close()
 		return t
 	}
 	statement.Close()
 	return t
 }
 
-func GetAllToDo() []ToDo {
-	var ToDos []ToDo
-	//db.Find(&ToDos)
-	ToDos = list
-	return ToDos
+func GetAllTodo() []Todo {
+	var Todos []Todo
+	rows, err := db.Query(`
+	SELECT *
+	FROM todo
+	ORDER BY id;
+	`)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var t Todo
+		if err := rows.Scan(&t.Name, &t.Date, &t.Time, &t.Repeat, &t.Complete); err != nil {
+			log.Println(err)
+			return nil
+		}
+		Todos = append(Todos, t)
+	}
+	log.Println("Queried", len(Todos), "Todos")
+	return Todos
 }
 
-func GetToDoByID(Id int64) (*ToDo, *gorm.DB) {
-	var getToDo ToDo
+func GetTodoByID(Id int64) (*Todo, *sql.DB) {
+	var getTodo Todo
 	//db := db.Where("ID=?", Id).Find(&getToDo)
 	// for _, t := range list {
 	// 	if t.Name == Id {
 	// 		getToDo = t
 	// 	}
 	// }
-	return &getToDo, db
+	return &getTodo, db
 }
 
-func GetToDoByIDList(Id int64) (*ToDo, *[]ToDo) {
-	var getToDo ToDo
+func GetTodoByIDList(Id int64) (*Todo, *[]Todo) {
+	var getTodo Todo
 	// for _, t := range list {
 	// 	if t.ID == Id {
 	// 		getToDo = t
 	// 	}
 	// }
-	return &getToDo, &list
+	return &getTodo, &list
 }
 
-func DeleteToDo(Id int64) ToDo {
-	var todo ToDo
+func DeleteToDo(Id int64) Todo {
+	var todo Todo
 	//db.Where("ID=?", Id).Delete(todo)
 	// for i, t := range list {
 	// 	if t.ID == Id {
@@ -94,6 +111,6 @@ func DeleteToDo(Id int64) ToDo {
 	return todo
 }
 
-func GetList() []ToDo {
+func GetList() []Todo {
 	return list
 }

@@ -11,57 +11,57 @@ import (
 	"github.com/kchen53/pomodoro_planner/pkg/utils"
 )
 
-var ToDo models.ToDo
+var Todo models.Todo
 
-func GetToDo(w http.ResponseWriter, r *http.Request) {
-	newToDos := models.GetAllToDo()
-	res, _ := json.Marshal(newToDos)
+func GetTodo(w http.ResponseWriter, r *http.Request) {
+	newTodos := models.GetAllTodo()
+	res, _ := json.Marshal(newTodos)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
 
-func GetToDoByID(w http.ResponseWriter, r *http.Request) {
+func GetTodoByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	todoID := vars["i"]
 	ID, err := strconv.ParseInt(todoID, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	todoDetails, _ := models.GetToDoByID(ID)
+	todoDetails, _ := models.GetTodoByID(ID)
 	res, _ := json.Marshal(todoDetails)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
 
-func CreateToDo(w http.ResponseWriter, r *http.Request) {
-	CreateToDo := &models.ToDo{}
-	utils.ParseBody(r, CreateToDo)
-	b := CreateToDo.CreateToDo()
+func CreateTodo(w http.ResponseWriter, r *http.Request) {
+	CreateTodo := &models.Todo{}
+	utils.ParseBody(r, CreateTodo)
+	b := CreateTodo.CreateTodo()
 	res, _ := json.Marshal(b)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
 
-func DeleteToDo(w http.ResponseWriter, r *http.Request) {
+func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	todoID := vars["i"]
 	ID, err := strconv.ParseInt(todoID, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	todo := models.DeleteToDo(ID)
+	todo := models.DeleteTodo(ID)
 	res, _ := json.Marshal(todo)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
 
-func UpdateToDo(w http.ResponseWriter, r *http.Request) {
-	updateToDo := &models.ToDo{}
-	utils.ParseBody(r, updateToDo)
+func UpdateTodo(w http.ResponseWriter, r *http.Request) {
+	updateTodo := &models.Todo{}
+	utils.ParseBody(r, updateTodo)
 
 	vars := mux.Vars(r)
 	todoID := vars["i"]
@@ -69,15 +69,15 @@ func UpdateToDo(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("error in parsing")
 	}
-	//todoDetails, db := models.GetToDoByID(ID)
-	todoDetails, _ := models.GetToDoByID(ID) //TODO: DELETE
-	if updateToDo.Task != "" {
-		todoDetails.Task = updateToDo.Task
+	//todoDetails, db := models.GetTodoByID(ID)
+	todoDetails, _ := models.GetTodoByID(ID) //TODO: DELETE
+	if updateTodo.Task != "" {
+		todoDetails.Task = updateTodo.Task
 	}
-	if updateToDo.Due != "" {
-		todoDetails.Due = updateToDo.Due
+	if updateTodo.Due != "" {
+		todoDetails.Due = updateTodo.Due
 	}
-	todoDetails.Complete = updateToDo.Complete
+	todoDetails.Complete = updateTodo.Complete
 	//db.Save(&todoDetails)
 	res, _ := json.Marshal(todoDetails)
 	w.Header().Set("Content-Type", "pkglication/json")
