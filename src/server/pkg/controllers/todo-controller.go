@@ -60,27 +60,27 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateTodo(w http.ResponseWriter, r *http.Request) {
-	updateTodo := &models.Todo{}
-	utils.ParseBody(r, updateTodo)
+	// updateTodo := &models.Todo{}
+	// utils.ParseBody(r, updateTodo)
 
-	vars := mux.Vars(r)
-	todoID := vars["i"]
-	ID, err := strconv.ParseInt(todoID, 0, 0)
-	if err != nil {
-		fmt.Println("error in parsing")
-	}
-	//todoDetails, db := models.GetTodoByID(ID)
-	todoDetails, _ := models.GetTodoByID(ID) //TODO: DELETE
-	if updateTodo.Task != "" {
-		todoDetails.Task = updateTodo.Task
-	}
-	if updateTodo.Due != "" {
-		todoDetails.Due = updateTodo.Due
-	}
-	todoDetails.Complete = updateTodo.Complete
-	//db.Save(&todoDetails)
-	res, _ := json.Marshal(todoDetails)
-	w.Header().Set("Content-Type", "pkglication/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(res)
+	// vars := mux.Vars(r)
+	// todoID := vars["i"]
+	// ID, err := strconv.ParseInt(todoID, 0, 0)
+	// if err != nil {
+	// 	fmt.Println("error in parsing")
+	// }
+	// //todoDetails, db := models.GetTodoByID(ID)
+	// todoDetails, _ := models.GetTodoByID(ID) //TODO: DELETE
+	// if updateTodo.Task != "" {
+	// 	todoDetails.Task = updateTodo.Task
+	// }
+	// if updateTodo.Due != "" {
+	// 	todoDetails.Due = updateTodo.Due
+	// }
+	// todoDetails.Complete = updateTodo.Complete
+	// //db.Save(&todoDetails)
+	// res, _ := json.Marshal(todoDetails)
+	// w.Header().Set("Content-Type", "pkglication/json")
+	// w.WriteHeader(http.StatusOK)
+	// w.Write(res)
 }

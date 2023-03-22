@@ -41,7 +41,7 @@ func GetDB() *sql.DB {
 	return db
 }
 
-func createTable(table string) {
+func CreateTable(table string) {
 	log.Println("Creating table...")
 	statement, err := db.Prepare(table)
 	if err != nil {

@@ -34,7 +34,7 @@ func init() {
 }
 
 //1:43:03
-func (t *Todo) CreateToDo() *Todo {
+func (t *Todo) CreateTodo() *Todo {
 	log.Println("Inserting", t.Name, "...")
 	statement, err := db.Prepare(`
 	INSERT INTO todo(name, date, time, repeat, complete) VALUES (?, ?, ?, ?, ?)
@@ -96,10 +96,10 @@ func GetTodoByIDList(Id int64) (*Todo, *[]Todo) {
 	// 		getToDo = t
 	// 	}
 	// }
-	return &getTodo, &list
+	return &getTodo, nil
 }
 
-func DeleteToDo(Id int64) Todo {
+func DeleteTodo(Id int64) Todo {
 	var todo Todo
 	//db.Where("ID=?", Id).Delete(todo)
 	// for i, t := range list {
@@ -112,5 +112,5 @@ func DeleteToDo(Id int64) Todo {
 }
 
 func GetList() []Todo {
-	return list
+	return nil
 }
