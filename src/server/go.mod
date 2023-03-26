@@ -1,6 +1,6 @@
 module github.com/kchen53/pomodoro_planner
 
-go 1.14
+go 1.16
 
 require (
 	github.com/gorilla/handlers v1.5.1

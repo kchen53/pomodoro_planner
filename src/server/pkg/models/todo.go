@@ -12,26 +12,27 @@ import (
 var db *sql.DB
 
 type Todo struct {
+	ID       int    `json:"id"`
 	Name     string `json:"name"`
-	Date     string `json:"date"` //YYYY-MM-DD
-	Time     int    `json:time`   //seconds
-	Repeat   int    `json:repeat` //binaryflags: 0:6 = MTWRFSN
+	Date     string `json:"date"`   //YYYY-MM-DD
+	Time     int    `json:"time"`   //seconds
+	Repeat   int    `json:"repeat"` //binaryflags: 0:6 = MTWRFSN
 	Complete bool   `json:"complete"`
 }
 
 func init() {
 	config.Connect()
 	db = config.GetDB()
-	config.CreateTable(`
-	CREATE TABLE todo (
-		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-		"name" TEXT NOT NULL,
-		"date" TEXT NOT NULL,
-		"time" integer,
-		"repeat" integer NOT NULL,
-		"complete" integer NOT NULL
-	);
-	`)
+	// config.CreateTable(`
+	// CREATE TABLE todo (
+	// 	"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	// 	"name" TEXT NOT NULL,
+	// 	"date" TEXT NOT NULL,
+	// 	"time" integer,
+	// 	"repeat" integer NOT NULL,
+	// 	"complete" integer NOT NULL
+	// );
+	// `)
 }
 
 //1:43:03
@@ -55,7 +56,7 @@ func (t *Todo) CreateTodo() *Todo {
 }
 
 func GetAllTodo() []Todo {
-	var Todos []Todo
+	Todos := make([]Todo, 0)
 	rows, err := db.Query(`
 	SELECT *
 	FROM todo
@@ -69,13 +70,14 @@ func GetAllTodo() []Todo {
 
 	for rows.Next() {
 		var t Todo
-		if err := rows.Scan(&t.Name, &t.Date, &t.Time, &t.Repeat, &t.Complete); err != nil {
+		if err := rows.Scan(&t.ID, &t.Name, &t.Date, &t.Time, &t.Repeat, &t.Complete); err != nil {
 			log.Println(err)
 			return nil
 		}
 		Todos = append(Todos, t)
 	}
 	log.Println("Queried", len(Todos), "Todos")
+	//Todos = append(Todos, Todo{"Test", "0000-00-00", 0, 0, false})
 	return Todos
 }
 
