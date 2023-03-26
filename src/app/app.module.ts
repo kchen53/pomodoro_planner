@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { TodoListComponent } from './todo/todoList.components';
 import { MatListModule } from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule} from '@angular/material/icon';
 import { TodoService } from './todo/todoService';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TimerComponent } from './timer/timer.component';

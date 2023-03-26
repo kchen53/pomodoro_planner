@@ -11,8 +11,9 @@ const routes: Routes = [
   { path: 'todo', component: TodoListComponent},
   { path: 'about-us', component: AboutUsComponent},
   { path: 'timer', component: TimerComponent},
-  { path: 'login', component: LoginComponent}
-
+  { path: 'login', component: LoginComponent},
+  { path: 'home', component: HomeComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({
