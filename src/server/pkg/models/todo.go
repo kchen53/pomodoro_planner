@@ -24,7 +24,8 @@ func init() {
 	db = config.GetDB()
 	config.CreateTable(`
 	CREATE TABLE todo (
-		"name" TEXT NOT NULL PRIMARY KEY AUTOINCREMENT,
+		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+		"name" TEXT NOT NULL,
 		"date" TEXT NOT NULL,
 		"time" integer,
 		"repeat" integer NOT NULL,

@@ -1,26 +1,32 @@
 # Backend Server
 ## How to run server:
-### Choose Angular Handler 
-Backend: Use angular_embedded.go <br>
-Frontend: Use angular_live.go <br>
-One of the two above files will be located in the src folder (outside the server folder) and the other inside the server folder. Drag the desired file into the server folder and the other into the src folder.  <br>
-Basically you should only have one of the two files inside the server folder at a time <br>
-
-### Navigate terminal to correct folder
-Navigate the terminal to .\src\server <br>
-
-### Load dependencies
-If it has been a while or building is not working, dependencies may have been added that you don't have
-To fix this, run "go mod tidy"
-
-### Build (First time running after a pull or after every server code update)
-Run "go build" in command line (make sure you are in the server folder) <br>
 
 ### Run .exe
-Run "pomodoro_planner.exe" <br>
+
+Run "pomodoro_planner_FE.exe"
 
 ### Server should be running!
+
 If the terminal shows no output and only has a blank line, the the server is working properly
 
 ### *Close server
+
 To close the server just press Ctrl+C in the terminal
+
+## How to build project
+
+#### Prerequisites:
+
+* Installed gcc
+* (If working in VS code) install C/C++ extension
+
+### Set CGO_ENABLED
+
+At the beginning of every work session this environment variable must be set <br>
+Type "set CGO_ENABLED=1" into terminal
+
+### Build
+
+If testing build as normal with "go build" <br> <br>
+To push changes to the front end, build to the front end server exe: pomodoro_planner_FE.exe <br>
+Type "go build -o pomodoro_planner_FE.exe
