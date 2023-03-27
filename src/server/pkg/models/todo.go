@@ -23,6 +23,7 @@ type Todo struct {
 func init() {
 	config.Connect()
 	db = config.GetDB()
+	Login(User{0, "Admin", "test"})
 	// config.CreateTable(`
 	// CREATE TABLE todo (
 	// 	"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -39,7 +40,7 @@ func init() {
 func (t *Todo) CreateTodo() *Todo {
 	log.Println("Inserting", t.Name, "...")
 	statement, err := db.Prepare(`
-	INSERT INTO todo(name, date, time, repeat, complete) VALUES (?, ?, ?, ?, ?)
+	INSERT INTO todo(name, date, time, repeat, complete, userid) VALUES (?, ?, ?, ?, ?, ?)
 	`)
 	if err != nil {
 		log.Println("Insertion: Failed to prepare statement")
@@ -47,7 +48,7 @@ func (t *Todo) CreateTodo() *Todo {
 		return t
 	}
 	defer statement.Close()
-	_, err = statement.Exec(t.Name, t.Date, t.Time, t.Repeat, t.Complete)
+	_, err = statement.Exec(t.Name, t.Date, t.Time, t.Repeat, t.Complete, currentUser)
 	if err != nil {
 		log.Println("Insertion: Failed to execute statement")
 		log.Println(err)
@@ -72,9 +73,10 @@ func GetAllTodo() []Todo {
 	}
 	defer rows.Close()
 
+	ignore := 0
 	for rows.Next() {
 		var t Todo
-		if err := rows.Scan(&t.ID, &t.Name, &t.Date, &t.Time, &t.Repeat, &t.Complete); err != nil {
+		if err := rows.Scan(&t.ID, &t.Name, &t.Date, &t.Time, &t.Repeat, &t.Complete, &ignore); err != nil {
 			log.Println("Query: Failed to read query")
 			log.Println(err)
 			return nil
@@ -101,7 +103,7 @@ func GetTodoByID(id int) Todo {
 	}
 	defer rows.Close()
 	rows.Next()
-	if err := rows.Scan(&getTodo.ID, &getTodo.Name, &getTodo.Date, &getTodo.Time, &getTodo.Repeat, &getTodo.Complete); err != nil {
+	if err := rows.Scan(&getTodo.ID, &getTodo.Name, &getTodo.Date, &getTodo.Time, &getTodo.Repeat, &getTodo.Complete, nil); err != nil {
 		log.Println("Query: Failed to read query")
 		log.Println(err)
 		return getTodo
