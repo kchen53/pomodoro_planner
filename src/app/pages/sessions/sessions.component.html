@@ -1,10 +1,14 @@
 
-<div style="padding: 10px;">
-<mat-card>
-    <div style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-        <h1>{{ currentDate | date }}</h1>
-      </div>
-  </mat-card>
+<div style="display: flex; justify-content: center; text-align: center;">
+  <div fxFlex="90%" style="padding: 15px;">
+    <mat-card>
+      <mat-card-content>
+        <div>
+            <h3 class="text">{{ currentDate | date }}</h3>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  </div>
 </div>
 
 <div style="display: flex; justify-content: center;">
