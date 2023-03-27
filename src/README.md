@@ -23,6 +23,31 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
 
 ### Todo
 
+##### Fields:
+
+> **"id"** number <br>
+> Unique key for every todo. Used for updating, deleting, or getting specific todo items
+
+> **"name"** string <br>
+> String name for todo describing the task
+
+> **"date"** string <br>
+> Due date is held in a string of format "YYYY-MM-DD" where YYYY is the year, MM is the month, DD is the day
+
+> **"time"** number *Format: seconds (null OK)* <br>
+> Integer representing time spent/time left for task. Time is in seconds and can be null if not needed.
+
+> **"repeat"** number <br>
+> Signifies how often to repeat task. Data is the integer value of a 7 digit binary flags: <br>
+>> | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
+>> |-----|-----|-----|-----|-----|-----|-----|
+>> |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+> Example 1. If todo is to repeat every Sunday, then the value would be bin(1000000) = int(64) <br>
+> Example 2. If todo is to repeat every Monday, Wednesday, and Friday, then the value would be bin(0101010) = int(42) <br>
+
+> **"complete"** boolean <br>
+> Boolean value signifying whether the task has been completed or not
+
 ####  Create
 
 > <font color="orange">POST</font> 127.0.0.1:8081/todo <br>
@@ -109,7 +134,7 @@ Returns a list of all stored Todo items <br>
         "name": "Release doros",
         "date": "2021-03-31",
         "time": null,
-        "repeat": 32, //Note: Every Friday
+        "repeat": 2, //Note: Every Friday
         "complete": false
     }
 ]
@@ -140,7 +165,7 @@ Returns the Todo item with the id designated by the address
     "name": "Pay pomos",
     "date": "2021-03-26",
     "time": 3600,
-    "repeat": 1, //Note: Every Sunday
+    "repeat": 64, //Note: Every Sunday
     "complete": true
 }
 ```
