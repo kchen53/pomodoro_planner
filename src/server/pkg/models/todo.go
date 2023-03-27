@@ -42,13 +42,15 @@ func (t *Todo) CreateTodo() *Todo {
 	INSERT INTO todo(name, date, time, repeat, complete) VALUES (?, ?, ?, ?, ?)
 	`)
 	if err != nil {
-		log.Println("Failed to insert", t.Name)
+		log.Println("Insertion: Failed to create statement")
+		log.Println(err)
 		return t
 	}
 	defer statement.Close()
 	_, err = statement.Exec(t.Name, t.Date, t.Time, t.Repeat, t.Complete)
 	if err != nil {
-		log.Println("Failed to insert", t.Name)
+		log.Println("Insertion: Failed to execute statement")
+		log.Println(err)
 		return t
 	}
 	statement.Close()
@@ -57,12 +59,14 @@ func (t *Todo) CreateTodo() *Todo {
 
 func GetAllTodo() []Todo {
 	Todos := make([]Todo, 0)
+	log.Println("Getting all todos...")
 	rows, err := db.Query(`
 	SELECT *
 	FROM todo
 	ORDER BY id;
 	`)
 	if err != nil {
+		log.Println("Query: Failed to create query")
 		log.Println(err)
 		return nil
 	}
@@ -71,6 +75,7 @@ func GetAllTodo() []Todo {
 	for rows.Next() {
 		var t Todo
 		if err := rows.Scan(&t.ID, &t.Name, &t.Date, &t.Time, &t.Repeat, &t.Complete); err != nil {
+			log.Println("Query: Failed to read query")
 			log.Println(err)
 			return nil
 		}
@@ -81,39 +86,48 @@ func GetAllTodo() []Todo {
 	return Todos
 }
 
-func GetTodoByID(Id int64) (*Todo, *sql.DB) {
+func GetTodoByID(id int) *Todo {
 	var getTodo Todo
-	//db := db.Where("ID=?", Id).Find(&getToDo)
-	// for _, t := range list {
-	// 	if t.Name == Id {
-	// 		getToDo = t
-	// 	}
-	// }
-	return &getTodo, db
+	log.Println("Getting todo", id, "...")
+	rows, err := db.Query(`
+	SELECT *
+	FROM todo
+	WHERE id=?;
+	`, id)
+	if err != nil {
+		log.Println("Query: Failed to create query")
+		log.Println(err)
+		return &getTodo
+	}
+	defer rows.Close()
+	rows.Next()
+	if err := rows.Scan(&getTodo.ID, &getTodo.Name, &getTodo.Date, &getTodo.Time, &getTodo.Repeat, &getTodo.Complete); err != nil {
+		log.Println("Query: Failed to read query")
+		log.Println(err)
+		return nil
+	}
+	return &getTodo
 }
 
-func GetTodoByIDList(Id int64) (*Todo, *[]Todo) {
-	var getTodo Todo
-	// for _, t := range list {
-	// 	if t.ID == Id {
-	// 		getToDo = t
-	// 	}
-	// }
-	return &getTodo, nil
-}
-
-func DeleteTodo(Id int64) Todo {
+func DeleteTodo(id int) Todo {
 	var todo Todo
-	//db.Where("ID=?", Id).Delete(todo)
-	// for i, t := range list {
-	// 	if t.ID == Id {
-	// 		list = append(list[:i], list[i+1:]...)
-	// 		break
-	// 	}
-	// }
+	log.Println("Deleting todo", id, "...")
+	statement, err := db.Prepare(`
+	DELETE FROM todo WHERE id=?;
+	`)
+	if err != nil {
+		log.Println("Deletion: failed to generate statement")
+		log.Println(err)
+		return todo
+	}
+	defer statement.Close()
+	_, err = statement.Exec(id)
+	if err != nil {
+		log.Println("Deletion: failed to execute statement")
+		log.Println(err)
+		return todo
+	}
+	statement.Close()
+	todo.ID = id
 	return todo
-}
-
-func GetList() []Todo {
-	return nil
 }

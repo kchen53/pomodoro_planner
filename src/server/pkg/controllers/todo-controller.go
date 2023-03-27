@@ -28,7 +28,7 @@ func GetTodoByID(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	todoDetails, _ := models.GetTodoByID(ID)
+	todoDetails := models.GetTodoByID(int(ID))
 	res, _ := json.Marshal(todoDetails)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
@@ -52,7 +52,7 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	todo := models.DeleteTodo(ID)
+	todo := models.DeleteTodo(int(ID))
 	res, _ := json.Marshal(todo)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
