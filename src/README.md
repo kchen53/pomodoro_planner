@@ -266,7 +266,7 @@ If the username does not already exist then creates a new user and logs in, retu
 
 ```json
 {
-    "username":Pomodoro,
+    "username":"Pomodoro",
     "password":"ILovePomos",
 }
 ```
@@ -300,7 +300,7 @@ Logs in if a the a user with the given credentials exists, returns whether the l
 
 ```json
 {
-    "username":Pomodoro,
+    "username":"Pomodoro",
     "password":"ILovePomos",
 }
 ```
