@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>To-Do List</mat-card-title>
+    <mat-card-title class="text">To-Do List</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <mat-form-field>
@@ -12,10 +12,15 @@
     <mat-list>
       <!-- *ngFor is a for loop that iterates through all the todos -->
       <mat-list-item *ngFor="let todo of todos">
-        <button mat-icon-button matSuffix (click)="deleteTodo(todo)">
-          {{ todo.task }}
+        <mat-checkbox [(ngModel)]="todo.complete">{{todo.title}}</mat-checkbox>
+        <button mat-icon-button color="warn" (click)="deleteTodo(todo)">
           <mat-icon>delete</mat-icon>
         </button>
+        <!-- <button mat-icon-button matSuffix (click)="deleteTodo(todo)"> -->
+          <!-- {{ todo.task }} -->
+          <!-- {{ todo.title }}
+          <mat-icon>delete</mat-icon>
+        </button> -->
       </mat-list-item>
     </mat-list>
   </mat-card-content>

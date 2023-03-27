@@ -1,0 +1,22 @@
+<mat-card class="timer">
+  <mat-card-content>
+  <div class="timer-value">{{getTimer()}}</div>
+
+  <mat-form-field>
+    <mat-label>Set Time</mat-label>
+    <input matInput [(ngModel)]="timeString" placeholder="mm:ss" (input)="updateTime()">
+  </mat-form-field>
+  
+  <div class="controls">
+  <button mat-raised-button color="primary" (click)="startTimer()">Start</button>
+  <button mat-raised-button color="accent" (click)="stopTimer()">Stop</button>
+  <button mat-raised-button color="warn" (click)="resetTimer()">Reset</button>
+  <button mat-raised-button color="blue" (click)="clearTimer()">Clear</button>
+  </div>
+
+  <!-- <div>
+    <h2>{{ minutes }}:{{ seconds }}</h2>
+  </div> -->
+  </mat-card-content>
+  </mat-card>
+  

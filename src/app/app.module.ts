@@ -18,11 +18,15 @@ import { TodoListComponent } from './todo/todoList.components';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule} from '@angular/material/icon';
 import { TodoService } from './todo/todoService';
-import { AboutUsComponent } from './about-us/about-us.component';
-import { TimerComponent } from './timer/timer.component';
+import { TimerComponent } from '../timer/timer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { SessionsComponent } from './sessions/sessions.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { DailyTaskComponent } from './components/daily-task/daily-task.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+
 
 
 @NgModule({
@@ -32,8 +36,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     LoginComponent,
     HomeComponent,
     TodoListComponent,
-    AboutUsComponent,
-    TimerComponent
+    TimerComponent,
+    SessionsComponent,
+    DailyTaskComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +56,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatIconModule,
     FormsModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent],

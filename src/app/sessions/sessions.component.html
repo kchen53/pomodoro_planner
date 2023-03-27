@@ -1,0 +1,28 @@
+
+<div style="padding: 10px;">
+<mat-card>
+    <div style="display: flex; justify-content: center; align-items: center; padding: 10px;">
+        <h1>{{ currentDate | date }}</h1>
+      </div>
+  </mat-card>
+</div>
+
+<div style="display: flex; justify-content: center;">
+
+  <div fxFlex="30%" style="padding: 15px;">
+    <app-daily-task></app-daily-task>
+  </div>
+
+    <div fxFlex="30%" style="padding: 15px;">
+      <app-todo-list></app-todo-list>
+    </div>
+    
+    <div fxFlex="30%" style="padding: 15px;">
+        <div class="container">
+            <app-timer (timerFinished)="handleTimerFinished()"></app-timer>
+          </div>
+        
+    </div>
+</div>
+
+  
