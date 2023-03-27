@@ -23,7 +23,6 @@ type Todo struct {
 func init() {
 	config.Connect()
 	db = config.GetDB()
-	Login(User{0, "Admin", "test"})
 	// config.CreateTable(`
 	// CREATE TABLE todo (
 	// 	"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -48,7 +47,7 @@ func (t *Todo) CreateTodo() *Todo {
 		return t
 	}
 	defer statement.Close()
-	_, err = statement.Exec(t.Name, t.Date, t.Time, t.Repeat, t.Complete, currentUser)
+	_, err = statement.Exec(t.Name, t.Date, t.Time, t.Repeat, t.Complete, GetUserId())
 	if err != nil {
 		log.Println("Insertion: Failed to execute statement")
 		log.Println(err)

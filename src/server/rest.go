@@ -17,7 +17,8 @@ func httpHandler() http.Handler {
 	// Your REST API requests go here
 
 	//router.HandleFunc("/books/{title}/page/{page}", handleBookGet).Methods("GET")
-	routes.RegisterTodoStoreRoutes(router)
+	routes.RegisterTodoRoutes(router)
+	routes.RegisterUserRoutes(router)
 
 	// Add your routes here.
 	// WARNING: this route must be the last route defined.

@@ -6,7 +6,7 @@ import (
 )
 
 // var RegisterBookStoreRoutes = func(router *mux.Router) {
-func RegisterTodoStoreRoutes(router *mux.Router) {
+func RegisterTodoRoutes(router *mux.Router) {
 	router.HandleFunc("/todo", controllers.CreateTodo).Methods("POST")
 	router.HandleFunc("/todo", controllers.GetTodo).Methods("GET")
 	router.HandleFunc("/todo/{i}", controllers.GetTodoByID).Methods("GET")
