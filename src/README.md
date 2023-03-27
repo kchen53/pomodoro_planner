@@ -13,7 +13,7 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
     - [Get By ID](#get-by-id)  <br>
     - [Update](#update)  <br>
     - [Delete](#delete) <br>
-- [**Login**](#login)
+- [**User**](#login)
     - [Signup](#signup) <br>
     - [Login](#login) <br>
     - [Logout](#logout) <br>
@@ -257,7 +257,7 @@ Deletes the Todo items with the id designated by the address, returns the delete
 
 ####  Signup
 
-> <font color="orange">POST</font> 127.0.0.1:8081/user <br>
+> <font color="orange">POST</font> 127.0.0.1:8081/signup <br>
 
 If the username does not already exist then creates a new user and logs in, returns whether a new user was successfully created <br>
 
@@ -289,9 +289,9 @@ If the username does not already exist then creates a new user and logs in, retu
 true
 ```
 
-####  Login
+####  User
 
-> <font color="blue">PUT</font> 127.0.0.1:8081/user <br>
+> <font color="blue">PUT</font> 127.0.0.1:8081/login <br>
 
 Logs in if a the a user with the given credentials exists, returns whether the login was successful <br>
 
@@ -325,7 +325,7 @@ false
 
 ####  Logout
 
-> <font color="red">DELETE</font> 127.0.0.1:8081/user <br>
+> <font color="red">PUT</font> 127.0.0.1:8081/logout <br>
 
 Logs out, setting the user to "Anonymous"<br>
  
@@ -342,7 +342,7 @@ true
 ```
 ####  GetUsername
 
-> <font color="green">GET</font> 127.0.0.1:8081/user <br>
+> <font color="green">GET</font> 127.0.0.1:8081/userdata <br>
 
 Returns the username of the currently logged in user, returns "Anonymous" if not logged in; returns "" if there is a server side error <br>
  
