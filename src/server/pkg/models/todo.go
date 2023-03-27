@@ -42,7 +42,7 @@ func (t *Todo) CreateTodo() *Todo {
 	INSERT INTO todo(name, date, time, repeat, complete) VALUES (?, ?, ?, ?, ?)
 	`)
 	if err != nil {
-		log.Println("Insertion: Failed to create statement")
+		log.Println("Insertion: Failed to prepare statement")
 		log.Println(err)
 		return t
 	}
@@ -66,7 +66,7 @@ func GetAllTodo() []Todo {
 	ORDER BY id;
 	`)
 	if err != nil {
-		log.Println("Query: Failed to create query")
+		log.Println("Query: Failed to execute query")
 		log.Println(err)
 		return nil
 	}
@@ -86,7 +86,7 @@ func GetAllTodo() []Todo {
 	return Todos
 }
 
-func GetTodoByID(id int) *Todo {
+func GetTodoByID(id int) Todo {
 	var getTodo Todo
 	log.Println("Getting todo", id, "...")
 	rows, err := db.Query(`
@@ -95,18 +95,18 @@ func GetTodoByID(id int) *Todo {
 	WHERE id=?;
 	`, id)
 	if err != nil {
-		log.Println("Query: Failed to create query")
+		log.Println("Query: Failed to execute query")
 		log.Println(err)
-		return &getTodo
+		return getTodo
 	}
 	defer rows.Close()
 	rows.Next()
 	if err := rows.Scan(&getTodo.ID, &getTodo.Name, &getTodo.Date, &getTodo.Time, &getTodo.Repeat, &getTodo.Complete); err != nil {
 		log.Println("Query: Failed to read query")
 		log.Println(err)
-		return nil
+		return getTodo
 	}
-	return &getTodo
+	return getTodo
 }
 
 func DeleteTodo(id int) Todo {
@@ -116,7 +116,7 @@ func DeleteTodo(id int) Todo {
 	DELETE FROM todo WHERE id=?;
 	`)
 	if err != nil {
-		log.Println("Deletion: failed to generate statement")
+		log.Println("Deletion: failed to prepare statement")
 		log.Println(err)
 		return todo
 	}
@@ -127,7 +127,28 @@ func DeleteTodo(id int) Todo {
 		log.Println(err)
 		return todo
 	}
-	statement.Close()
 	todo.ID = id
 	return todo
+}
+
+func (t *Todo) UpdateTodo() *Todo {
+	log.Println("Updating todo", t.ID, "...")
+	statement, err := db.Prepare(`
+	UPDATE todo
+	SET name = ?, date = ?, time = ?, repeat = ?, complete = ?
+	WHERE id=?;
+	`)
+	if err != nil {
+		log.Println("Update: Failed to prepare statement")
+		log.Println(err)
+		return t
+	}
+	defer statement.Close()
+	_, err = statement.Exec(t.Name, t.Date, t.Time, t.Repeat, t.Complete, t.ID)
+	if err != nil {
+		log.Println("Update: Failed to execute statement")
+		log.Println(err)
+		return t
+	}
+	return t
 }

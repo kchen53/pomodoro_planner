@@ -38,8 +38,8 @@ func GetTodoByID(w http.ResponseWriter, r *http.Request) {
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	CreateTodo := &models.Todo{}
 	utils.ParseBody(r, CreateTodo)
-	b := CreateTodo.CreateTodo()
-	res, _ := json.Marshal(b)
+	t := CreateTodo.CreateTodo()
+	res, _ := json.Marshal(t)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
@@ -60,15 +60,18 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateTodo(w http.ResponseWriter, r *http.Request) {
-	// updateTodo := &models.Todo{}
-	// utils.ParseBody(r, updateTodo)
+	updateTodo := &models.Todo{}
+	utils.ParseBody(r, updateTodo)
 
-	// vars := mux.Vars(r)
-	// todoID := vars["i"]
-	// ID, err := strconv.ParseInt(todoID, 0, 0)
-	// if err != nil {
-	// 	fmt.Println("error in parsing")
-	// }
+	vars := mux.Vars(r)
+	todoID := vars["i"]
+	ID, err := strconv.ParseInt(todoID, 0, 0)
+	if err != nil {
+		fmt.Println("error in parsing")
+	}
+	updateTodo.ID = int(ID)
+
+	t := updateTodo.UpdateTodo()
 	// //todoDetails, db := models.GetTodoByID(ID)
 	// todoDetails, _ := models.GetTodoByID(ID) //TODO: DELETE
 	// if updateTodo.Task != "" {
@@ -80,7 +83,8 @@ func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 	// todoDetails.Complete = updateTodo.Complete
 	// //db.Save(&todoDetails)
 	// res, _ := json.Marshal(todoDetails)
-	// w.Header().Set("Content-Type", "pkglication/json")
-	// w.WriteHeader(http.StatusOK)
-	// w.Write(res)
+	res, _ := json.Marshal(t)
+	w.Header().Set("Content-Type", "pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
 }
