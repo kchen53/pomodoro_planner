@@ -1,0 +1,16 @@
+.timer {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.timer-value {
+    margin-bottom: 2rem;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+  

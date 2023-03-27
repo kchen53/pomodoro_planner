@@ -7,23 +7,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
-import { TodoListComponent } from './todo/todoList.components';
+import { HomeComponent } from './pages/home/home.component';
+import { TodoListComponent } from './components/todo/todoList.components';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule} from '@angular/material/icon';
-import { TodoService } from './todo/todoService';
-import { AboutUsComponent } from './about-us/about-us.component';
+import { TodoService } from './components/todo/todoService';
 import { TimerComponent } from './timer/timer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import { SessionsComponent } from './pages/sessions/sessions.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { DailyTaskComponent } from './components/daily-task/daily-task.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -32,8 +38,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     LoginComponent,
     HomeComponent,
     TodoListComponent,
-    AboutUsComponent,
-    TimerComponent
+    TimerComponent,
+    SessionsComponent,
+    DailyTaskComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -50,8 +58,16 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatIconModule,
     FormsModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    })
   ],
+
   providers: [TodoService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
