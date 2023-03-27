@@ -61,7 +61,7 @@ func GetAllTodo() []Todo {
 	Todos := make([]Todo, 0)
 	log.Println("Getting all todos...")
 	rows, err := db.Query(`
-	SELECT *
+	SELECT id, name, date, time, repeat, complete
 	FROM todo
 	ORDER BY id;
 	`)
@@ -72,10 +72,10 @@ func GetAllTodo() []Todo {
 	}
 	defer rows.Close()
 
-	ignore := 0
+	//ignore := 0
 	for rows.Next() {
 		var t Todo
-		if err := rows.Scan(&t.ID, &t.Name, &t.Date, &t.Time, &t.Repeat, &t.Complete, &ignore); err != nil {
+		if err := rows.Scan(&t.ID, &t.Name, &t.Date, &t.Time, &t.Repeat, &t.Complete); err != nil {
 			log.Println("Query: Failed to read query")
 			log.Println(err)
 			return nil
