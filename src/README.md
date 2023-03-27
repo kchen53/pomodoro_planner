@@ -14,6 +14,10 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
     - [Update](#update)  <br>
     - [Delete](#delete) <br>
 - [**Login**](#login)
+    - [Signup](#signup) <br>
+    - [Login](#login) <br>
+    - [Logout](#logout) <br>
+    - [Get Username](#get-username) <br>
 
 ---
 
@@ -245,5 +249,107 @@ Deletes the Todo items with the id designated by the address, returns the delete
 
 ### Login
 
-*Note yet completed*
+####  Signup
+
+> <font color="orange">POST</font> 127.0.0.1:8081/user <br>
+
+If the username does not already exist then creates a new user and logs in, returns whether a new user was successfully created <br>
+
+##### Input Fields:
+
+>> **"username"** string <br>
+>> **"password"** string <br>
+> 
+> Style: Raw JSON
+
+###### Example Input:
+
+```json
+{
+    "username":Pomodoro,
+    "password":"ILovePomos",
+}
+```
+ 
+##### Output Fields:
+
+>> boolean <br>
+> 
+> Style: Raw JSON
+
+###### Example Output:
+
+```json
+true
+```
+
+####  Login
+
+> <font color="blue">PUT</font> 127.0.0.1:8081/user <br>
+
+Logs in if a the a user with the given credentials exists, returns whether the login was successful <br>
+
+##### Input Fields:
+
+>> **"username"** string <br>
+>> **"password"** string <br>
+> 
+> Style: Raw JSON
+
+###### Example Input:
+
+```json
+{
+    "username":Pomodoro,
+    "password":"ILovePomos",
+}
+```
+ 
+##### Output Fields:
+
+>> boolean <br>
+> 
+> Style: Raw JSON
+
+###### Example Output:
+
+```json
+false
+```
+
+####  Logout
+
+> <font color="red">DELETE</font> 127.0.0.1:8081/user <br>
+
+Logs out, setting the user to "Anonymous"<br>
+ 
+##### Output Fields:
+
+>> boolean <br>
+> 
+> Style: Raw JSON
+
+###### Example Output:
+
+```json
+true
+```
+####  GetUsername
+
+> <font color="green">GET</font> 127.0.0.1:8081/user <br>
+
+Returns the username of the currently logged in user, returns "Anonymous" if not logged in; returns "" if there is a server side error <br>
+ 
+##### Output Fields:
+
+>> string <br>
+> 
+> Style: Raw JSON
+
+###### Example Output:
+
+```json
+"Anonymous"
+```
+          
 
