@@ -1,6 +1,10 @@
 # Backend Server
 ## How to run server:
 
+### Navigate to the server exe file location
+
+Normally located in ./src/server
+
 ### Run .exe
 
 Run "pomodoro_planner_FE.exe"
@@ -9,9 +13,9 @@ Run "pomodoro_planner_FE.exe"
 
 If the terminal shows no output and only has a blank line, the the server is working properly
 
-### *Close server
+### *Stop server
 
-To close the server just press Ctrl+C in the terminal
+To stop the server just press Ctrl+C in the terminal
 
 ## How to build project
 
