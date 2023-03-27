@@ -30,14 +30,6 @@ import (
 // }
 
 func TestGetTodo(t *testing.T) {
-	//Populate array db with a todo
-	var todo models.Todo
-	todo.ID = 1
-	todo.Task = "Test Name"
-	todo.Due = "Test Day"
-	todo.Complete = true
-	todo.CreateTodo()
-
 	//Create request
 	req, err := http.NewRequest("GET", "/todo", nil)
 	if err != nil {

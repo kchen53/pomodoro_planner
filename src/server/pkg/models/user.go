@@ -105,6 +105,11 @@ func GetUserId() int {
 	return 1
 }
 
+func SetUserIDTest() {
+	currentUser = 0
+	loggedIn = true
+}
+
 func GetUsername() string {
 	log.Println("Retrieving username...")
 	rows, err := db.Query(`

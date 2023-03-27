@@ -53,7 +53,6 @@ func (t *Todo) CreateTodo() *Todo {
 		log.Println(err)
 		return t
 	}
-	statement.Close()
 	return t
 }
 
