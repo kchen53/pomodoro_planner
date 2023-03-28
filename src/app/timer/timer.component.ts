@@ -16,7 +16,7 @@ public isTimerStarted: boolean = false;
 @Output() timerFinished = new EventEmitter<void>();
 
 constructor() {
-  this.timeString = '00:00'; // Set default time to 2 minutes and 30 seconds
+  this.timeString = ''; // Set default time to 2 minutes and 30 seconds
 }
 
 startTimer() {
@@ -54,7 +54,7 @@ startTimer() {
   clearTimer(){
     this.isTimerStarted = false;
     clearInterval(this.interval);
-    this.timeString = '00:00';
+    this.timeString = '';
     this.time = { minutes: 0, seconds: 0 };
   }
 

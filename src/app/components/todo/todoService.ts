@@ -9,8 +9,8 @@ import { Todo } from './todo';
 
 export class TodoService {
 
-  //private apiUrl = 'http://127.0.0.1:8081/todo';
-  private apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+  private apiUrl = 'http://127.0.0.1:8081/todo';
+  //private apiUrl = 'https://jsonplaceholder.typicode.com/todos';
 
   constructor(private http: HttpClient) { }
 

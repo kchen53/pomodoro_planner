@@ -1,6 +1,6 @@
 
 <div style="display: flex; justify-content: center; text-align: center;">
-  <div fxFlex="90%" style="padding: 15px;">
+  <div fxFlex="90%" style="padding: 20px;">
     <mat-card>
       <mat-card-content>
         <div>
@@ -17,16 +17,23 @@
     <app-daily-task></app-daily-task>
   </div>
 
-    <div fxFlex="30%" style="padding: 15px;">
-      <app-todo-list></app-todo-list>
-    </div>
-    
-    <div fxFlex="30%" style="padding: 15px;">
+  <div fxFlex="30%" style="padding: 15px;">
+    <app-todo-list></app-todo-list>
+  </div>
+
+  <div fxFlex="30%" style="padding: 15px;">
+    <div>
         <div class="container">
-            <app-timer (timerFinished)="handleTimerFinished()"></app-timer>
-          </div>
-        
+          <app-timer (timerFinished)="handleTimerFinished()"></app-timer>
+        </div>   
+      
+      <div class="container" style="padding-top: 30px;">
+        <!-- <app-spotify-api></app-spotify-api> -->
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/3lS1y25WAhcqJDATJK70Mq?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>   
     </div>
+  </div>
 </div>
+
 
   

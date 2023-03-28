@@ -30,6 +30,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { SpotifyApiComponent } from './components/spotify-api/spotify-api.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     TimerComponent,
     SessionsComponent,
     DailyTaskComponent,
-    CalendarComponent
+    CalendarComponent,
+    SpotifyApiComponent
   ],
   imports: [
     BrowserModule,

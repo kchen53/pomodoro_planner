@@ -1,21 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppModule } from 'src/app/app.module';
-import { DailyTaskComponent } from './daily-task.component';
 
-describe('DailyTaskComponent', () => {
-  let component: DailyTaskComponent;
-  let fixture: ComponentFixture<DailyTaskComponent>;
+import { SpotifyApiComponent } from './spotify-api.component';
+import { AppModule } from '../../app.module';
+
+describe('SpotifyApiComponent', () => {
+  let component: SpotifyApiComponent;
+  let fixture: ComponentFixture<SpotifyApiComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         AppModule
       ],
-      declarations: [ DailyTaskComponent ]
+      declarations: [ SpotifyApiComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DailyTaskComponent);
+    fixture = TestBed.createComponent(SpotifyApiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
