@@ -1,35 +1,22 @@
 package controllers
 
 import (
-	"bytes"
-	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"strconv"
 	"testing"
 
-	"github.com/gorilla/mux"
+	"github.com/kchen53/pomodoro_planner/pkg/controllers"
 	"github.com/kchen53/pomodoro_planner/pkg/models"
 	"github.com/kchen53/pomodoro_planner/pkg/utils"
 )
 
-// func Test(t *testing.T) {
-// 	req, err := http.NewRequest("GET", "http://example.com/foo", nil)
-// 	if err != nil {
-// 		t.Fatal(err)
-// 	}
-
-// 	res := httptest.NewRecorder()
-// 	GetTodo(res, req)
-
-// 	exp := "Hello World"
-// 	act := res.Body.String()
-// 	if exp != act {
-// 		t.Fatalf("Expected %s gog %s", exp, act)
-// 	}
-// }
-
 func TestGetTodo(t *testing.T) {
+
+	//Call login
+	models.SetUserIDTest()
+	TESTReset()
+	TESTpopulate()
+
 	//Create request
 	req, err := http.NewRequest("GET", "/todo", nil)
 	if err != nil {
@@ -38,7 +25,7 @@ func TestGetTodo(t *testing.T) {
 
 	//Get Response
 	res := httptest.NewRecorder()
-	GetTodo(res, req)
+	controllers.GetTodo(res, req)
 
 	//Parse Response
 	resTodos := []models.Todo{}
@@ -48,21 +35,27 @@ func TestGetTodo(t *testing.T) {
 	if len(resTodos) != 1 {
 		t.Errorf("Incorrect number of Todo's")
 	}
-	if resTodos[0].ID != todo.ID {
+	if resTodos[0].ID != 1 {
 		t.Errorf("Incorrect ID")
 	}
-	if resTodos[0].Task != todo.Task {
+	if resTodos[0].Name != "TEST" {
 		t.Errorf("Incorrect task name")
 	}
-	if resTodos[0].Due != todo.Due {
-		t.Errorf("Incorrect due date")
+	if resTodos[0].Date != "01-01-2023" {
+		t.Errorf("Incorrect date")
 	}
-	if resTodos[0].Complete != todo.Complete {
+	if resTodos[0].Time != 60 {
+		t.Errorf("Incorrect time")
+	}
+	if resTodos[0].Repeat != 0 {
+		t.Errorf("Incorrect repeat")
+	}
+	if resTodos[0].Complete != true {
 		t.Errorf("Incorrect completed state")
 	}
 }
 
-func TestGetTodoByID(t *testing.T) {
+/*func TestGetTodoByID(t *testing.T) {
 	//Populate array db with a todo
 	var todo models.Todo
 	todo.ID = 1
@@ -162,7 +155,7 @@ func TestCreateTodo(t *testing.T) {
 	}
 }
 
-/*func TestUpdateTodo(t *testing.T) {
+func TestUpdateTodo(t *testing.T) {
 	//Populate array db with a todo
 	var todo models.Todo
 	todo.ID = 1
@@ -213,9 +206,41 @@ func TestCreateTodo(t *testing.T) {
 
 func itemInList(a int64, list []models.Todo) bool {
 	for _, b := range list {
-		if b.ID == a {
+		if int64(b.ID) == a {
 			return true
 		}
 	}
 	return false
 }
+
+func TESTpopulate() {
+	statement, _ := models.Db.Prepare(`
+	INSERT into todo(id, name, date, time, repeat, complete, userid) VALUES (?, ?, ?, ?, ?, ?, ?)
+	`)
+	statement.Exec(1, "TEST", "01-01-2023", 60, 0, true, 0)
+	statement.Close()
+}
+
+func TESTReset() {
+	statement, _ := models.Db.Prepare(`
+	DELETE from todo where userid=0;
+	`)
+	statement.Exec()
+	statement.Close()
+}
+
+// func Test(t *testing.T) {
+// 	req, err := http.NewRequest("GET", "http://example.com/foo", nil)
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+
+// 	res := httptest.NewRecorder()
+// 	GetTodo(res, req)
+
+// 	exp := "Hello World"
+// 	act := res.Body.String()
+// 	if exp != act {
+// 		t.Fatalf("Expected %s gog %s", exp, act)
+// 	}
+// }
