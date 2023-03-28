@@ -62,8 +62,9 @@ func GetAllTodo() []Todo {
 	rows, err := db.Query(`
 	SELECT id, name, date, time, repeat, complete
 	FROM todo
+	WHERE userid=?
 	ORDER BY id;
-	`)
+	`, GetUserId())
 	if err != nil {
 		log.Println("Query: Failed to execute query")
 		log.Println(err)
@@ -92,8 +93,8 @@ func GetTodoByID(id int) Todo {
 	rows, err := db.Query(`
 	SELECT *
 	FROM todo
-	WHERE id=?;
-	`, id)
+	WHERE id=? and userid=?;
+	`, id, GetUserId())
 	if err != nil {
 		log.Println("Query: Failed to execute query")
 		log.Println(err)
