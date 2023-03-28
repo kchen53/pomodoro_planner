@@ -17,16 +17,22 @@
     <app-daily-task></app-daily-task>
   </div>
 
-    <div fxFlex="30%" style="padding: 15px;">
-      <app-todo-list></app-todo-list>
-    </div>
-    
-    <div fxFlex="30%" style="padding: 15px;">
+  <div fxFlex="30%" style="padding: 15px;">
+    <app-todo-list></app-todo-list>
+  </div>
+
+  <div fxFlex="30%" style="padding: 15px;">
+    <div>
         <div class="container">
-            <app-timer (timerFinished)="handleTimerFinished()"></app-timer>
-          </div>
-        
+          <app-timer (timerFinished)="handleTimerFinished()"></app-timer>
+        </div>   
+      
+      <div class="container" style="padding-top: 30px;">
+        <app-spotify-api></app-spotify-api>
+      </div>   
     </div>
+  </div>
 </div>
+
 
   
