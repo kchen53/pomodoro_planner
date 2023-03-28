@@ -20,7 +20,7 @@
   </mat-card>
 </div> -->
 
-<mat-toolbar color="accent" mat-dialog-title>Login</mat-toolbar>
+<mat-toolbar [color]="login ? 'accent' : 'primary'" mat-dialog-title >{{mode}}</mat-toolbar>
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Username</mat-label>
@@ -34,4 +34,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onSubmit()">Submit</button>
+  <button mat-button (click)="changeMode()">{{modeButton}}</button>
 </div>
