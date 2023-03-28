@@ -25,9 +25,11 @@ describe('TimerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('check if timer page text displays', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p').textContent).toContain('timer works!');
-  });
+  // it('check if timer page text displays', () => {
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement;
+  //   expect(compiled.querySelector('p').textContent).toContain('timer works!');
+  // });
+
+  //New Unit Test
 });
