@@ -1,5 +1,10 @@
 <mat-card>
     <mat-card-content>
-        Daily Schedule
+        <div style="text-align: center;">
+            <h2>{{ viewDate | calendarDate:(CalendarView.Day + 'ViewTitle'):'en' }}</h2>
+        </div>
+        
+        <mwl-calendar-day-view [viewDate]="viewDate">
+        </mwl-calendar-day-view>
     </mat-card-content>
 </mat-card>

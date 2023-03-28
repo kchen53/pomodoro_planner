@@ -5,10 +5,19 @@
 //   complete: boolean;
 // }
 
+// export interface Todo {
+//   userId: number;
+//   id: string;
+//   title: string;
+//   complete: boolean;
+// }
+
 export interface Todo {
-  userId: number;
-  id: string;
-  title: string;
+  id: number;
+  name: string;
+  date: string;
+  time: number;
+  repeat: number;
   complete: boolean;
 }
 
