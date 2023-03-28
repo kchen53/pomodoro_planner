@@ -1,7 +1,10 @@
 package test
 
 import (
+	"bytes"
 	"database/sql"
+	"encoding/json"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
@@ -110,14 +113,11 @@ func TestGetTodoByID(t *testing.T) {
 	}
 }
 
-/*func TestDeleteTodo(t *testing.T) {
-	//Populate array db with a todo
-	var todo models.Todo
-	todo.ID = 1
-	todo.Task = "Test Name"
-	todo.Due = "Test Day"
-	todo.Complete = true
-	todo.CreateTodo()
+func TestDeleteTodo(t *testing.T) {
+	// Call login
+	TESTsetup()
+	TESTreset(t)
+	TESTpopulate()
 
 	//Create request
 	req, err := http.NewRequest("GET", "/todo/1", nil)
@@ -126,12 +126,12 @@ func TestGetTodoByID(t *testing.T) {
 	}
 	//Set variables
 	vars := make(map[string]string)
-	vars["i"] = strconv.FormatInt(todo.ID, 10)
+	vars["i"] = strconv.FormatInt(1, 10)
 	req = mux.SetURLVars(req, vars)
 
 	//Get Response
 	res := httptest.NewRecorder()
-	GetTodoByID(res, req)
+	controllers.DeleteTodo(res, req)
 
 	//Parse Response
 	resTodos := []models.Todo{}
@@ -144,11 +144,17 @@ func TestGetTodoByID(t *testing.T) {
 }
 
 func TestCreateTodo(t *testing.T) {
+	// Call login
+	TESTsetup()
+	TESTreset(t)
+
 	//Populate array db with a todo
 	var todo models.Todo
 	todo.ID = 1
-	todo.Task = "Test Name"
-	todo.Due = "Test Day"
+	todo.Name = "TEST"
+	todo.Date = "01-01-2023"
+	todo.Time = 60
+	todo.Repeat = 0
 	todo.Complete = true
 	todoDetails, _ := json.Marshal(todo)
 
@@ -160,15 +166,15 @@ func TestCreateTodo(t *testing.T) {
 
 	//Set Request
 	res := httptest.NewRecorder()
-	CreateTodo(res, req)
+	controllers.CreateTodo(res, req)
 
 	//Check Models.list for todo
-	if !itemInList(todo.ID, models.GetList()) {
+	if !itemInDB(db, 1) {
 		t.Errorf("Not in List")
 	}
 }
 
-func TestUpdateTodo(t *testing.T) {
+/*func TestUpdateTodo(t *testing.T) {
 	//Populate array db with a todo
 	var todo models.Todo
 	todo.ID = 1
@@ -217,6 +223,18 @@ func TestUpdateTodo(t *testing.T) {
 	}
 }*/
 
+func itemInDB(db *sql.DB, id int) bool {
+	sqlStmt := `SELECT id FROM todo WHERE id = ?`
+	err := db.QueryRow(sqlStmt, id).Scan(&id)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			log.Print(err)
+		}
+		return false
+	}
+	return true
+}
+
 func TESTsetup() {
 	models.LoginAdmin()
 	db = config.GetDB()
@@ -237,19 +255,3 @@ func TESTpopulate() {
 	statement.Exec(1, "TEST", "01-01-2023", 60, 0, true, 0)
 	statement.Close()
 }
-
-// func Test(t *testing.T) {
-// 	req, err := http.NewRequest("GET", "http://example.com/foo", nil)
-// 	if err != nil {
-// 		t.Fatal(err)
-// 	}
-
-// 	res := httptest.NewRecorder()
-// 	GetTodo(res, req)
-
-// 	exp := "Hello World"
-// 	act := res.Body.String()
-// 	if exp != act {
-// 		t.Fatalf("Expected %s gog %s", exp, act)
-// 	}
-// }
