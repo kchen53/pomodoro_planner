@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"testing"
 
 	"github.com/kchen53/pomodoro_planner/pkg/config"
@@ -11,6 +12,7 @@ import (
 	"github.com/kchen53/pomodoro_planner/pkg/models"
 	"github.com/kchen53/pomodoro_planner/pkg/utils"
 
+	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -62,14 +64,12 @@ func TestGetTodo(t *testing.T) {
 	}
 }
 
-/*func TestGetTodoByID(t *testing.T) {
-	//Populate array db with a todo
-	var todo models.Todo
-	todo.ID = 1
-	todo.Task = "Test Name"
-	todo.Due = "Test Day"
-	todo.Complete = true
-	todo.CreateTodo()
+func TestGetTodoByID(t *testing.T) {
+
+	// Call login
+	TESTsetup()
+	TESTreset(t)
+	TESTpopulate()
 
 	//Create request
 	req, err := http.NewRequest("GET", "/todo/1", nil)
@@ -78,33 +78,39 @@ func TestGetTodo(t *testing.T) {
 	}
 	//Set variables
 	vars := make(map[string]string)
-	vars["i"] = strconv.FormatInt(todo.ID, 10)
+	vars["i"] = strconv.FormatInt(1, 10)
 	req = mux.SetURLVars(req, vars)
 
 	//Get Response
 	res := httptest.NewRecorder()
-	GetTodoByID(res, req)
+	controllers.GetTodoByID(res, req)
 
 	//Parse Response
-	resTodo := &models.ToDo{}
+	resTodo := &models.Todo{}
 	utils.ParseBodyTest(res, resTodo)
 
 	//Compare response to input
-	if resTodo.ID != todo.ID {
+	if resTodo.ID != 1 {
 		t.Errorf("Incorrect ID")
 	}
-	if resTodo.Task != todo.Task {
+	if resTodo.Name != "TEST" {
 		t.Errorf("Incorrect task name")
 	}
-	if resTodo.Due != todo.Due {
-		t.Errorf("Incorrect due date")
+	if resTodo.Date != "01-01-2023" {
+		t.Errorf("Incorrect date")
 	}
-	if resTodo.Complete != todo.Complete {
+	if resTodo.Time != 60 {
+		t.Errorf("Incorrect time")
+	}
+	if resTodo.Repeat != 0 {
+		t.Errorf("Incorrect repeat")
+	}
+	if resTodo.Complete != true {
 		t.Errorf("Incorrect completed state")
 	}
 }
 
-func TestDeleteTodo(t *testing.T) {
+/*func TestDeleteTodo(t *testing.T) {
 	//Populate array db with a todo
 	var todo models.Todo
 	todo.ID = 1
