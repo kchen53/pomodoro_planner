@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"database/sql"
 	"encoding/json"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
@@ -159,7 +158,7 @@ func TestCreateTodo(t *testing.T) {
 	todoDetails, _ := json.Marshal(todo)
 
 	//Create request
-	req, err := http.NewRequest("POST", "/todo", bytes.NewReader(todoDetails))
+	req, err := http.NewRequest("POST", "/todo/1", bytes.NewReader(todoDetails))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -168,24 +167,45 @@ func TestCreateTodo(t *testing.T) {
 	res := httptest.NewRecorder()
 	controllers.CreateTodo(res, req)
 
-	//Check Models.list for todo
-	if !itemInDB(db, 1) {
-		t.Errorf("Not in List")
+	//Parse Response
+	resTodo := &models.Todo{}
+	utils.ParseBodyTest(res, resTodo)
+
+	//Compare response to input
+	if resTodo.ID != 1 {
+		t.Errorf("Incorrect ID")
+	}
+	if resTodo.Name != "TEST" {
+		t.Errorf("Incorrect task name")
+	}
+	if resTodo.Date != "01-01-2023" {
+		t.Errorf("Incorrect date")
+	}
+	if resTodo.Time != 60 {
+		t.Errorf("Incorrect time")
+	}
+	if resTodo.Repeat != 0 {
+		t.Errorf("Incorrect repeat")
+	}
+	if resTodo.Complete != true {
+		t.Errorf("Incorrect completed state")
 	}
 }
 
-/*func TestUpdateTodo(t *testing.T) {
-	//Populate array db with a todo
+func TestUpdateTodo(t *testing.T) {
+
 	var todo models.Todo
-	todo.ID = 1
-	todo.Task = "Test Name"
-	todo.Due = "Test Day"
-	todo.Complete = true
-	todo.CreateTodo()
+
+	// Call login
+	TESTsetup()
+	TESTreset(t)
+	TESTpopulate()
 
 	//Populate array db with a todo
-	todo.Task = "Test Name 1"
-	todo.Due = "Test Day 2"
+	todo.Name = "TEST"
+	todo.Date = "01-02-2023"
+	todo.Time = 50
+	todo.Repeat = 1
 	todo.Complete = false
 	todoDetails, _ := json.Marshal(todo)
 
@@ -197,42 +217,36 @@ func TestCreateTodo(t *testing.T) {
 
 	//Set variables
 	vars := make(map[string]string)
-	vars["i"] = strconv.FormatInt(todo.ID, 10)
+	vars["i"] = strconv.FormatInt(1, 10)
 	req = mux.SetURLVars(req, vars)
 
 	//Send Request
 	res := httptest.NewRecorder()
-	UpdateTodo(res, req)
+	controllers.UpdateTodo(res, req)
 
-	//Check Models.list for todo
-	for _, b := range models.GetList() {
-		if b.ID == todo.ID {
-			if b.Task != todo.Task {
-				fmt.Println(b.Task)
-				t.Errorf("Wrong Task")
-			}
-			if b.Due != todo.Due {
-				fmt.Println(b.Due)
-				t.Errorf("Wrong Due")
-			}
-			if b.Complete != todo.Complete {
-				fmt.Println(b.Complete)
-				t.Errorf("Wrong Complete")
-			}
-		}
-	}
-}*/
+	//Parse Response
+	resTodo := &models.Todo{}
+	utils.ParseBodyTest(res, resTodo)
 
-func itemInDB(db *sql.DB, id int) bool {
-	sqlStmt := `SELECT id FROM todo WHERE id = ?`
-	err := db.QueryRow(sqlStmt, id).Scan(&id)
-	if err != nil {
-		if err != sql.ErrNoRows {
-			log.Print(err)
-		}
-		return false
+	//Compare response to input
+	if resTodo.ID != 1 {
+		t.Errorf("Incorrect ID")
 	}
-	return true
+	if resTodo.Name != "TEST" {
+		t.Errorf("Incorrect task name")
+	}
+	if resTodo.Date != "01-02-2023" {
+		t.Errorf("Incorrect date")
+	}
+	if resTodo.Time != 50 {
+		t.Errorf("Incorrect time")
+	}
+	if resTodo.Repeat != 1 {
+		t.Errorf("Incorrect repeat")
+	}
+	if resTodo.Complete != false {
+		t.Errorf("Incorrect completed state")
+	}
 }
 
 func TESTsetup() {
