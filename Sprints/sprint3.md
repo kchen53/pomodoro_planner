@@ -107,6 +107,7 @@ describe('Calendar', () => {
 - TestGetToDoByID
 - TestCreateToDo
 - TestDeleteToDo
+- TestUpdateToDo
 
 ## API
 
