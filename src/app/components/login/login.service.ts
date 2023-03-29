@@ -10,8 +10,8 @@ export class LoginService {
       private http: HttpClient
     ) {}
 
-  private loginUrl = 'http://localhost:8081/login';
-  private signUpUrl = 'http://localhost:8081/signup';
+  private loginUrl = 'http://127.0.0.1:8081/login';
+  private signUpUrl = 'http://127.0.0.1:8081/signup';
 
   login(username: string, password: string) {
     return this.http.post(this.loginUrl, { username: username, password: password });

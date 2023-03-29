@@ -2,20 +2,20 @@
   <mat-card-content>
     <div style="text-align: center;">
     <h2>To-Do List</h2>
-    
+
     <mat-form-field>
       <input matInput [(ngModel)]="newTodo" placeholder="task...">
-      <button mat-icon-button matSuffix (click)="addTodo(newTodo)">
+      <button mat-icon-button matSuffix name="Add" (click)="addTodo(newTodo)">
         <mat-icon>add</mat-icon>
       </button>
     </mat-form-field>
-  
+
     <div style="text-align: left;">
     <mat-list>
       <!-- *ngFor is a for loop that iterates through all the todos -->
       <mat-list-item *ngFor="let todo of todos">
         <mat-checkbox [(ngModel)]="todo.complete">{{todo.name}}</mat-checkbox>
-        <button mat-icon-button color="warn" (click)="deleteTodo(todo)">
+        <button mat-icon-button color="warn" name="Delete" (click)="deleteTodo(todo)">
           <mat-icon>delete</mat-icon>
         </button>
         <!-- <button mat-icon-button matSuffix (click)="deleteTodo(todo)"> -->
