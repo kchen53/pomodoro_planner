@@ -1,6 +1,9 @@
 # Sprint 3
 
 ## Work Completed
+### Frontend:
+
+### Backend:
 
 ## Unit Tests
 
@@ -47,6 +50,55 @@ it('check the to-do list html header', () => {
   expect(compiled.querySelector('mat-card-title').textContent).toContain('To-Do List');
 });
 
+##### New Tests:
+it('check if the calendar displays the correct month', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('March 2023');
+  });
+  
+it('check if the daily calender displays the correct date', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('Wednesday, March 29, 2023');
+  });
+  
+it('should have a link to the session page', () => {
+  const link = fixture.debugElement.query(By.css('a[routerLink="session"]'));
+  expect(link).toBeTruthy();
+});
+
+it('should have a settings icon', () => {
+  const icon = fixture.debugElement.query(By.css('mat-icon'));
+  expect(icon.nativeElement.innerText).toContain('settings');
+});
+
+it('check if the component loads', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('mat-card-content').textContent).toContain('Spotify Api');
+  });
+  
+it('check the to-do list html header', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('To-Do List');
+  });
+
+it('should have an app-calendar component', () => {
+    const appCalendar = fixture.debugElement.query(
+      By.directive(CalendarComponent)
+    );
+    expect(appCalendar).not.toBeNull();
+  });
+ 
+ it('should have an app-dailyTask component', () => {
+    const appCalendar = fixture.debugElement.query(
+      By.directive(DailyTaskComponent)
+    );
+    expect(appCalendar).not.toBeNull();
+  });
+  
 #### Cypress:
 
 describe('Login', () => {
