@@ -11,6 +11,17 @@
 
 ### Backend:
 
+* Database support : sqlite
+* User type 
+    * Login
+    * Logout
+    * Signup
+    * Todos are associated with one account
+* Todos
+    * Updated data structe
+    * Switched to database implementation
+    * Updated all routes
+
 ## Unit Tests
 
 ### Frontend:
