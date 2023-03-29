@@ -105,7 +105,7 @@ func GetUserId() int {
 	return 1
 }
 
-func SetUserIDTest() {
+func LoginAdmin() {
 	currentUser = 0
 	loggedIn = true
 }

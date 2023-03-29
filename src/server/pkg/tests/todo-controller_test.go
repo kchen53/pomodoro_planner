@@ -1,20 +1,31 @@
-package controllers
+package test
 
 import (
+	"bytes"
+	"database/sql"
+	"encoding/json"
+	"log"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"testing"
 
+	"github.com/kchen53/pomodoro_planner/pkg/config"
 	"github.com/kchen53/pomodoro_planner/pkg/controllers"
 	"github.com/kchen53/pomodoro_planner/pkg/models"
 	"github.com/kchen53/pomodoro_planner/pkg/utils"
+
+	"github.com/gorilla/mux"
+	_ "github.com/mattn/go-sqlite3"
 )
+
+var db *sql.DB
 
 func TestGetTodo(t *testing.T) {
 
-	//Call login
-	models.SetUserIDTest()
-	TESTReset()
+	// Call login
+	TESTsetup()
+	TESTreset(t)
 	TESTpopulate()
 
 	//Create request
@@ -34,35 +45,34 @@ func TestGetTodo(t *testing.T) {
 	//Compare response to input
 	if len(resTodos) != 1 {
 		t.Errorf("Incorrect number of Todo's")
-	}
-	if resTodos[0].ID != 1 {
-		t.Errorf("Incorrect ID")
-	}
-	if resTodos[0].Name != "TEST" {
-		t.Errorf("Incorrect task name")
-	}
-	if resTodos[0].Date != "01-01-2023" {
-		t.Errorf("Incorrect date")
-	}
-	if resTodos[0].Time != 60 {
-		t.Errorf("Incorrect time")
-	}
-	if resTodos[0].Repeat != 0 {
-		t.Errorf("Incorrect repeat")
-	}
-	if resTodos[0].Complete != true {
-		t.Errorf("Incorrect completed state")
+	} else {
+		if resTodos[0].ID != 1 {
+			t.Errorf("Incorrect ID")
+		}
+		if resTodos[0].Name != "TEST" {
+			t.Errorf("Incorrect task name")
+		}
+		if resTodos[0].Date != "01-01-2023" {
+			t.Errorf("Incorrect date")
+		}
+		if resTodos[0].Time != 60 {
+			t.Errorf("Incorrect time")
+		}
+		if resTodos[0].Repeat != 0 {
+			t.Errorf("Incorrect repeat")
+		}
+		if resTodos[0].Complete != true {
+			t.Errorf("Incorrect completed state")
+		}
 	}
 }
 
-/*func TestGetTodoByID(t *testing.T) {
-	//Populate array db with a todo
-	var todo models.Todo
-	todo.ID = 1
-	todo.Task = "Test Name"
-	todo.Due = "Test Day"
-	todo.Complete = true
-	todo.CreateTodo()
+func TestGetTodoByID(t *testing.T) {
+
+	// Call login
+	TESTsetup()
+	TESTreset(t)
+	TESTpopulate()
 
 	//Create request
 	req, err := http.NewRequest("GET", "/todo/1", nil)
@@ -71,40 +81,43 @@ func TestGetTodo(t *testing.T) {
 	}
 	//Set variables
 	vars := make(map[string]string)
-	vars["i"] = strconv.FormatInt(todo.ID, 10)
+	vars["i"] = strconv.FormatInt(1, 10)
 	req = mux.SetURLVars(req, vars)
 
 	//Get Response
 	res := httptest.NewRecorder()
-	GetTodoByID(res, req)
+	controllers.GetTodoByID(res, req)
 
 	//Parse Response
-	resTodo := &models.ToDo{}
+	resTodo := &models.Todo{}
 	utils.ParseBodyTest(res, resTodo)
 
 	//Compare response to input
-	if resTodo.ID != todo.ID {
+	if resTodo.ID != 1 {
 		t.Errorf("Incorrect ID")
 	}
-	if resTodo.Task != todo.Task {
+	if resTodo.Name != "TEST" {
 		t.Errorf("Incorrect task name")
 	}
-	if resTodo.Due != todo.Due {
-		t.Errorf("Incorrect due date")
+	if resTodo.Date != "01-01-2023" {
+		t.Errorf("Incorrect date")
 	}
-	if resTodo.Complete != todo.Complete {
+	if resTodo.Time != 60 {
+		t.Errorf("Incorrect time")
+	}
+	if resTodo.Repeat != 0 {
+		t.Errorf("Incorrect repeat")
+	}
+	if resTodo.Complete != true {
 		t.Errorf("Incorrect completed state")
 	}
 }
 
 func TestDeleteTodo(t *testing.T) {
-	//Populate array db with a todo
-	var todo models.Todo
-	todo.ID = 1
-	todo.Task = "Test Name"
-	todo.Due = "Test Day"
-	todo.Complete = true
-	todo.CreateTodo()
+	// Call login
+	TESTsetup()
+	TESTreset(t)
+	TESTpopulate()
 
 	//Create request
 	req, err := http.NewRequest("GET", "/todo/1", nil)
@@ -113,12 +126,12 @@ func TestDeleteTodo(t *testing.T) {
 	}
 	//Set variables
 	vars := make(map[string]string)
-	vars["i"] = strconv.FormatInt(todo.ID, 10)
+	vars["i"] = strconv.FormatInt(1, 10)
 	req = mux.SetURLVars(req, vars)
 
 	//Get Response
 	res := httptest.NewRecorder()
-	GetTodoByID(res, req)
+	controllers.DeleteTodo(res, req)
 
 	//Parse Response
 	resTodos := []models.Todo{}
@@ -131,11 +144,17 @@ func TestDeleteTodo(t *testing.T) {
 }
 
 func TestCreateTodo(t *testing.T) {
+	// Call login
+	TESTsetup()
+	TESTreset(t)
+
 	//Populate array db with a todo
 	var todo models.Todo
 	todo.ID = 1
-	todo.Task = "Test Name"
-	todo.Due = "Test Day"
+	todo.Name = "TEST"
+	todo.Date = "01-01-2023"
+	todo.Time = 60
+	todo.Repeat = 0
 	todo.Complete = true
 	todoDetails, _ := json.Marshal(todo)
 
@@ -147,15 +166,15 @@ func TestCreateTodo(t *testing.T) {
 
 	//Set Request
 	res := httptest.NewRecorder()
-	CreateTodo(res, req)
+	controllers.CreateTodo(res, req)
 
 	//Check Models.list for todo
-	if !itemInList(todo.ID, models.GetList()) {
+	if !itemInDB(db, 1) {
 		t.Errorf("Not in List")
 	}
 }
 
-func TestUpdateTodo(t *testing.T) {
+/*func TestUpdateTodo(t *testing.T) {
 	//Populate array db with a todo
 	var todo models.Todo
 	todo.ID = 1
@@ -204,43 +223,35 @@ func TestUpdateTodo(t *testing.T) {
 	}
 }*/
 
-func itemInList(a int64, list []models.Todo) bool {
-	for _, b := range list {
-		if int64(b.ID) == a {
-			return true
+func itemInDB(db *sql.DB, id int) bool {
+	sqlStmt := `SELECT id FROM todo WHERE id = ?`
+	err := db.QueryRow(sqlStmt, id).Scan(&id)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			log.Print(err)
 		}
+		return false
 	}
-	return false
+	return true
 }
 
-func TESTpopulate() {
-	statement, _ := models.Db.Prepare(`
-	INSERT into todo(id, name, date, time, repeat, complete, userid) VALUES (?, ?, ?, ?, ?, ?, ?)
-	`)
-	statement.Exec(1, "TEST", "01-01-2023", 60, 0, true, 0)
-	statement.Close()
+func TESTsetup() {
+	models.LoginAdmin()
+	db = config.GetDB()
 }
 
-func TESTReset() {
-	statement, _ := models.Db.Prepare(`
-	DELETE from todo where userid=0;
+func TESTreset(t *testing.T) {
+	statement, _ := db.Prepare(`
+	DELETE FROM todo WHERE userid=0;
 	`)
 	statement.Exec()
 	statement.Close()
 }
 
-// func Test(t *testing.T) {
-// 	req, err := http.NewRequest("GET", "http://example.com/foo", nil)
-// 	if err != nil {
-// 		t.Fatal(err)
-// 	}
-
-// 	res := httptest.NewRecorder()
-// 	GetTodo(res, req)
-
-// 	exp := "Hello World"
-// 	act := res.Body.String()
-// 	if exp != act {
-// 		t.Fatalf("Expected %s gog %s", exp, act)
-// 	}
-// }
+func TESTpopulate() {
+	statement, _ := db.Prepare(`
+	INSERT into todo(id, name, date, time, repeat, complete, userid) VALUES (?, ?, ?, ?, ?, ?, ?)
+	`)
+	statement.Exec(1, "TEST", "01-01-2023", 60, 0, true, 0)
+	statement.Close()
+}

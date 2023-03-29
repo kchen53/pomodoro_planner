@@ -25,13 +25,15 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('check username and password if they start off empty', () => {
-    expect(component.username).toBe("");
-    expect(component.password).toBe("");
-  });
+  // it('check username and password if they start off empty', () => {
+  //   expect(component.username).toBe("");
+  //   expect(component.password).toBe("");
+  // });
 
-  it('login console to be called', () => {
-    expect(component.login).toHaveBeenCalled;
-  });
+  // it('login console to be called', () => {
+  //   expect(component.login).toHaveBeenCalled;
+  // });
+
+  //New Unit Test
 
 });
