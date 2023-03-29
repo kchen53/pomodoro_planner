@@ -32,4 +32,10 @@ describe('TimerComponent', () => {
   // });
 
   //New Unit Test
+
+  it('check the timer html header', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('mat-label').textContent).toContain('Set Time');
+  });
 });

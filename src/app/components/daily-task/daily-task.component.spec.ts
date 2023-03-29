@@ -25,5 +25,9 @@ describe('DailyTaskComponent', () => {
   });
 
   //New Unit Test
-  
+  it('check if the daily calender displays the correct date', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('Wednesday, March 29, 2023');
+  });
 });

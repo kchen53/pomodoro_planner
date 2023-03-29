@@ -26,4 +26,9 @@ describe('SpotifyApiComponent', () => {
   });
 
   //New Unit Test
+  it('check if the component loads', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('mat-card-content').textContent).toContain('Spotify Api');
+  });
 });

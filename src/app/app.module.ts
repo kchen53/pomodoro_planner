@@ -20,7 +20,7 @@ import { MatIconModule} from '@angular/material/icon';
 import { TodoService } from './components/todo/todoService';
 import { TimerComponent } from './timer/timer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { SessionsComponent } from './pages/sessions/sessions.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -31,6 +31,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SpotifyApiComponent } from './components/spotify-api/spotify-api.component';
+import {MatDialogRef} from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { SpotifyApiComponent } from './components/spotify-api/spotify-api.compon
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    })
+    }),
+    MatDialogModule
   ],
 
   providers: [TodoService],

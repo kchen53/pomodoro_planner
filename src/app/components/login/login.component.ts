@@ -8,6 +8,7 @@ import { LoginService } from './login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  
   username: string = '';
   password: string = '';
   mode: string = 'Login';

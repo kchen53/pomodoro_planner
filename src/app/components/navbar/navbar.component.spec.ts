@@ -25,5 +25,10 @@ describe('NavbarComponent', () => {
   });
 
   //New Unit Test
+  it('check the navbar Home button exists', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('a').textContent).toContain('Home');
+  });
 
 });

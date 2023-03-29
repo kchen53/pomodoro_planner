@@ -25,4 +25,10 @@ describe('CalendarComponent', () => {
   });
 
   //New Unit Test
+  it('check if the calendar displays the correct month', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('March 2023');
+  });
+  
 });
