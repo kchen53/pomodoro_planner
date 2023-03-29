@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { AppModule } from '../../app.module';
+import { CalendarComponent } from 'src/app/components/calendar/calendar.component';
+import { By } from '@angular/platform-browser';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,7 +13,7 @@ describe('HomeComponent', () => {
       imports: [
         AppModule
       ],
-      declarations: [ HomeComponent ]
+      declarations: [ HomeComponent, CalendarComponent ]
     })
     .compileComponents();
 
@@ -25,4 +27,12 @@ describe('HomeComponent', () => {
   });
 
   //New Unit Test
+
+  it('should have an app-calendar component', () => {
+    const appCalendar = fixture.debugElement.query(
+      By.directive(CalendarComponent)
+    );
+    expect(appCalendar).not.toBeNull();
+  });
+  
 });

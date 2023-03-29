@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
 import { SessionsComponent } from './sessions.component';
+import { DailyTaskComponent } from 'src/app/components/daily-task/daily-task.component';
+import { By } from '@angular/platform-browser';
 
 describe('SessionsComponent', () => {
   let component: SessionsComponent;
@@ -11,7 +13,7 @@ describe('SessionsComponent', () => {
       imports: [
         AppModule
       ],
-      declarations: [ SessionsComponent ]
+      declarations: [ SessionsComponent, DailyTaskComponent ]
     })
     .compileComponents();
 
@@ -25,4 +27,10 @@ describe('SessionsComponent', () => {
   });
 
   //New Unit Test
+  it('should have an app-dailyTask component', () => {
+    const appCalendar = fixture.debugElement.query(
+      By.directive(DailyTaskComponent)
+    );
+    expect(appCalendar).not.toBeNull();
+  });
 });
