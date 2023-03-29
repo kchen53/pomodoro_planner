@@ -4,10 +4,12 @@
 ### Frontend:
 * Timer funtionality implemented
 * Login mostly completed
-* Calendar now displays
+* Calendar now displays and is interactive
 * Deafult home page
 * Day events display on the session page
-* Added spotify playist on session page 
+* Added spotify playist on session page
+* To Do list now has checkboxes
+* Sessions page is correctly oriented with the date at the top and components beneath it
 
 ### Backend:
 
