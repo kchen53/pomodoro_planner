@@ -2,6 +2,12 @@
 
 ## Work Completed
 ### Frontend:
+* Timer funtionality implemented
+* Login mostly completed
+* Calendar now displays
+* Deafult home page
+* Day events display on the session page
+* Added spotify playist on session page 
 
 ### Backend:
 
