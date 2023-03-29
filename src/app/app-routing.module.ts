@@ -7,7 +7,6 @@ import { TimerComponent } from './timer/timer.component';
 import { TodoListComponent } from './components/todo/todoList.components';
 
 const routes: Routes = [
-  { path: 'Pomodoro Planner', component: HomeComponent},
   { path: 'todo', component: TodoListComponent},
   { path: 'timer', component: TimerComponent},
   { path: 'login', component: LoginComponent},
