@@ -8,7 +8,7 @@
 * Deafult home page
 * Day events display on the session page
 * Added spotify playist on session page
-* To Do list now has checkboxes
+* To do list now has checkboxes
 * Sessions page is correctly oriented with the date at the top and components beneath it
 
 ### Backend:
