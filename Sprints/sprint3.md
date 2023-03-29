@@ -123,11 +123,40 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
     - [Get By ID](#get-by-id)  <br>
     - [Update](#update)  <br>
     - [Delete](#delete) <br>
-- [**Login**](#login)
+- [**User**](#user)
+    - [Signup](#signup) <br>
+    - [Login](#login) <br>
+    - [Logout](#logout) <br>
+    - [Get Username](#get-username) <br>
 
 ---
 
 ### Todo
+
+##### Fields:
+
+> **"id"** number <br>
+> Unique key for every todo. Used for updating, deleting, or getting specific todo items
+
+> **"name"** string <br>
+> String name for todo describing the task
+
+> **"date"** string <br>
+> Due date is held in a string of format "YYYY-MM-DD" where YYYY is the year, MM is the month, DD is the day
+
+> **"time"** number *Format: seconds (null OK)* <br>
+> Integer representing time spent/time left for task. Time is in seconds and can be null if not needed.
+
+> **"repeat"** number <br>
+> Signifies how often to repeat task. Data is the integer value of a 7 digit binary flags: <br>
+>> | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
+>> |-----|-----|-----|-----|-----|-----|-----|
+>> |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+> Example 1. If todo is to repeat every Sunday, then the value would be bin(1000000) = int(64) <br>
+> Example 2. If todo is to repeat every Monday, Wednesday, and Friday, then the value would be bin(0101010) = int(42) <br>
+
+> **"complete"** boolean <br>
+> Boolean value signifying whether the task has been completed or not
 
 ####  Create
 
@@ -137,9 +166,10 @@ Creates a new Todo item, returns the created Todo item<br>
 
 ##### Input Fields:
 
->> **"id"** number <br>
->> **"task"** string <br>
->> **"due"** string <br>
+>> **"name"** number <br>
+>> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"time"** number *Format: seconds (null OK)* <br>
+>> **"repeat"** number *Format: Binary flags (see Todo)* <br>
 >> **"complete"** boolean <br>
 > 
 > Style: Raw JSON
@@ -148,22 +178,21 @@ Creates a new Todo item, returns the created Todo item<br>
 
 ```json
 {
-    "id":1,
-    "task":"Pay pomos",
-    "due":"Friday",
+    "name":"Pay pomos",
+    "date":"2021-03-26",
+    "time":3600,
+    "repeat":0,
     "complete":false
 }
 ```
  
 ##### Output Fields:
 
->> **"ID"** number :warning:Not currently used <br>
->> **"CreatedAt"** string :warning:Not currently used <br>
->> **"UpdatedAt"** string :warning:Not currently used <br>
->> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
->> **"task"** string <br>
->> **"due"** string <br>
+>> **"name"** string <br>
+>> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"time"** number *Format: seconds (null OK)* <br>
+>> **"repeat"** number *Format: Binary flags (see Todo)* <br>
 >> **"complete"** boolean <br>
 > 
 > Style: Raw JSON
@@ -172,13 +201,11 @@ Creates a new Todo item, returns the created Todo item<br>
 
 ```json
 {
-    "ID": 0,
-    "CreatedAt": "0001-01-01T00:00:00Z",
-    "UpdatedAt": "0001-01-01T00:00:00Z",
-    "DeletedAt": null,
-    "id": 1,
-    "task": "Pay pomos",
-    "due": "Friday",
+    "id": 0,
+    "name": "Pay pomos",
+    "date": "2021-03-26",
+    "time": 3600,
+    "repeat": 0,
     "complete": false
 }
 ```
@@ -191,13 +218,11 @@ Returns a list of all stored Todo items <br>
 
 ##### Output Fields:
 
->> **"ID"** number :warning:Not currently used <br>
->> **"CreatedAt"** string :warning:Not currently used <br>
->> **"UpdatedAt"** string :warning:Not currently used <br>
->> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
->> **"task"** string <br>
->> **"due"** string <br>
+>> **"name"** string <br>
+>> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"time"** number *Format: seconds (null OK)* <br>
+>> **"repeat"** number *Format: Binary flags (see Todo)* <br>
 >> **"complete"** boolean <br>
 > 
 > Style: Raw JSON
@@ -207,23 +232,19 @@ Returns a list of all stored Todo items <br>
 ```json
 [
     {
-        "ID": 0,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "0001-01-01T00:00:00Z",
-        "DeletedAt": null,
-        "id": 1,
-        "task": "Pay pomos",
-        "due": "Friday",
-        "complete": false
+        "id": 0,
+        "name": "Pay pomos",
+        "date": "2021-03-26",
+        "time": 3600,
+        "repeat": 0,
+        "complete": true
     },
     {
-        "ID": 0,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "0001-01-01T00:00:00Z",
-        "DeletedAt": null,
         "id": 2,
-        "task": "Release doros",
-        "due": "Tuesday",
+        "name": "Release doros",
+        "date": "2021-03-31",
+        "time": null,
+        "repeat": 2, //Note: Every Friday
         "complete": false
     }
 ]
@@ -237,45 +258,41 @@ Returns the Todo item with the id designated by the address
 
 ##### Output Fields:
 
->> **"ID"** number :warning:Not currently used <br>
->> **"CreatedAt"** string :warning:Not currently used <br>
->> **"UpdatedAt"** string :warning:Not currently used <br>
->> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
->> **"task"** string <br>
->> **"due"** string <br>
+>> **"name"** string <br>
+>> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"time"** number *Format: seconds (null OK)* <br>
+>> **"repeat"** number *Format: Binary flags (see Todo)* <br>
 >> **"complete"** boolean <br>
 > 
 > Style: Raw JSON
 
 ###### Example Output:
 
-> GET 127.0.0.1:8081/todo/1
-
 ```json
 {
-    "ID": 0,
-    "CreatedAt": "0001-01-01T00:00:00Z",
-    "UpdatedAt": "0001-01-01T00:00:00Z",
-    "DeletedAt": null,
-    "id": 1,
-    "task": "Pay pomos",
-    "due": "Friday",
-    "complete": false
+    "id": 0,
+    "name": "Pay pomos",
+    "date": "2021-03-26",
+    "time": 3600,
+    "repeat": 64, //Note: Every Sunday
+    "complete": true
 }
 ```
-
 #### Update
 
 > PUT 127.0.0.1:8081/todo/{id} <br>
 
-Modifies the Todo item with the id designated by the address, returns the created Todo item<br>
+Modifies the Todo item with the id designated by the address, returns the updated Todo item<br>
 
 ##### Input Fields:
 
->> **"id"** number <br>
->> **"task"** string <br>
->> **"due"** string <br>
+##### Input Fields:
+
+>> **"name"** number <br>
+>> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"time"** number *Format: seconds (null OK)* <br>
+>> **"repeat"** number *Format: Binary flags (see Todo)* <br>
 >> **"complete"** boolean <br>
 > 
 > Style: Raw JSON
@@ -284,22 +301,21 @@ Modifies the Todo item with the id designated by the address, returns the create
 
 ```json
 {
-    "id":1,
-    "task":"Pay pomos",
-    "due":"Friday",
+    "name":"Pay pomos",
+    "date":"2021-03-26",
+    "time":3600,
+    "repeat":0,
     "complete":true
 }
 ```
  
 ##### Output Fields:
 
->> **"ID"** number :warning:Not currently used <br>
->> **"CreatedAt"** string :warning:Not currently used <br>
->> **"UpdatedAt"** string :warning:Not currently used <br>
->> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
->> **"task"** string <br>
->> **"due"** string <br>
+>> **"name"** string <br>
+>> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"time"** number *Format: seconds (null OK)* <br>
+>> **"repeat"** number *Format: Binary flags (see Todo)* <br>
 >> **"complete"** boolean <br>
 > 
 > Style: Raw JSON
@@ -308,13 +324,11 @@ Modifies the Todo item with the id designated by the address, returns the create
 
 ```json
 {
-    "ID": 0,
-    "CreatedAt": "0001-01-01T00:00:00Z",
-    "UpdatedAt": "0001-01-01T00:00:00Z",
-    "DeletedAt": null,
-    "id": 1,
-    "task": "Pay pomos",
-    "due": "Friday",
+    "id": 0,
+    "name": "Pay pomos",
+    "date": "2021-03-26",
+    "time": 3600,
+    "repeat": 0,
     "complete": true
 }
 ```
@@ -327,13 +341,11 @@ Deletes the Todo items with the id designated by the address, returns the delete
 
 ##### Output Fields:
 
->> **"ID"** number :warning:Not currently used <br>
->> **"CreatedAt"** string :warning:Not currently used <br>
->> **"UpdatedAt"** string :warning:Not currently used <br>
->> **"DeletedAt"** string :warning:Not currently used <br>
 >> **"id"** number <br>
->> **"task"** string <br>
->> **"due"** string <br>
+>> **"name"** string <br>
+>> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"time"** number *Format: seconds (null OK)* <br>
+>> **"repeat"** number *Format: Binary flags (see Todo)* <br>
 >> **"complete"** boolean <br>
 > 
 > Style: Raw JSON
@@ -342,17 +354,116 @@ Deletes the Todo items with the id designated by the address, returns the delete
 
 ```json
 {
-    "ID": 0,
-    "CreatedAt": "0001-01-01T00:00:00Z",
-    "UpdatedAt": "0001-01-01T00:00:00Z",
-    "DeletedAt": null,
-    "id": 0,
-    "task": "",
-    "due": "",
+    "id": 7,
+    "name": "",
+    "date": "",
+    "time": 0,
+    "repeat": 0,
     "complete": false
 }
 ```
 
-### Login
+### User
 
-*Note yet completed*
+####  Signup
+
+> <font color="orange">POST</font> 127.0.0.1:8081/signup <br>
+
+If the username does not already exist then creates a new user and logs in, returns whether a new user was successfully created <br>
+
+##### Input Fields:
+
+>> **"username"** string <br>
+>> **"password"** string <br>
+> 
+> Style: Raw JSON
+
+###### Example Input:
+
+```json
+{
+    "username":"Pomodoro",
+    "password":"ILovePomos",
+}
+```
+ 
+##### Output Fields:
+
+>> boolean <br>
+> 
+> Style: Raw JSON
+
+###### Example Output:
+
+```json
+true
+```
+
+####  Login
+
+> <font color="blue">PUT</font> 127.0.0.1:8081/login <br>
+
+Logs in if a the a user with the given credentials exists, returns whether the login was successful <br>
+
+##### Input Fields:
+
+>> **"username"** string <br>
+>> **"password"** string <br>
+> 
+> Style: Raw JSON
+
+###### Example Input:
+
+```json
+{
+    "username":"Pomodoro",
+    "password":"ILovePomos",
+}
+```
+ 
+##### Output Fields:
+
+>> boolean <br>
+> 
+> Style: Raw JSON
+
+###### Example Output:
+
+```json
+false
+```
+
+####  Logout
+
+> <font color="red">PUT</font> 127.0.0.1:8081/logout <br>
+
+Logs out, setting the user to "Anonymous"<br>
+ 
+##### Output Fields:
+
+>> boolean <br>
+> 
+> Style: Raw JSON
+
+###### Example Output:
+
+```json
+true
+```
+####  GetUsername
+
+> <font color="green">GET</font> 127.0.0.1:8081/userdata <br>
+
+Returns the username of the currently logged in user, returns "Anonymous" if not logged in; returns "" if there is a server side error <br>
+ 
+##### Output Fields:
+
+>> string <br>
+> 
+> Style: Raw JSON
+
+###### Example Output:
+
+```json
+"Anonymous"
+```
