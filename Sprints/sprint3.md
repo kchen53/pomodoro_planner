@@ -21,6 +21,7 @@
     * Updated data structe
     * Switched to database implementation
     * Updated all routes
+* Updated all unit tests to work with database integration
 
 ## Unit Tests
 
