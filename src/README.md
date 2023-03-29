@@ -13,7 +13,7 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
     - [Get By ID](#get-by-id)  <br>
     - [Update](#update)  <br>
     - [Delete](#delete) <br>
-- [**User**](#login)
+- [**User**](#user)
     - [Signup](#signup) <br>
     - [Login](#login) <br>
     - [Logout](#logout) <br>
