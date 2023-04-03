@@ -430,7 +430,7 @@ Modifies the Event item with the id designated by the address, returns the updat
 ```json
 {
     "name":"Pay pomos",
-    "date":"2021-03-26",
+    "date":"2021-03-27",
     "start-time":"18-30",
     "end-time":"20-00",
     "repeat": 0
@@ -454,7 +454,7 @@ Modifies the Event item with the id designated by the address, returns the updat
 {
     "id": 0,
     "name": "Pay pomos",
-    "date": "2021-03-26",
+    "date": "2021-03-27",
     "start-time":"18-30",
     "end-time":"20-00",
     "repeat": 0
