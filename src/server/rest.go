@@ -18,6 +18,7 @@ func httpHandler() http.Handler {
 
 	//router.HandleFunc("/books/{title}/page/{page}", handleBookGet).Methods("GET")
 	routes.RegisterTodoRoutes(router)
+	routes.RegisterEventRoutes(router)
 	routes.RegisterUserRoutes(router)
 
 	// Add your routes here.
