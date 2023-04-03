@@ -13,7 +13,7 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
     - [Get By ID](#get-by-id)  <br>
     - [Update](#update)  <br>
     - [Delete](#delete) <br>
-- [**User**](#login)
+- [**User**](#user)
     - [Signup](#signup) <br>
     - [Login](#login) <br>
     - [Logout](#logout) <br>
@@ -253,7 +253,7 @@ Deletes the Todo items with the id designated by the address, returns the delete
 }
 ```
 
-### Login
+### User
 
 ####  Signup
 
@@ -289,7 +289,7 @@ If the username does not already exist then creates a new user and logs in, retu
 true
 ```
 
-####  User
+####  Login
 
 > <font color="blue">PUT</font> 127.0.0.1:8081/login <br>
 
