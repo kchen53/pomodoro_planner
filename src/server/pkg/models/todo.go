@@ -23,19 +23,8 @@ type Todo struct {
 func init() {
 	config.Connect()
 	db = config.GetDB()
-	// config.CreateTable(`
-	// CREATE TABLE todo (
-	// 	"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-	// 	"name" TEXT NOT NULL,
-	// 	"date" TEXT NOT NULL,
-	// 	"time" integer,
-	// 	"repeat" integer NOT NULL,
-	// 	"complete" integer NOT NULL
-	// );
-	// `)
 }
 
-//1:43:03
 func (t *Todo) CreateTodo() *Todo {
 	log.Println("Inserting", t.Name, "...")
 	statement, err := db.Prepare(`
