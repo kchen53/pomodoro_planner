@@ -1,6 +1,7 @@
 # Binaries for programs and plugins
 #*.exe
 #*.exe~
+*pomodoro_planner.exe
 *.dll
 *.so
 *.dylib

@@ -36,9 +36,9 @@ func GetTodoByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	CreateTodo := &models.Todo{}
-	utils.ParseBody(r, CreateTodo)
-	t := CreateTodo.CreateTodo()
+	createTodo := &models.Todo{}
+	utils.ParseBody(r, createTodo)
+	t := createTodo.CreateTodo()
 	res, _ := json.Marshal(t)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
