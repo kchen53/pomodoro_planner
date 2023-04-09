@@ -8,13 +8,15 @@ import { LoginService } from './login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  
+
   username: string = '';
   password: string = '';
   mode: string = 'Login';
   modeButton: string = 'Sign Up';
   login: boolean = true;
   success: boolean = false;
+  showFailed: boolean = false;
+  failMessage: string = 'Username or password is incorrect';
 
 
   constructor(
@@ -35,9 +37,24 @@ export class LoginComponent {
       this.loginService.signup(this.username, this.password).subscribe(
         (data) => {
           console.log(data);
+          data.valueOf() ? this.success = true : this.success = false;
         });
     }
-    this.dialogRef.close();
+    if (this.success) {
+      this.dialogRef.close();
+    }
+    else {
+      this.password = '';
+      this.showFailed = true;
+    }
+
+    if (this.mode == 'Login') {
+      this.failMessage = 'Username or password is incorrect';
+    }
+    else {
+      this.failMessage = 'Username already exists';
+    }
+
   }
 
   changeMode() {
