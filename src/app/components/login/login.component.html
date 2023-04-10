@@ -31,6 +31,7 @@
     <mat-label>Password</mat-label>
     <input matInput type="password" name="password" [(ngModel)]="password">
   </mat-form-field>
+  <mat-error *ngIf="showFailed">{{failMessage}}</mat-error>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onSubmit()">Submit</button>
