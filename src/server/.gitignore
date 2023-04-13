@@ -1,1 +1,3 @@
 vendor/
+*pomodoro_planner.exe
+*.db
