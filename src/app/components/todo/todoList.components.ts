@@ -7,6 +7,7 @@ import { TodoService } from './todoService';
   templateUrl: './todoList.component.html',
   styleUrls: ['./todoList.component.css']
 })
+
 export class TodoListComponent implements OnInit {
 
   newTodo: string = '';
