@@ -78,3 +78,10 @@
 
 <mwl-calendar-day-view [viewDate]="viewDate">
 </mwl-calendar-day-view> -->
+
+<mat-form-field>
+    <input matInput [(ngModel)]="newEvent" placeholder="task...">
+    <button mat-icon-button matSuffix name="Add" (click)="addEvents(newEvent)">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-form-field>
