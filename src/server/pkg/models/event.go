@@ -10,15 +10,15 @@ type Event struct {
 	ID        int    `json:"id"`
 	Name      string `json:"name"`
 	Date      string `json:"date"`       //YYYY-MM-DD
-	StartTime int    `json:"start-time"` //HH-MM
-	EndTime   int    `json:"end-time"`   //HH-MM
+	StartTime string `json:"start-time"` //HH-MM
+	EndTime   string `json:"end-time"`   //HH-MM
 	Repeat    int    `json:"repeat"`     //binaryflags: 0:6 = MTWRFSN
 }
 
 func (e *Event) CreateEvent() *Event {
 	log.Println("Inserting", e.Name, "...")
 	statement, err := db.Prepare(`
-	INSERT INTO event(name, date, start_time, end_time, repeat, userid) VALUES (?, ?, ?, ?, ?, ?, ?)
+	INSERT INTO event(name, date, start_time, end_time, repeat, userid) VALUES (?, ?, ?, ?, ?, ?)
 	`)
 	if err != nil {
 		log.Println("Insertion: Failed to prepare statement")
