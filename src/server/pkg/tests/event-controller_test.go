@@ -47,10 +47,10 @@ func TestGetEvent(t *testing.T) {
 		if resEvents[0].Date != "01-01-2023" {
 			t.Errorf("Incorrect date")
 		}
-		if resEvents[0].StartTime != 18-30 {
+		if resEvents[0].StartTime != "18-30" {
 			t.Errorf("Incorrect time")
 		}
-		if resEvents[0].EndTime != 20-00 {
+		if resEvents[0].EndTime != "20-00" {
 			t.Errorf("Incorrect repeat")
 		}
 		if resEvents[0].Repeat != 0 {
@@ -76,6 +76,6 @@ func Populate() {
 	statement, _ := db.Prepare(`
 	INSERT into event(id, name, date, starttime, endtime, repeat, userid) VALUES (?, ?, ?, ?, ?, ?, ?)
 	`)
-	statement.Exec(1, "TEST", "01-01-2023", 18-30, 20-0, 0, 0)
+	statement.Exec(1, "TEST", "01-01-2023", "18-30", "20-00", 0, 0)
 	statement.Close()
 }
