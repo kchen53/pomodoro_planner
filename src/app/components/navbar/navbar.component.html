@@ -2,6 +2,7 @@
 <mat-toolbar color="black" class="mat-elevation-z6">
     <span routerLink="home">
     <img src="../assets/pomodoro_original.png" alt = "Image not found" width="32px">
+    &nbsp;
     </span>
     <div></div>
     <span> Pomodoro Planner </span>
@@ -9,9 +10,10 @@
     <div class="spacer"></div>
 
     <a mat-button routerLink="session"> Session </a>
-    <a mat-raised-button color = "accent" *ngIf="loggedIn" (click)="openDialog()"> Login </a>
-    <a *ngId="!loggedIn"> {{username}} </a>
-    <a mat-raised-button color = "primary" *ngIf="!loggedIn" (click)="logout()"> Logout </a>
+    <a mat-raised-button color = "accent" *ngIf="!loggedIn" (click)="openDialog()"> Login </a>
+    <span *ngIf="loggedIn" color="accent">Hello, {{username}}</span>
+    &nbsp;
+    <a mat-raised-button color = "primary" *ngIf="loggedIn" (click)="logout()"> Logout </a>
     <button mat-icon-button color="primary">
       <mat-icon>settings</mat-icon>
     </button>

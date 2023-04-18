@@ -9,23 +9,26 @@ import { NavbarService } from './navbar.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  username: string = '';
-  loggedIn: boolean = false;
+  username: string;
+  loggedIn: boolean;
 
   constructor(
     public dialog: MatDialog,
     private navbarService: NavbarService
-    ) {}
+    ) {
+      this.username = 'Anonymous';
+      this.loggedIn = false;
+    }
 
   ngOnInit() {
     this.navbarService.getUsername().subscribe(
       (data) => {
-        this.username = data.valueOf()
+        if (data.valueOf() != '"Anonymous"') {
+          this.username = data.valueOf();
+          this.username = this.username.substring(1, this.username.length - 1);
+          this.loggedIn = true;
+        }
       });
-
-    if (this.username != 'Anonymous') {
-      this.loggedIn = true;
-    }
   }
 
   openDialog(){
