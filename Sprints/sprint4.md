@@ -186,11 +186,11 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
     - [Update](#update)  <br>
     - [Delete](#delete) <br>
 - [**Event**](#event)
-    - [Create](#create)  <br>
-    - [Get All](#get-all)  <br>
-    - [Get By ID](#get-by-id)  <br>
-    - [Update](#update)  <br>
-    - [Delete](#delete) <br>
+    - [Create](#create-event)  <br>
+    - [Get All](#get-all-events)  <br>
+    - [Get By ID](#get-event-by-id)  <br>
+    - [Update](#update-event)  <br>
+    - [Delete](#delete-event) <br>
 - [**User**](#user)
     - [Signup](#signup) <br>
     - [Login](#login) <br>
@@ -458,7 +458,7 @@ Deletes the Todo items with the id designated by the address, returns the delete
 > Example 1. If event is to repeat every Sunday, then the value would be bin(1000000) = int(64) <br>
 > Example 2. If event is to repeat every Monday, Wednesday, and Friday, then the value would be bin(0101010) = int(42) <br>
 
-####  Create
+####  Create Event
 
 > <font color="orange">POST</font> 127.0.0.1:8081/event <br>
 
@@ -510,7 +510,7 @@ Creates a new Event item, returns the created Event item<br>
 }
 ```
           
-#### Get All
+#### Get All Events
 
 > GET 127.0.0.1:8081/event <br>
 
@@ -550,7 +550,7 @@ Returns a list of all stored Event items <br>
 ]
 ```
 
-#### Get by ID
+#### Get Event by ID
 
 > GET 127.0.0.1:8081/event/{id} <br>
 
@@ -633,7 +633,7 @@ Modifies the Event item with the id designated by the address, returns the updat
 }
 ```
 
-#### Delete
+#### Delete Event
 
 > DELETE 1270.0.1:8081/event/{id} <br>
 
