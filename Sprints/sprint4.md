@@ -163,6 +163,13 @@ describe('Calendar', () => {
 - TestDeleteToDo
 - TestUpdateToDo
 
+(pomodoro_planner\src\server\pkg\controllers\event-controller_test.go)
+- TestGetEvent
+- TestGetEventByID
+- TestCreateEvent
+- TestDeleteEvent
+- TestUpdateEvent
+
 ## API
 
 Pomodoro Planner aids the creation of a study session environment. We make use of a RESTful API to facilitate http requests and responses. Data is accepted and returned in the JSON format.
@@ -173,6 +180,12 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
 ### Contents  
 
 - [**Todo**](#todo)
+    - [Create](#create)  <br>
+    - [Get All](#get-all)  <br>
+    - [Get By ID](#get-by-id)  <br>
+    - [Update](#update)  <br>
+    - [Delete](#delete) <br>
+- [**Event**](#event)
     - [Create](#create)  <br>
     - [Get All](#get-all)  <br>
     - [Get By ID](#get-by-id)  <br>
