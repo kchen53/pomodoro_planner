@@ -29,23 +29,29 @@ export class LoginComponent {
       // login
       this.loginService.login(this.username, this.password).subscribe(
         (data) => {
-          console.log(data);
+          if (data.valueOf() == 'true') {
+            this.dialogRef.close();
+            location.reload();
+          }
+          else {
+            this.password = '';
+            this.showFailed = true;
+          }
         });
     }
     else {
       // signup
       this.loginService.signup(this.username, this.password).subscribe(
         (data) => {
-          console.log(data);
-          data.valueOf() ? this.success = true : this.success = false;
+          if (data.valueOf() == 'true') {
+            this.dialogRef.close();
+            location.reload();
+          }
+          else {
+            this.password = '';
+            this.showFailed = true;
+          }
         });
-    }
-    if (this.success) {
-      this.dialogRef.close();
-    }
-    else {
-      this.password = '';
-      this.showFailed = true;
     }
 
     if (this.mode == 'Login') {

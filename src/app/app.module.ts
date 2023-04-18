@@ -32,7 +32,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SpotifyApiComponent } from './components/spotify-api/spotify-api.component';
 import {MatDialogRef} from '@angular/material/dialog';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -70,7 +70,8 @@ import {MatDialogRef} from '@angular/material/dialog';
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
 
   providers: [TodoService],

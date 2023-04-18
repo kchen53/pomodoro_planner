@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarView } from 'angular-calendar';
 import { Event } from '../calendar/event'
 import { EventService } from '../calendar/eventService'
+import { CalendarEvent } from 'angular-calendar';
 
 @Component({
   selector: 'app-calendar',
@@ -15,12 +16,19 @@ export class CalendarComponent implements OnInit{
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
 
+  startTimePicker = 'start-time-picker';
+
   setView(view: CalendarView) {
     this.view = view;
   }
 
   //events
   newEvent: string = '';
+  newEventName: string = '';
+  newEventDate: string = '';
+  newEventStartTime: string = '';
+  newEventEndTime: string = '';
+  newEventRepeat: number = 0;
   events: Event[] = [];
 
   constructor(private eventService: EventService) { }
@@ -38,16 +46,23 @@ export class CalendarComponent implements OnInit{
       .subscribe(events => this.events = events); 
   }
 
-  addEvents(name : string): void {
+  addEvents(name: string, date: string, startTime: string, endTime: string, repeat: number): void {
     name = name.trim();
-    if (!name) { return; }
-    const event: Event = { name } as Event;
+    if (!name || !date || !startTime || !endTime || !repeat) {
+      return;
+    }
+  
+    const event: Event = { name, date, startTime, endTime, repeat } as Event;
     this.eventService.addEvent(event).subscribe(newEvent => {
-        this.events.push(newEvent);
-      });
-      this.newEvent = '';
+      this.events.push(newEvent);
+    });
+    this.newEventName = '';
+    this.newEventDate = '';
+    this.newEventStartTime = '';
+    this.newEventEndTime = '';
+    this.newEventRepeat = 0;
   }
-
+  
   deleteEvent(event: Event): void {
     this.events = this.events.filter(e => e !== event);
     this.eventService.deleteEvent(event.id).subscribe();

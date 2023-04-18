@@ -54,5 +54,31 @@
 </mat-card-content>
 </mat-card>
 </div>
-</div> -->
+</div>
+ -->
 
+ <mat-form-field>
+    <input matInput type="text" placeholder="Event name" [(ngModel)]="newEvent">
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput [matDatepicker]="datePicker" placeholder="Date" [(ngModel)]="newEventDate">
+    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput type="text" placeholder="Start time" [(ngModel)]="newEventStartTime">
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput type="text" placeholder="End time" [(ngModel)]="newEventEndTime">
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput type="number" placeholder="Repeat" [(ngModel)]="newEventRepeat">
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="addEvents(newEvent, newEventDate, newEventStartTime, newEventEndTime, newEventRepeat)">Add</button>
+
+  
