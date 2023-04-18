@@ -109,6 +109,36 @@ func TestGetEventByID(t *testing.T) {
 	}
 }
 
+func TestDeleteEvent(t *testing.T) {
+	// Call login
+	Setup()
+	Reset(t)
+	Populate()
+
+	//Create request
+	req, err := http.NewRequest("GET", "/event/1", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	//Set variables
+	vars := make(map[string]string)
+	vars["i"] = strconv.FormatInt(1, 10)
+	req = mux.SetURLVars(req, vars)
+
+	//Get Response
+	res := httptest.NewRecorder()
+	controllers.DeleteEvent(res, req)
+
+	//Parse Response
+	resEvents := []models.Event{}
+	utils.ParseBodyTest(res, &resEvents)
+
+	//Check Response
+	if len(resEvents) != 0 {
+		t.Errorf("Incorrect number of Events")
+	}
+}
+
 func Setup() {
 	models.LoginAdmin()
 	db = config.GetDB()
