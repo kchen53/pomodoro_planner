@@ -1,11 +1,13 @@
 package test
 
 import (
+	"log"
 	"net/http"
 	"net/http/httptest"
-	"testing"
-	"log"
 	"strconv"
+	"testing"
+	"bytes"
+	"encoding/json"
 
 	"github.com/kchen53/pomodoro_planner/pkg/config"
 	"github.com/kchen53/pomodoro_planner/pkg/controllers"
@@ -136,6 +138,56 @@ func TestDeleteEvent(t *testing.T) {
 	//Check Response
 	if len(resEvents) != 0 {
 		t.Errorf("Incorrect number of Events")
+	}
+}
+
+func TestCreateEvent(t *testing.T) {
+	// Call login
+	Setup()
+	Reset(t)
+
+	//Populate array db with a todo
+	var event models.Event
+	event.ID = 1
+	event.Name = "TEST"
+	event.Date = "01-01-2023"
+	event.StartTime = "18-30"
+	event.EndTime = "20-00"
+	event.Repeat = 0
+	eventDetails, _ := json.Marshal(event)
+
+	//Create request
+	req, err := http.NewRequest("POST", "/event/1", bytes.NewReader(eventDetails))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	//Set Request
+	res := httptest.NewRecorder()
+	controllers.CreateEvent(res, req)
+
+	//Parse Response
+	resEvent := &models.Event{}
+	utils.ParseBodyTest(res, resEvent)
+
+	//Compare response to input
+	if resEvent.ID != 1 {
+		t.Errorf("Incorrect ID")
+	}
+	if resEvent.Name != "TEST" {
+		t.Errorf("Incorrect task name")
+	}
+	if resEvent.Date != "01-01-2023" {
+		t.Errorf("Incorrect date")
+	}
+	if resEvent.StartTime != "18-30" {
+		t.Errorf("Incorrect time")
+	}
+	if resEvent.EndTime != "20-00" {
+		t.Errorf("Incorrect repeat")
+	}
+	if resEvent.Repeat != 0 {
+		t.Errorf("Incorrect completed state")
 	}
 }
 
