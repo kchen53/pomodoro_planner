@@ -48,6 +48,11 @@ export class CalendarComponent implements OnInit{
       this.newEvent = '';
   }
 
+  deleteEvent(event: Event): void {
+    this.events = this.events.filter(e => e !== event);
+    this.eventService.deleteEvent(event.id).subscribe();
+  } 
+  
   // addEvents(task : string): void {
   //   task = task.trim();
   //   if (!task) { return; }
@@ -57,9 +62,4 @@ export class CalendarComponent implements OnInit{
   //     });
   //     this.newEvent = '';
   // }
-
-  deleteEvent(event: Event): void {
-    this.events = this.events.filter(e => e !== event);
-    this.eventService.deleteEvent(event.id).subscribe();
-  }
 }
