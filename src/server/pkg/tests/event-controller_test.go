@@ -1,13 +1,13 @@
 package test
 
 import (
+	"bytes"
+	"encoding/json"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"testing"
-	"bytes"
-	"encoding/json"
 
 	"github.com/kchen53/pomodoro_planner/pkg/config"
 	"github.com/kchen53/pomodoro_planner/pkg/controllers"
@@ -254,9 +254,13 @@ func Setup() {
 }
 
 func Reset(t *testing.T) {
-	statement, _ := db.Prepare(`
+	statement, err := db.Prepare(`
 	DELETE FROM event WHERE userid=0;
 	`)
+	if err != nil {
+		log.Println("FAILED TO PREPARE RESET STATEMENT")
+		log.Println(err)
+	}
 	statement.Exec()
 	statement.Close()
 }
