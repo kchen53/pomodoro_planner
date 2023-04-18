@@ -9,10 +9,9 @@
     <div class="spacer"></div>
 
     <a mat-button routerLink="session"> Session </a>
-    <!-- <a mat-button routerLink="about-us"> About Us </a> -->
-    <!-- <a mat-button routerLink="timer"> Timer </a> -->
-    <a mat-raised-button color = "accent" (click)="openDialog()"> Login </a>
-    <!-- <a mat-raised-button color = "primary" routerLink="login"> Signup </a> -->
+    <a mat-raised-button color = "accent" *ngIf="loggedIn" (click)="openDialog()"> Login </a>
+    <a *ngId="!loggedIn"> {{username}} </a>
+    <a mat-raised-button color = "primary" *ngIf="!loggedIn" (click)="logout()"> Logout </a>
     <button mat-icon-button color="primary">
       <mat-icon>settings</mat-icon>
     </button>
