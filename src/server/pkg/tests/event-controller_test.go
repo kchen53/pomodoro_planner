@@ -23,7 +23,6 @@ func TestGetEvent(t *testing.T) {
 	// Call login
 	Setup()
 	Reset(t)
-	log.Println("here!")
 	Populate()
 
 	//Create request
@@ -146,7 +145,7 @@ func TestCreateEvent(t *testing.T) {
 	Setup()
 	Reset(t)
 
-	//Populate array db with an event
+	//Populate variable with an event
 	var event models.Event
 	event.ID = 1
 	event.Name = "TEST"
