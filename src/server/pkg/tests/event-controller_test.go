@@ -101,10 +101,10 @@ func TestGetEventByID(t *testing.T) {
 		t.Errorf("Incorrect date")
 	}
 	if resEvent.StartTime != "18-30" {
-		t.Errorf("Incorrect time")
+		t.Errorf("Incorrect start time")
 	}
 	if resEvent.EndTime != "20-00" {
-		t.Errorf("Incorrect time")
+		t.Errorf("Incorrect end time")
 	}
 	if resEvent.Repeat != 0 {
 		t.Errorf("Incorrect repeat")
@@ -146,7 +146,7 @@ func TestCreateEvent(t *testing.T) {
 	Setup()
 	Reset(t)
 
-	//Populate array db with a todo
+	//Populate array db with an event
 	var event models.Event
 	event.ID = 1
 	event.Name = "TEST"
@@ -181,13 +181,70 @@ func TestCreateEvent(t *testing.T) {
 		t.Errorf("Incorrect date")
 	}
 	if resEvent.StartTime != "18-30" {
-		t.Errorf("Incorrect time")
+		t.Errorf("Incorrect start time")
 	}
 	if resEvent.EndTime != "20-00" {
-		t.Errorf("Incorrect repeat")
+		t.Errorf("Incorrect end time")
 	}
 	if resEvent.Repeat != 0 {
-		t.Errorf("Incorrect completed state")
+		t.Errorf("Incorrect repeat")
+	}
+}
+
+func TestUpdateEvent(t *testing.T) {
+
+	var event models.Event
+
+	// Call login
+	Setup()
+	Reset(t)
+	Populate()
+
+	//Populate variable with an event
+	event.Name = "TEST3"
+	event.Date = "01-02-2023"
+	event.StartTime = "17-30"
+	event.EndTime = "21-00"
+	event.Repeat = 1
+	eventDetails, _ := json.Marshal(event)
+
+	//Create request
+	req, err := http.NewRequest("PUT", "/todo/1", bytes.NewReader(eventDetails))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	//Set variables
+	vars := make(map[string]string)
+	vars["i"] = strconv.FormatInt(1, 10)
+	req = mux.SetURLVars(req, vars)
+
+	//Send Request
+	res := httptest.NewRecorder()
+	controllers.UpdateEvent(res, req)
+
+	//Parse Response
+	resEvent := &models.Event{}
+	utils.ParseBodyTest(res, resEvent)
+
+	//Compare response to input
+	if resEvent.ID != 1 {
+		t.Errorf("Incorrect ID")
+	}
+	if resEvent.Name != "TEST3" {
+		t.Errorf("Incorrect task name")
+	}
+	if resEvent.Date != "01-02-2023" {
+		t.Errorf("Incorrect date")
+	}
+	if resEvent.StartTime != "17-30" {
+		t.Errorf("Incorrect start time")
+	}
+	if resEvent.EndTime != "21-00" {
+		t.Errorf("Incorrect end time")
+	}
+	if resEvent.Repeat != 1 {
+		t.Errorf("Incorrect repeat")
 	}
 }
 
