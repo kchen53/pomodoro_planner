@@ -8,17 +8,16 @@ import (
 
 type Event struct {
 	ID        int    `json:"id"`
-	Name      string `json:"name"`
-	Date      string `json:"date"`       //YYYY-MM-DD
-	StartTime string `json:"start-time"` //HH-MM
-	EndTime   string `json:"end-time"`   //HH-MM
-	Repeat    int    `json:"repeat"`     //binaryflags: 0:6 = MTWRFSN
+	Name      string `json:"title"`
+	StartTime string `json:"start"`
+	EndTime   string `json:"end"`
+	Color     string `json:"color"`
 }
 
 func (e *Event) CreateEvent() *Event {
 	log.Println("Inserting", e.Name, "...")
 	statement, err := db.Prepare(`
-	INSERT INTO event(name, date, start_time, end_time, repeat, userid) VALUES (?, ?, ?, ?, ?, ?)
+	INSERT INTO event(name, start, end, color, userid) VALUES (?, ?, ?, ?, ?)
 	`)
 	if err != nil {
 		log.Println("Insertion: Failed to prepare statement")
@@ -26,7 +25,7 @@ func (e *Event) CreateEvent() *Event {
 		return e
 	}
 	defer statement.Close()
-	_, err = statement.Exec(e.Name, e.Date, e.StartTime, e.EndTime, e.Repeat, GetUserId())
+	_, err = statement.Exec(e.Name, e.StartTime, e.EndTime, e.Color, GetUserId())
 	if err != nil {
 		log.Println("Insertion: Failed to execute statement")
 		log.Println(err)
@@ -39,7 +38,7 @@ func GetAllEvent() []Event {
 	Events := make([]Event, 0)
 	log.Println("Getting all events...")
 	rows, err := db.Query(`
-	SELECT id, name, date, start_time, end_time, repeat
+	SELECT id, name, start, end, color
 	FROM event
 	WHERE userid=?
 	ORDER BY id;
@@ -54,7 +53,7 @@ func GetAllEvent() []Event {
 	//ignore := 0
 	for rows.Next() {
 		var e Event
-		if err := rows.Scan(&e.ID, &e.Name, &e.Date, &e.StartTime, &e.EndTime, &e.Repeat); err != nil {
+		if err := rows.Scan(&e.ID, &e.Name, &e.StartTime, &e.EndTime, &e.Color); err != nil {
 			log.Println("Query: Failed to read query")
 			log.Println(err)
 			return nil
@@ -80,7 +79,7 @@ func GetEventByID(id int) Event {
 	}
 	defer rows.Close()
 	rows.Next()
-	if err := rows.Scan(&getEvent.ID, &getEvent.Name, &getEvent.Date, &getEvent.StartTime, &getEvent.EndTime, &getEvent.Repeat, nil); err != nil {
+	if err := rows.Scan(&getEvent.ID, &getEvent.Name, &getEvent.StartTime, &getEvent.EndTime, &getEvent.Color, nil); err != nil {
 		log.Println("Query: Failed to read query")
 		log.Println(err)
 		return getEvent
@@ -114,7 +113,7 @@ func (e *Event) UpdateEvent() *Event {
 	log.Println("Updating event", e.ID, "...")
 	statement, err := db.Prepare(`
 	UPDATE event
-	SET name = ?, date = ?, start_time = ?, end_time = ?, repeat = ?
+	SET name = ?, start = ?, end = ?, color = ?
 	WHERE id=?;
 	`)
 	if err != nil {
@@ -123,7 +122,7 @@ func (e *Event) UpdateEvent() *Event {
 		return e
 	}
 	defer statement.Close()
-	_, err = statement.Exec(e.Name, e.Date, e.StartTime, e.EndTime, e.Repeat, e.ID)
+	_, err = statement.Exec(e.Name, e.StartTime, e.EndTime, e.Color, e.ID)
 	if err != nil {
 		log.Println("Update: Failed to execute statement")
 		log.Println(err)
