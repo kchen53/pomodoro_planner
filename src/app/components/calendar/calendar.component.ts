@@ -3,6 +3,9 @@ import { CalendarView } from 'angular-calendar';
 import { Event } from '../calendar/event'
 import { EventService } from '../calendar/eventService'
 import { CalendarEvent } from 'angular-calendar';
+import { MatCalendar } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-calendar',
@@ -10,71 +13,52 @@ import { CalendarEvent } from 'angular-calendar';
   styleUrls: ['./calendar.component.css'],
 })
 
-export class CalendarComponent implements OnInit{
-
+export class CalendarComponent{
+  
   viewDate: Date = new Date();
-  view: CalendarView = CalendarView.Month;
-  CalendarView = CalendarView;
+  events: CalendarEvent[] = [];
+  event : Event[] = [];
 
-  startTimePicker = 'start-time-picker';
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  //events
-  newEvent: string = '';
-  newEventName: string = '';
-  newEventDate: string = '';
-  newEventStartTime: string = '';
-  newEventEndTime: string = '';
-  newEventRepeat: number = 0;
-  events: Event[] = [];
+  id = 0;
+  name = '';
+  start = '2023-04-20T10:00:00';
+  end = '2023-04-20T12:00:00';
+  color = '';
 
   constructor(private eventService: EventService) { }
 
-  onEnter() {
-    this.newEvent = '';
-  }
-
-  ngOnInit() {
-    this.getEvents();
-  }
-
-  getEvents(): void { 
-    this.eventService.getEvents() 
-      .subscribe(events => this.events = events); 
-  }
-
-  addEvents(name: string, date: string, startTime: string, endTime: string, repeat: number): void {
-    name = name.trim();
-    if (!name || !date || !startTime || !endTime || !repeat) {
-      return;
-    }
+  addEvent() {
+    const newEvent: Event = {
+      id: this.id,
+      name: this.name,
+      start: this.start,
+      end: this.end,
+      color: this.color
+    };
   
-    const event: Event = { name, date, startTime, endTime, repeat } as Event;
-    this.eventService.addEvent(event).subscribe(newEvent => {
-      this.events.push(newEvent);
-    });
-    this.newEventName = '';
-    this.newEventDate = '';
-    this.newEventStartTime = '';
-    this.newEventEndTime = '';
-    this.newEventRepeat = 0;
+    this.eventService.addEvent(newEvent).subscribe(
+      (event: Event) => {
+        console.log('Event added successfully!', event);
+        const calendarEvent: CalendarEvent = {
+          title: event.name,
+          start: new Date(event.start),
+          end: new Date(event.end),
+          color: {
+            primary: event.color,
+            secondary: '#FAE3E3'
+          }
+        };
+        this.events.push(calendarEvent);
+  
+        // Reset the form fields after adding the new event
+        this.name = '';
+        this.start = '';
+        this.end = '';
+        this.color = '';
+      },
+      (error) => {
+        console.log('Error adding event:', error);
+      }
+    );
   }
-  
-  deleteEvent(event: Event): void {
-    this.events = this.events.filter(e => e !== event);
-    this.eventService.deleteEvent(event.id).subscribe();
-  } 
-  
-  // addEvents(task : string): void {
-  //   task = task.trim();
-  //   if (!task) { return; }
-  //   const event: Event = { task } as Event;
-  //   this.eventService.addEvent(event).subscribe(newEvent => {
-  //       this.events.push(newEvent);
-  //     });
-  //     this.newEvent = '';
-  // }
 }

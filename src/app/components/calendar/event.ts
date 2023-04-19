@@ -1,15 +1,7 @@
 export interface Event {
     id: number;
     name: string;
-    date: string;
-    startTime: string;
-    endTime: string;
-    repeat: number;
+    start: string;
+    end: string;
+    color: string;
 }
-
-//   export interface Event {
-//   id: number;
-//   task: string;
-//   due: string;
-//   complete: boolean;
-// }
