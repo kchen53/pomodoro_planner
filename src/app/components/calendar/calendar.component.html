@@ -161,7 +161,60 @@
 
 <button mat-raised-button color="primary" (click)="addEvent()">Add</button>
 
-<mwl-calendar-month-view [viewDate]="viewDate" [events]="events"></mwl-calendar-month-view>
+<mat-card>
+    <mat-card-content>
+        <div class="row text-center">
+    
+            <div class="col-md-4">
+                <div class="btn-group">
+                    <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+                        Previous
+                    </div>
+                    <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+                        Today
+                    </div>
+                    <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+                        Next
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                <h2>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h2>
+              </div>
+         
+    
+            <div class="col-md-4">
+            <div class="btn-group">
+                <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+                    Month
+                </div>
+                <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+                    Week
+                </div>
+        </div>
+    </div>
+    </div>
+      <div class="calendar-container">
+        <mwl-calendar-month-view [viewDate]="viewDate" [events]="events"></mwl-calendar-month-view>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+<mat-list *ngFor="let event of events">
+<mat-card>
+    <mat-card-title>{{ event.title }}</mat-card-title>
+    <mat-card-content>
+      <p>Start: {{ event.start }}</p>
+      <p>End: {{ event.end }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="warn" (click)="deleteEvent(event)">Delete</button>
+    </mat-card-actions>
+</mat-card>
+
+  
 
 
   

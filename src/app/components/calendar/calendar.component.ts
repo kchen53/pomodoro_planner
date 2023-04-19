@@ -18,8 +18,11 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
   events: CalendarEvent[] = [];
-
-  refresh: Subject<any> = new Subject();
+  CalendarView = CalendarView;
+  
+  setView(view: CalendarView) {
+    this.view = view;
+  }
 
   title = '';
   start = '';
@@ -94,7 +97,7 @@ export class CalendarComponent implements OnInit {
   }
 
   deleteEvent(event: CalendarEvent): void {
-    this.events = this.events.filter((e: CalendarEvent) => e !== event);
+    this.events = this.events.filter((e: CalendarEvent) => e.id !== event.id);
   }
 
 }
