@@ -2,21 +2,33 @@
   <mat-card-content>
   <div class="timer-value">{{getTimer()}}</div>
 
-  <mat-form-field>
-    <mat-label>Set Time</mat-label>
-    <input matInput [(ngModel)]="timeString" placeholder="mm:ss" (input)="updateTime()">
-  </mat-form-field>
-  
-  <div class="controls">
-  <button mat-raised-button color="primary" (click)="startTimer()">Start</button>
-  <button mat-raised-button color="accent" (click)="stopTimer()">Stop</button>
-  <button mat-raised-button color="warn" (click)="resetTimer()">Reset</button>
-  <button mat-raised-button color="blue" (click)="clearTimer()">Clear</button>
+  <!-- Set Time Section -->
+  <div class="timer-set" *ngIf="!isTimerStarted">
+    <mat-form-field class="hour-form">
+      <mat-label>H</mat-label>
+      <input type="number" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.hours">
+    </mat-form-field>
+    &thinsp;
+    <a>:</a>
+    &thinsp;
+    <mat-form-field class="minute-form">
+      <mat-label>M</mat-label>
+      <input type="number" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.minutes">
+    </mat-form-field>
+    &thinsp;
+    <a>:</a>
+    &thinsp;
+    <mat-form-field class="second-form">
+      <mat-label>S</mat-label>
+      <input type="number" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.seconds">
+    </mat-form-field>
   </div>
+  <!-- End of Set Time Section -->
 
-  <!-- <div>
-    <h2>{{ minutes }}:{{ seconds }}</h2>
-  </div> -->
+  <div class="controls">
+    <button mat-raised-button color="primary" *ngIf="!isTimerStarted || isTimerPaused" (click)="startTimer()">Start</button>
+    <button mat-raised-button color="accent" *ngIf="isTimerStarted && !isTimerPaused" (click)="stopTimer()">Stop</button>
+    <button mat-raised-button color="warn" (click)="resetTimer()">Reset</button>
+  </div>
   </mat-card-content>
   </mat-card>
-  

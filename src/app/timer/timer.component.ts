@@ -9,71 +9,69 @@ import { interval, Subscription } from 'rxjs';
 export class TimerComponent {
   interval: any;
 
-public time: { minutes: number, seconds: number } = { minutes: 0, seconds: 0 };
-public originalTime: { minutes: number, seconds: number }= { minutes: 0, seconds: 0 };
-public timeString: string = '';
+public time: {hours:number, minutes: number, seconds: number } = {hours:0, minutes: 5, seconds: 0 };
 public isTimerStarted: boolean = false;
+public isTimerPaused: boolean = false;
+public resettingTimer: boolean = false;
 @Output() timerFinished = new EventEmitter<void>();
 
 constructor() {
-  this.timeString = ''; // Set default time to 2 minutes and 30 seconds
 }
 
 startTimer() {
   this.isTimerStarted = true;
-  // Store the original value of the timer before starting it
-  this.originalTime = { minutes: this.time.minutes, seconds: this.time.seconds };
 
   // Start the timer
   this.interval = setInterval(() => {
-    if (this.time.minutes === 0 && this.time.seconds === 0) {
+    if (this.time.hours === 0 && this.time.minutes === 0 && this.time.seconds === 0) {
       this.stopTimer();
       this.timerFinished.emit();
-    } else if (this.time.seconds === 0) {
+    }
+    else if (this.time.minutes === 0 && this.time.seconds === 0) {
+      this.time.hours--;
+      this.time.minutes = 59;
+      this.time.seconds = 59;
+    }
+    else if (this.time.seconds === 0) {
       this.time.minutes--;
       this.time.seconds = 59;
-    } else {
+    }
+    else {
       this.time.seconds--;
     }
   }, 1000);
 
-  //this.timeString = "";
 }
 
   stopTimer() {
-    //this.isTimerStarted = false;
-    clearInterval(this.interval);
+    if (this.resettingTimer = true) {
+      this.resettingTimer = false;
+      this.isTimerStarted = false;
+      this.isTimerPaused = false;
+      clearInterval(this.interval);
+    }
+    else {
+      this.isTimerPaused = true;
+    }
+
   }
 
   resetTimer() {
-    //this.isTimerStarted = false;
-    // Reset the time object to the original value
-    this.time = { minutes: this.originalTime.minutes, seconds: this.originalTime.seconds };
-  }
-
-  clearTimer(){
-    this.isTimerStarted = false;
-    clearInterval(this.interval);
-    this.timeString = '';
-    this.time = { minutes: 0, seconds: 0 };
+    this.stopTimer();
+    this.time = {hours: 0, minutes: 5, seconds: 0};
+    this.resettingTimer = true;
   }
 
   getTimer() {
+    const hours = this.time.hours;
     const minutes = this.time.minutes;
     const seconds = this.time.seconds;
 
     if(this.isTimerStarted==true){
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
-    else{
-      return `00:00`;
-    }
-  }
 
-  updateTime() {
-    const parts = this.timeString.split(':');
-    this.time.minutes = Number(parts[0]);
-    this.time.seconds = Number(parts[1]);
+    return ``;
   }
 
 }

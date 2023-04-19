@@ -1,16 +1,30 @@
 .timer {
-    text-align: center;
-    font-size: 3rem;
+  text-align: center;
+  font-size: 3rem;
 }
 
 .timer-value {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
+}
+
+.timer-set {
+  min-width: 150px;
+  max-width: 400px;
+}
+
+.hour-form {
+  width: 75px;
+}
+.minute-form {
+  width: 75px;
+}
+.second-form {
+  width: 75px;
 }
 
 .controls {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
-  
