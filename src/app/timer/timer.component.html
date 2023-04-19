@@ -6,21 +6,21 @@
   <div class="timer-set" *ngIf="!isTimerStarted">
     <mat-form-field class="hour-form">
       <mat-label>H</mat-label>
-      <input type="number" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.hours">
+      <input type="number" min="0" class="hours" name="hours" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.hours">
     </mat-form-field>
     &thinsp;
     <a>:</a>
     &thinsp;
     <mat-form-field class="minute-form">
       <mat-label>M</mat-label>
-      <input type="number" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.minutes">
+      <input type="number" min="0" class="mins" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.minutes">
     </mat-form-field>
     &thinsp;
     <a>:</a>
     &thinsp;
     <mat-form-field class="second-form">
       <mat-label>S</mat-label>
-      <input type="number" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.seconds">
+      <input type="number" min="0" class="secs" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" matInput [(ngModel)]="time.seconds">
     </mat-form-field>
   </div>
   <!-- End of Set Time Section -->
