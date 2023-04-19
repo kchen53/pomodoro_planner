@@ -127,15 +127,37 @@
    <!-- <mwl-calendar-month-view [viewDate]="viewDate" [events]="events"></mwl-calendar-month-view> -->
 
 
-   <mwl-calendar-month-view
-      [viewDate]="viewDate"
-      [events]="events"
-    ></mwl-calendar-month-view>
 
-    <form (ngSubmit)="addEvent()">
-      <input [(ngModel)]="name" name="title" placeholder="Title" required>
-      <input [(ngModel)]="start" name="start" placeholder="Start Date" required>
-      <input [(ngModel)]="end" name="end" placeholder="End Date">
-      <input [(ngModel)]="color" name="color" placeholder="Color">
-      <button type="submit">Add Event</button>
-    </form>
+<!-- <form (ngSubmit)="addEvent()">
+    <input [(ngModel)]="title" name="title" placeholder="Title" required>
+    <input [(ngModel)]="start" name="start" placeholder="Start Date" required>
+    <input [(ngModel)]="end" name="end" placeholder="End Date">
+    <input [(ngModel)]="color" name="color" placeholder="Color">
+    <button type="submit">Add Event</button>
+</form> -->
+
+<mat-form-field>
+    <input matInput type="text" placeholder="Description" [(ngModel)]="title">
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" [(ngModel)]="start">
+    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" [(ngModel)]="end">
+    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #endDatePicker></mat-datepicker>
+  </mat-form-field>  
+
+  <!-- <mat-form-field>
+    <mat-select placeholder="Color" [(ngModel)]="color">
+      <mat-option *ngFor="let colorOption of colorOptions" [value]="colorOption.value" [style.background-color]="colorOption.value"></mat-option>
+    </mat-select>
+  </mat-form-field>    -->
+
+<button mat-raised-button color="primary" (click)="addEvent()">Add</button>
+
+<mwl-calendar-month-view [viewDate]="viewDate" [events]="events"></mwl-calendar-month-view>

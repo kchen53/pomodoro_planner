@@ -5,7 +5,6 @@ import { EventService } from '../calendar/eventService'
 import { CalendarEvent } from 'angular-calendar';
 import { MatCalendar } from '@angular/material/datepicker';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-calendar',
@@ -13,24 +12,53 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./calendar.component.css'],
 })
 
-export class CalendarComponent{
+export class CalendarComponent implements OnInit {
   
   viewDate: Date = new Date();
+  view: CalendarView = CalendarView.Month;
   events: CalendarEvent[] = [];
-  event : Event[] = [];
 
-  id = 0;
-  name = '';
-  start = '2023-04-20T10:00:00';
-  end = '2023-04-20T12:00:00';
+  title = '';
+  start = '';
+  end = '';
   color = '';
 
+  colorOptions = [
+    { name: 'Red', value: '#FF0000' },
+    { name: 'Green', value: '#00FF00' },
+    { name: 'Blue', value: '#0000FF' },
+    // add more color options as desired
+  ];
   constructor(private eventService: EventService) { }
+
+  ngOnInit() {
+    this.getEvents();
+  }
+
+  getEvents() {
+    this.eventService.getEvents().subscribe(
+      (events: Event[]) => {
+        console.log('Events retrieved successfully!', events);
+        this.events = events.map(event => ({
+          title: event.title,
+          start: new Date(event.start),
+          end: new Date(event.end),
+          color: {
+            primary: event.color,
+            secondary: '#FAE3E3'
+          }
+        }));
+      },
+      (error) => {
+        console.log('Error retrieving events:', error);
+      }
+    );
+  }
 
   addEvent() {
     const newEvent: Event = {
-      id: this.id,
-      name: this.name,
+      id: 0,
+      title: this.title,
       start: this.start,
       end: this.end,
       color: this.color
@@ -40,7 +68,7 @@ export class CalendarComponent{
       (event: Event) => {
         console.log('Event added successfully!', event);
         const calendarEvent: CalendarEvent = {
-          title: event.name,
+          title: event.title,
           start: new Date(event.start),
           end: new Date(event.end),
           color: {
@@ -51,7 +79,7 @@ export class CalendarComponent{
         this.events.push(calendarEvent);
   
         // Reset the form fields after adding the new event
-        this.name = '';
+        this.title = '';
         this.start = '';
         this.end = '';
         this.color = '';
