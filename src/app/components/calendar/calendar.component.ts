@@ -5,6 +5,7 @@ import { EventService } from '../calendar/eventService'
 import { CalendarEvent } from 'angular-calendar';
 import { MatCalendar } from '@angular/material/datepicker';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -18,10 +19,12 @@ export class CalendarComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   events: CalendarEvent[] = [];
 
+  refresh: Subject<any> = new Subject();
+
   title = '';
   start = '';
   end = '';
-  color = '';
+  color = "#ad2121";
 
   colorOptions = [
     { name: 'Red', value: '#FF0000' },
@@ -44,7 +47,7 @@ export class CalendarComponent implements OnInit {
           start: new Date(event.start),
           end: new Date(event.end),
           color: {
-            primary: event.color,
+            primary: "#ad2121",
             secondary: '#FAE3E3'
           }
         }));
@@ -72,7 +75,7 @@ export class CalendarComponent implements OnInit {
           start: new Date(event.start),
           end: new Date(event.end),
           color: {
-            primary: event.color,
+            primary: "#ad2121",
             secondary: '#FAE3E3'
           }
         };
@@ -82,11 +85,16 @@ export class CalendarComponent implements OnInit {
         this.title = '';
         this.start = '';
         this.end = '';
-        this.color = '';
+        this.color = "#ad2121";
       },
       (error) => {
         console.log('Error adding event:', error);
       }
     );
   }
+
+  deleteEvent(event: CalendarEvent): void {
+    this.events = this.events.filter((e: CalendarEvent) => e !== event);
+  }
+
 }
