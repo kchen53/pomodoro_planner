@@ -57,7 +57,7 @@
 </div>
  -->
 
- <mat-form-field>
+<!-- <mat-form-field>
     <input matInput type="text" placeholder="Event name" [(ngModel)]="newEvent">
 </mat-form-field>
 
@@ -81,4 +81,61 @@
 
 <button mat-raised-button color="primary" (click)="addEvents(newEvent, newEventDate, newEventStartTime, newEventEndTime, newEventRepeat)">Add</button>
 
-  
+<mat-card>
+    <mat-card-content>
+        <div class="row text-center">
+    
+            <div class="col-md-4">
+                <div class="btn-group">
+                    <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+                        Previous
+                    </div>
+                    <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+                        Today
+                    </div>
+                    <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+                        Next
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                <h2>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h2>
+              </div>
+         
+    
+            <div class="col-md-4">
+            <div class="btn-group">
+                <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+                    Month
+                </div>
+                <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+                    Week
+                </div>
+        </div>
+    </div>
+    </div>
+      <div class="calendar-container">
+        <mwl-calendar-month-view [viewDate]="viewDate" [event]="events"></mwl-calendar-month-view>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+   -->
+
+
+   <!-- <mwl-calendar-month-view [viewDate]="viewDate" [events]="events"></mwl-calendar-month-view> -->
+
+
+   <mwl-calendar-month-view
+      [viewDate]="viewDate"
+      [events]="events"
+    ></mwl-calendar-month-view>
+
+    <form (ngSubmit)="addEvent()">
+      <input [(ngModel)]="name" name="title" placeholder="Title" required>
+      <input [(ngModel)]="start" name="start" placeholder="Start Date" required>
+      <input [(ngModel)]="end" name="end" placeholder="End Date">
+      <input [(ngModel)]="color" name="color" placeholder="Color">
+      <button type="submit">Add Event</button>
+    </form>
