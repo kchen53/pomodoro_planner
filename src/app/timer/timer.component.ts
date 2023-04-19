@@ -19,27 +19,29 @@ constructor() {
 }
 
 startTimer() {
-  this.isTimerStarted = true;
+  if (!(this.time.hours === 0 && this.time.minutes === 0 && this.time.seconds === 0)) {
+    this.isTimerStarted = true;
 
-  // Start the timer
-  this.interval = setInterval(() => {
-    if (this.time.hours === 0 && this.time.minutes === 0 && this.time.seconds === 0) {
-      this.stopTimer();
-      this.timerFinished.emit();
-    }
-    else if (this.time.minutes === 0 && this.time.seconds === 0) {
-      this.time.hours--;
-      this.time.minutes = 59;
-      this.time.seconds = 59;
-    }
-    else if (this.time.seconds === 0) {
-      this.time.minutes--;
-      this.time.seconds = 59;
-    }
-    else {
-      this.time.seconds--;
-    }
-  }, 1000);
+    // Start the timer
+    this.interval = setInterval(() => {
+      if (this.time.hours === 0 && this.time.minutes === 0 && this.time.seconds <= 1) {
+        this.stopTimer();
+        this.timerFinished.emit();
+      }
+      else if (this.time.minutes === 0 && this.time.seconds === 0) {
+        this.time.hours--;
+        this.time.minutes = 59;
+        this.time.seconds = 59;
+      }
+      else if (this.time.seconds === 0) {
+        this.time.minutes--;
+        this.time.seconds = 59;
+      }
+      else {
+        this.time.seconds--;
+      }
+    }, 1000);
+  }
 
 }
 
