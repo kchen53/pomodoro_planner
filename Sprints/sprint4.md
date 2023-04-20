@@ -8,7 +8,8 @@
 * Calendar
 ### Backend:
 
-* 
+* Added events to database
+* Created unit tests for event functions
 
 ## Unit Tests
 
