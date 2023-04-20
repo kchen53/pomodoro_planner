@@ -83,8 +83,30 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  deleteEvent(event: CalendarEvent): void {
-    this.events = this.events.filter((e: CalendarEvent) => e.id !== event.id);
+  deleteEvent(event: Event): void {
+    this.eventService.deleteEvent(event.id).subscribe(
+      () => {
+        console.log('Successfully deleted ', event);
+        
+        this.fullEvents = this.fullEvents.filter((e: Event) => e !== event);
+        this.events = this.event2CalendarEvent(this.fullEvents);
+      },
+      (error) => {
+        console.error('Error while deleting the event:', error);
+      }
+    );
+  }
+
+  event2CalendarEvent(events: Event[]): CalendarEvent[] {
+    return events.map(event => ({
+      title: event.title,
+      start: new Date(event.start),
+      end: new Date(event.end),
+      color: {
+        primary: "#ad2121",
+        secondary: '#FAE3E3'
+      }
+    }));
   }
 
 }

@@ -45,5 +45,5 @@ describe('TodoListComponent', () => {
       const compiled = fixture.nativeElement;
       expect(compiled.querySelector('h2').textContent).toContain('To-Do List');
     });
-    
+
 });

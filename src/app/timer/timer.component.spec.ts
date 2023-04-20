@@ -38,4 +38,15 @@ describe('TimerComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('mat-label').textContent).toContain('H');
   });
+
+  // spyOn(TimerComponent, 'startTimer');
+  // TimerComponent.startTimer();
+  // expect(TimerComponent.startTimer()).toHaveBeenCalled();
+
+  // it('should call startTimer()', () => {
+  //   spyOn(TimerComponent, 'startTimer');
+  //   TimerComponent.startTimer();
+  //   expect(component.startTimer).toHaveBeenCalled();
+  // });
+
 });
