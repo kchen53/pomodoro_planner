@@ -8,7 +8,8 @@
 * Calendar
 ### Backend:
 
-* 
+* Added events to database
+* Created unit tests for event functions
 
 ## Unit Tests
 
@@ -487,22 +488,14 @@ Deletes the Todo items with the id designated by the address, returns the delete
 > **"name"** string <br>
 > String name for event describing the task
 
-> **"date"** string <br>
-> Due date is held in a string of format "YYYY-MM-DD" where YYYY is the year, MM is the month, DD is the day
-
 > **"start-time"** number *Format: seconds <br>
 > Time the event begins in a string of format "HH-MM" where HH is the hour (0-23), MM is the minute (0-60
 
 > **"end-time"** number *Format: seconds <br>
 > Time the event ends in a string of format "HH-MM" where HH is the hour (0-23), MM is the minute (0-60
 
-> **"repeat"** number <br>
-> Signifies how often to repeat task. Data is the integer value of a 7 digit binary flags: <br>
->> | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
->> |-----|-----|-----|-----|-----|-----|-----|
->> |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
-> Example 1. If event is to repeat every Sunday, then the value would be bin(1000000) = int(64) <br>
-> Example 2. If event is to repeat every Monday, Wednesday, and Friday, then the value would be bin(0101010) = int(42) <br>
+> **"color"** number <br>
+> Used to color code the events in the format of string
 
 ####  Create Event
 
@@ -513,10 +506,9 @@ Creates a new Event item, returns the created Event item<br>
 ##### Input Fields:
 
 >> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string *Format: "color"* <br>
 > 
 > Style: Raw JSON
 
@@ -525,10 +517,9 @@ Creates a new Event item, returns the created Event item<br>
 ```json
 {
     "name":"Watch pomos",
-    "date":"2021-03-26",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 0
+    "color": "blue"
 }
 ```
  
