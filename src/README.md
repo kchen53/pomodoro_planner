@@ -1,3 +1,5 @@
+
+
 ## API
 
 Pomodoro Planner aids the creation of a study session environment. We make use of a RESTful API to facilitate http requests and responses. Data is accepted and returned in the JSON format.
@@ -14,11 +16,11 @@ Pomodoro Planner aids the creation of a study session environment. We make use o
     - [Update](#update)  <br>
     - [Delete](#delete) <br>
 - [**Event**](#event)
-    - [Create](#create-1)  <br>
-    - [Get All](#get-all-1)  <br>
-    - [Get By ID](#get-by-id-1)  <br>
-    - [Update](#update-1)  <br>
-    - [Delete](#delete-1) <br>
+    - [Create](#create-event)  <br>
+    - [Get All](#get-all-events)  <br>
+    - [Get By ID](#get-event-by-id)  <br>
+    - [Update](#update-event)  <br>
+    - [Delete](#delete-event) <br>
 - [**User**](#user)
     - [Signup](#signup) <br>
     - [Login](#login) <br>
@@ -266,27 +268,36 @@ Deletes the Todo items with the id designated by the address, returns the delete
 > **"id"** number <br>
 > Unique key for every event. Used for updating, deleting, or getting specific event items
 
-> **"name"** string <br>
+> **"title"** string <br>
 > String name for event describing the task
 
-> **"date"** string <br>
-> Due date is held in a string of format "YYYY-MM-DD" where YYYY is the year, MM is the month, DD is the day
+> **"start"** string *Format: YYYY-MM-DDTHR:MT:SC.MSCZ* <br>
+> Time the event begins in a string of format "YYY-MM-DDTHH:MM:SS.MSSZ" where:
+> - YYYY is the year
+> - MM is the month
+> - DD is the day
+> - HR is the hour (00-23)
+> - MT is the minute (00-59)
+> - SC is the second (00-59)
+> - MSS is the milisecond (000-999)
 
-> **"start-time"** number *Format: seconds <br>
-> Time the event begins in a string of format "HH-MM" where HH is the hour (0-23), MM is the minute (0-60
+> **"end"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+> Time the event ends in a string of format "YYY-MM-DDTHH:MM:SS.MSSZ" where:
+> - YYYY is the year
+> - MM is the month
+> - DD is the day
+> - HR is the hour (00-23)
+> - MT is the minute (00-59)
+> - SC is the second (00-59)
+> - MSS is the milisecond (000-999)
 
-> **"end-time"** number *Format: seconds <br>
-> Time the event ends in a string of format "HH-MM" where HH is the hour (0-23), MM is the minute (0-60
+> **"color"** string *Format: #RRGGBB* <br>
+> Used to color code the events in a string formatted with the hexcode for the color where:
+> - RR is the red channel in hexadecimal
+> - GG is the green channel in hexadecimal
+> - BB is the blue channel in hexadecimal
 
-> **"repeat"** number <br>
-> Signifies how often to repeat task. Data is the integer value of a 7 digit binary flags: <br>
->> | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
->> |-----|-----|-----|-----|-----|-----|-----|
->> |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
-> Example 1. If event is to repeat every Sunday, then the value would be bin(1000000) = int(64) <br>
-> Example 2. If event is to repeat every Monday, Wednesday, and Friday, then the value would be bin(0101010) = int(42) <br>
-
-####  Create
+####  Create Event
 
 > <font color="orange">POST</font> 127.0.0.1:8081/event <br>
 
@@ -294,11 +305,10 @@ Creates a new Event item, returns the created Event item<br>
 
 ##### Input Fields:
 
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
->> **"start-time"** string *Format: "HH-MM"* <br>
->> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"title"** string <br>
+>> **"start"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"end"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"color"** string *Format: #RRGGBB* <br>
 > 
 > Style: Raw JSON
 
@@ -306,22 +316,20 @@ Creates a new Event item, returns the created Event item<br>
 
 ```json
 {
-    "name":"Watch pomos",
-    "date":"2021-03-26",
-    "start-time":"18-30",
-    "end-time":"20-00",
-    "repeat": 0
+    "title": "Trip",
+    "start": "2023-04-28T04:00:00.000Z",
+    "end": "2023-04-30T04:00:00.000Z",
+    "color": "#ad2121"
 }
 ```
  
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
->> **"start-time"** string *Format: "HH-MM"* <br>
->> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"title"** string <br>
+>> **"start"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"end"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"color"** string *Format: #RRGGBB* <br>
 > 
 > Style: Raw JSON
 
@@ -329,16 +337,15 @@ Creates a new Event item, returns the created Event item<br>
 
 ```json
 {
-    "id": 0,
-    "name":"Watch pomos",
-    "date":"2021-03-26",
-    "start-time":"18-30",
-    "end-time":"20-00",
-    "repeat": 0
+    "id": 17,
+    "title": "Trip",
+    "start": "2023-04-28T04:00:00.000Z",
+    "end": "2023-04-30T04:00:00.000Z",
+    "color": "#ad2121"
 }
 ```
           
-#### Get All
+#### Get All Events
 
 > GET 127.0.0.1:8081/event <br>
 
@@ -347,11 +354,10 @@ Returns a list of all stored Event items <br>
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
->> **"start-time"** string *Format: "HH-MM"* <br>
->> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"title"** string <br>
+>> **"start"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"end"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"color"** string *Format: #RRGGBB* <br>
 > 
 > Style: Raw JSON
 
@@ -360,25 +366,23 @@ Returns a list of all stored Event items <br>
 ```json
 [
     {
-        "id": 0,
-        "name":"Watch pomos",
-        "date":"2021-03-26",
-        "start-time":"18-30",
-        "end-time":"20-00",
-        "repeat": 0
+        "id": 17,
+        "title": "Trip",
+        "start": "2023-04-28T04:00:00.000Z",
+        "end": "2023-04-30T04:00:00.000Z",
+        "color": "#ad2121"
     },
     {
-        "id": 2,
-        "name": "Visit doros",
-        "date": "2021-03-31",
-        "start-time":"09-15",
-        "end-time":"10-45",
-        "repeat": 2 //Note: Every Friday
+        "id": 18,
+        "title": "SWE Project Due",
+        "start": "2023-04-19T04:00:00.000Z",
+        "end": "2023-04-19T04:00:00.000Z",
+        "color": "#ad2121"
     }
 ]
 ```
 
-#### Get by ID
+#### Get Event by ID
 
 > GET 127.0.0.1:8081/event/{id} <br>
 
@@ -387,11 +391,10 @@ Returns the Event item with the id designated by the address
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
->> **"start-time"** string *Format: "HH-MM"* <br>
->> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"title"** string <br>
+>> **"start"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"end"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"color"** string *Format: #RRGGBB* <br>
 > 
 > Style: Raw JSON
 
@@ -399,12 +402,11 @@ Returns the Event item with the id designated by the address
 
 ```json
 {
-    "id": 0,
-    "name": "Pay pomos",
-    "date": "2021-03-26",
-    "start-time":"18-30",
-    "end-time":"20-00",
-    "repeat": 64 //Note: Every Sunday
+    "id": 17,
+    "title": "Trip",
+    "start": "2023-04-28T04:00:00.000Z",
+    "end": "2023-04-30T04:00:00.000Z",
+    "color": "#ad2121"
 }
 ```
 #### Update
@@ -417,11 +419,10 @@ Modifies the Event item with the id designated by the address, returns the updat
 
 ##### Input Fields:
 
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
->> **"start-time"** string *Format: "HH-MM"* <br>
->> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"title"** string <br>
+>> **"start"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"end"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"color"** string *Format: #RRGGBB* <br>
 > 
 > Style: Raw JSON
 
@@ -429,22 +430,21 @@ Modifies the Event item with the id designated by the address, returns the updat
 
 ```json
 {
-    "name":"Pay pomos",
-    "date":"2021-03-27",
-    "start-time":"18-30",
-    "end-time":"20-00",
-    "repeat": 0
+    "id": 17,
+    "title": "Trip",
+    "start": "2023-04-28T00:00:00.000Z",
+    "end": "2023-04-31T04:00:00.000Z",
+    "color": "#ad2121"
 }
 ```
  
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
->> **"start-time"** string *Format: "HH-MM"* <br>
->> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"title"** string <br>
+>> **"start"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"end"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"color"** string *Format: #RRGGBB* <br>
 > 
 > Style: Raw JSON
 
@@ -452,16 +452,15 @@ Modifies the Event item with the id designated by the address, returns the updat
 
 ```json
 {
-    "id": 0,
-    "name": "Pay pomos",
-    "date": "2021-03-27",
-    "start-time":"18-30",
-    "end-time":"20-00",
-    "repeat": 0
+    "id": 17,
+    "title": "Trip",
+    "start": "2023-04-28T00:00:00.000Z",
+    "end": "2023-04-31T04:00:00.000Z",
+    "color": "#ad2121"
 }
 ```
 
-#### Delete
+#### Delete Event
 
 > DELETE 1270.0.1:8081/event/{id} <br>
 
@@ -470,11 +469,10 @@ Deletes the Event items with the id designated by the address, returns the delet
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
->> **"start-time"** string *Format: "HH-MM"* <br>
->> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"title"** string <br>
+>> **"start"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"end"** string *Format: YYYY-MM-DDTHH:MM:SS.MSSZ* <br>
+>> **"color"** string *Format: #RRGGBB* <br>
 > 
 > Style: Raw JSON
 
@@ -482,13 +480,11 @@ Deletes the Event items with the id designated by the address, returns the delet
 
 ```json
 {
-    "id": 7,
-    "name": "",
-    "date": "",
-    "start-time": "",
-    "end-time": "",
-    "time": 0,
-    "repeat": 0
+    "id": 21,
+    "title": "",
+    "start": "",
+    "end": "",
+    "color": ""
 }
 ```
 
@@ -596,5 +592,4 @@ Returns the username of the currently logged in user, returns "Anonymous" if not
 ```json
 "Anonymous"
 ```
-          
-
+      
