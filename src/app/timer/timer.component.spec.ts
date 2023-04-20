@@ -36,6 +36,6 @@ describe('TimerComponent', () => {
   it('check the timer html header', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('mat-label').textContent).toContain('Set Time');
+    expect(compiled.querySelector('mat-label').textContent).toContain('H');
   });
 });

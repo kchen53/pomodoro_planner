@@ -97,7 +97,7 @@ export class CalendarComponent implements OnInit {
   }
 
   deleteEvent(event: CalendarEvent): void {
-    this.events = this.events.filter((e: CalendarEvent) => e.id !== event.id);
+    this.events = this.events.filter((e: CalendarEvent) => e !== event);
   }
 
 }

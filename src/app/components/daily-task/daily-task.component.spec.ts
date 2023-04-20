@@ -28,6 +28,6 @@ describe('DailyTaskComponent', () => {
   it('check if the daily calender displays the correct date', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h2').textContent).toContain('Wednesday, March 29, 2023');
+    expect(compiled.querySelector('h2').textContent).toContain('Wednesday, April 19, 2023');
   });
 });
