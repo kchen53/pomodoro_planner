@@ -20,8 +20,10 @@
 
 ## 2. Run "npm start" in the command line
 
-## 3. Run "cd src/server" in the command line
+## 3. Open a seperate command line
 
-## 4. Run "./pomodoro_planner_FE.exe" in the command line
+## 4. Run "cd src/server" in the new command line
 
-## 5. Open "127.0.0.1:8081" to view the app
+## 5. Run "./pomodoro_planner_FE.exe" in the new command line
+
+## 6. Open "127.0.0.1:8081" to view the app
