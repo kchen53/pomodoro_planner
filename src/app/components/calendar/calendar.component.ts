@@ -18,6 +18,7 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
   events: CalendarEvent[] = [];
+  fullEvents: Event[] = [];
   CalendarView = CalendarView;
   
   setView(view: CalendarView) {
@@ -45,15 +46,8 @@ export class CalendarComponent implements OnInit {
     this.eventService.getEvents().subscribe(
       (events: Event[]) => {
         console.log('Events retrieved successfully!', events);
-        this.events = events.map(event => ({
-          title: event.title,
-          start: new Date(event.start),
-          end: new Date(event.end),
-          color: {
-            primary: "#ad2121",
-            secondary: '#FAE3E3'
-          }
-        }));
+        this.fullEvents = events;
+        this.events = this.event2CalendarEvent(this.fullEvents);
       },
       (error) => {
         console.log('Error retrieving events:', error);
@@ -73,16 +67,9 @@ export class CalendarComponent implements OnInit {
     this.eventService.addEvent(newEvent).subscribe(
       (event: Event) => {
         console.log('Event added successfully!', event);
-        const calendarEvent: CalendarEvent = {
-          title: event.title,
-          start: new Date(event.start),
-          end: new Date(event.end),
-          color: {
-            primary: "#ad2121",
-            secondary: '#FAE3E3'
-          }
-        };
-        this.events.push(calendarEvent);
+        
+        this.fullEvents.push(event);
+        this.events = this.event2CalendarEvent(this.fullEvents);
   
         // Reset the form fields after adding the new event
         this.title = '';
@@ -96,8 +83,30 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  deleteEvent(event: CalendarEvent): void {
-    this.events = this.events.filter((e: CalendarEvent) => e.id !== event.id);
+  deleteEvent(event: Event): void {
+    this.eventService.deleteEvent(event.id).subscribe(
+      () => {
+        console.log('Successfully deleted ', event);
+        
+        this.fullEvents = this.fullEvents.filter((e: Event) => e !== event);
+        this.events = this.event2CalendarEvent(this.fullEvents);
+      },
+      (error) => {
+        console.error('Error while deleting the event:', error);
+      }
+    );
+  }
+
+  event2CalendarEvent(events: Event[]): CalendarEvent[] {
+    return events.map(event => ({
+      title: event.title,
+      start: new Date(event.start),
+      end: new Date(event.end),
+      color: {
+        primary: "#ad2121",
+        secondary: '#FAE3E3'
+      }
+    }));
   }
 
 }
