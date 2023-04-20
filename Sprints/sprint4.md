@@ -4,8 +4,12 @@
 ### Frontend:
 * Timer
 * Login
-* Event System
+* Event System for Calendar
+  * post new events
+  * display new events
+  * delete old events
 * Calendar
+
 ### Backend:
 
 * Added events to database
@@ -56,7 +60,6 @@ it('check the to-do list html header', () => {
   expect(compiled.querySelector('mat-card-title').textContent).toContain('To-Do List');
 });
 
-##### New Tests:
 it('check if the calendar displays the correct month', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
@@ -105,6 +108,25 @@ it('should have an app-calendar component', () => {
     expect(appCalendar).not.toBeNull();
   });
   
+  it('check if getEvents function was called', () => {
+    expect(component.getEvents).toHaveBeenCalled;
+  });
+
+##### New Tests
+  it('check if addEvent function was called', () => {
+    expect(component.addEvent).toHaveBeenCalled;
+  });
+
+  it('check if deleteEvent function was called', () => {
+    expect(component.deleteEvent).toHaveBeenCalled;
+  });
+  
+  it('check the timer html header', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('mat-label').textContent).toContain('H');
+  });
+  
 #### Cypress:
 
 describe('Login', () => {
@@ -124,6 +146,7 @@ describe('Login', () => {
   })
 })
 
+##### New Tests
 describe('Timer', () => {
   it('passes', () => {
     cy.visit('http://127.0.0.1:8081/session')
@@ -199,7 +222,6 @@ describe('Calendar', () => {
 
   })
 })
-
 
 ### Backend:
 
