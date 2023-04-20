@@ -2,7 +2,10 @@
 
 ## Work Completed
 ### Frontend:
-* 
+* Timer
+* Login
+* Event System
+* Calendar
 ### Backend:
 
 * 
