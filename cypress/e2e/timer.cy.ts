@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('Timer', () => {
   it('passes', () => {
     cy.visit('http://127.0.0.1:8081/session')
     cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')

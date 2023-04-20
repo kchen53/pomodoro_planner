@@ -49,17 +49,14 @@ func TestGetEvent(t *testing.T) {
 		if resEvents[0].Name != "TEST" {
 			t.Errorf("Incorrect task name")
 		}
-		if resEvents[0].Date != "01-01-2023" {
-			t.Errorf("Incorrect date")
-		}
 		if resEvents[0].StartTime != "18-30" {
-			t.Errorf("Incorrect time")
+			t.Errorf("Incorrect start time")
 		}
 		if resEvents[0].EndTime != "20-00" {
-			t.Errorf("Incorrect repeat")
+			t.Errorf("Incorrect end time")
 		}
-		if resEvents[0].Repeat != 0 {
-			t.Errorf("Incorrect completed state")
+		if resEvents[0].Color != "blue" {
+			t.Errorf("Incorrect color")
 		}
 	}
 }
@@ -96,17 +93,14 @@ func TestGetEventByID(t *testing.T) {
 	if resEvent.Name != "TEST" {
 		t.Errorf("Incorrect task name")
 	}
-	if resEvent.Date != "01-01-2023" {
-		t.Errorf("Incorrect date")
-	}
 	if resEvent.StartTime != "18-30" {
 		t.Errorf("Incorrect start time")
 	}
 	if resEvent.EndTime != "20-00" {
 		t.Errorf("Incorrect end time")
 	}
-	if resEvent.Repeat != 0 {
-		t.Errorf("Incorrect repeat")
+	if resEvent.Color != "blue" {
+		t.Errorf("Incorrect color")
 	}
 }
 
@@ -149,10 +143,9 @@ func TestCreateEvent(t *testing.T) {
 	var event models.Event
 	event.ID = 1
 	event.Name = "TEST"
-	event.Date = "01-01-2023"
 	event.StartTime = "18-30"
 	event.EndTime = "20-00"
-	event.Repeat = 0
+	event.Color = "blue"
 	eventDetails, _ := json.Marshal(event)
 
 	//Create request
@@ -176,17 +169,14 @@ func TestCreateEvent(t *testing.T) {
 	if resEvent.Name != "TEST" {
 		t.Errorf("Incorrect task name")
 	}
-	if resEvent.Date != "01-01-2023" {
-		t.Errorf("Incorrect date")
-	}
 	if resEvent.StartTime != "18-30" {
 		t.Errorf("Incorrect start time")
 	}
 	if resEvent.EndTime != "20-00" {
 		t.Errorf("Incorrect end time")
 	}
-	if resEvent.Repeat != 0 {
-		t.Errorf("Incorrect repeat")
+	if resEvent.Color != "blue" {
+		t.Errorf("Incorrect color")
 	}
 }
 
@@ -201,10 +191,9 @@ func TestUpdateEvent(t *testing.T) {
 
 	//Populate variable with an event
 	event.Name = "TEST3"
-	event.Date = "01-02-2023"
 	event.StartTime = "17-30"
 	event.EndTime = "21-00"
-	event.Repeat = 1
+	event.Color = "orange"
 	eventDetails, _ := json.Marshal(event)
 
 	//Create request
@@ -233,17 +222,14 @@ func TestUpdateEvent(t *testing.T) {
 	if resEvent.Name != "TEST3" {
 		t.Errorf("Incorrect task name")
 	}
-	if resEvent.Date != "01-02-2023" {
-		t.Errorf("Incorrect date")
-	}
 	if resEvent.StartTime != "17-30" {
 		t.Errorf("Incorrect start time")
 	}
 	if resEvent.EndTime != "21-00" {
 		t.Errorf("Incorrect end time")
 	}
-	if resEvent.Repeat != 1 {
-		t.Errorf("Incorrect repeat")
+	if resEvent.Color != "orange" {
+		t.Errorf("Incorrect color")
 	}
 }
 
@@ -266,8 +252,8 @@ func Reset(t *testing.T) {
 
 func Populate() {
 	statement, _ := db.Prepare(`
-	INSERT into event(id, name, date, start_time, end_time, repeat, userid) VALUES (?, ?, ?, ?, ?, ?, ?)
+	INSERT into event(id, name, start, end, color, userid) VALUES (?, ?, ?, ?, ?, ?)
 	`)
-	statement.Exec(1, "TEST", "01-01-2023", "18-30", "20-00", 0, 0)
+	statement.Exec(1, "TEST", "18-30", "20-00", "blue", 0)
 	statement.Close()
 }

@@ -2,10 +2,14 @@
 
 ## Work Completed
 ### Frontend:
-* 
+* Timer
+* Login
+* Event System
+* Calendar
 ### Backend:
 
-* 
+* Added events to database
+* Created unit tests for event functions
 
 ## Unit Tests
 
@@ -113,7 +117,6 @@ describe('Login', () => {
     cy.get('input[name="password"]').type('password')
     cy.get('button').contains('Submit').click()
 
-    cy.contains('Login').click()
     cy.contains('Sign Up').click()
     cy.get('input[name="username"]').type('Username')
     cy.get('input[name="password"]').type('password')
@@ -124,11 +127,55 @@ describe('Login', () => {
 describe('Timer', () => {
   it('passes', () => {
     cy.visit('http://127.0.0.1:8081/session')
-    cy.get('input[placeholder="mm:ss"]').type('00:20')
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('H').type('{selectall}{backspace}').type('0')
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('M').type('{selectall}{backspace}').type('0')
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('S').type('{selectall}{backspace}').type('5')
+
     cy.get('button').contains('Start').click()
-    cy.get('div[class="timer-value"]').contains('00:20')
-    cy.wait(20*1000)
-    cy.get('div[class="timer-value"]').contains('00:00')
+    cy.get('div[class="timer-value"]').contains('00:00:05')
+    cy.wait(5*1000)
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').should('be.visible')
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('H').type('{selectall}{backspace}').type('0')
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('M').type('{selectall}{backspace}').type('1')
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('S').type('{selectall}{backspace}').type('5')
+
+    cy.get('button').contains('Start').click()
+    cy.get('div[class="timer-value"]').contains('00:01:05')
+    cy.wait(5*1000)
+    cy.get('div[class="timer-value"]').contains('00:00:59')
+    cy.get('button').contains('Stop').click()
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').should('be.visible')
+
+    cy.get('button').contains('Reset').click()
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('H').type('{selectall}{backspace}').type('1')
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('M').type('{selectall}{backspace}').type('0')
+
+    cy.get('body').get('app-sessions').get('div[class="body"]').get('div[class="right"]').get('div').get('div[class="timer"]').get('app-timer')
+    .get('mat-card').get('mat-card').get('div[class="timer-set ng-star-inserted"]').contains('S').type('{selectall}{backspace}').type('5')
+
+    cy.get('button').contains('Start').click()
+    cy.get('div[class="timer-value"]').contains('01:00:05')
+    cy.wait(5*1000)
+    cy.get('div[class="timer-value"]').contains('00:59:59')
   })
 })
 
@@ -441,22 +488,14 @@ Deletes the Todo items with the id designated by the address, returns the delete
 > **"name"** string <br>
 > String name for event describing the task
 
-> **"date"** string <br>
-> Due date is held in a string of format "YYYY-MM-DD" where YYYY is the year, MM is the month, DD is the day
-
 > **"start-time"** number *Format: seconds <br>
 > Time the event begins in a string of format "HH-MM" where HH is the hour (0-23), MM is the minute (0-60
 
 > **"end-time"** number *Format: seconds <br>
 > Time the event ends in a string of format "HH-MM" where HH is the hour (0-23), MM is the minute (0-60
 
-> **"repeat"** number <br>
-> Signifies how often to repeat task. Data is the integer value of a 7 digit binary flags: <br>
->> | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
->> |-----|-----|-----|-----|-----|-----|-----|
->> |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
-> Example 1. If event is to repeat every Sunday, then the value would be bin(1000000) = int(64) <br>
-> Example 2. If event is to repeat every Monday, Wednesday, and Friday, then the value would be bin(0101010) = int(42) <br>
+> **"color"** number <br>
+> Used to color code the events in the format of string
 
 ####  Create Event
 
@@ -466,11 +505,10 @@ Creates a new Event item, returns the created Event item<br>
 
 ##### Input Fields:
 
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"name"** string <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string *Format: "color"* <br>
 > 
 > Style: Raw JSON
 
@@ -479,10 +517,9 @@ Creates a new Event item, returns the created Event item<br>
 ```json
 {
     "name":"Watch pomos",
-    "date":"2021-03-26",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 0
+    "color": "blue"
 }
 ```
  
@@ -490,10 +527,9 @@ Creates a new Event item, returns the created Event item<br>
 
 >> **"id"** number <br>
 >> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -503,10 +539,9 @@ Creates a new Event item, returns the created Event item<br>
 {
     "id": 0,
     "name":"Watch pomos",
-    "date":"2021-03-26",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 0
+    "color": "blue"
 }
 ```
           
@@ -519,11 +554,10 @@ Returns a list of all stored Event items <br>
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"name"** string <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -534,18 +568,16 @@ Returns a list of all stored Event items <br>
     {
         "id": 0,
         "name":"Watch pomos",
-        "date":"2021-03-26",
         "start-time":"18-30",
         "end-time":"20-00",
-        "repeat": 0
+        "color": "blue"
     },
     {
         "id": 2,
         "name": "Visit doros",
-        "date": "2021-03-31",
         "start-time":"09-15",
         "end-time":"10-45",
-        "repeat": 2 //Note: Every Friday
+        "color": "orange"
     }
 ]
 ```
@@ -559,11 +591,10 @@ Returns the Event item with the id designated by the address
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"name"** string <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -573,10 +604,9 @@ Returns the Event item with the id designated by the address
 {
     "id": 0,
     "name": "Pay pomos",
-    "date": "2021-03-26",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 64 //Note: Every Sunday
+    "color": "blue"
 }
 ```
 #### Update
@@ -589,11 +619,10 @@ Modifies the Event item with the id designated by the address, returns the updat
 
 ##### Input Fields:
 
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"name"** string <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -602,10 +631,9 @@ Modifies the Event item with the id designated by the address, returns the updat
 ```json
 {
     "name":"Pay pomos",
-    "date":"2021-03-27",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 0
+    "color": "blue"
 }
 ```
  
@@ -613,10 +641,9 @@ Modifies the Event item with the id designated by the address, returns the updat
 
 >> **"id"** number <br>
 >> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -626,10 +653,9 @@ Modifies the Event item with the id designated by the address, returns the updat
 {
     "id": 0,
     "name": "Pay pomos",
-    "date": "2021-03-27",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 0
+    "color": "blue"
 }
 ```
 
@@ -643,10 +669,9 @@ Deletes the Event items with the id designated by the address, returns the delet
 
 >> **"id"** number <br>
 >> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -656,11 +681,9 @@ Deletes the Event items with the id designated by the address, returns the delet
 {
     "id": 7,
     "name": "",
-    "date": "",
     "start-time": "",
     "end-time": "",
-    "time": 0,
-    "repeat": 0
+    "color": ""
 }
 ```
 

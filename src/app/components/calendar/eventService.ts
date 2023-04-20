@@ -15,10 +15,12 @@ export class EventService {
   constructor(private http: HttpClient) { }
 
   getEvents(): Observable<Event[]> {
+    this.http.delete(`http://127.0.0.1:8081/event/22`);
     return this.http.get<Event[]>(this.apiUrl);
   }
 
   addEvent(event: Event): Observable<Event> {
+
     return this.http.post<Event>(this.apiUrl, event); 
   }
 
@@ -29,6 +31,7 @@ export class EventService {
 
   deleteEvent(id: number): Observable<{}> {
     const url = `${this.apiUrl}/${id}`;
+    console.log("deleting ", url);
     return this.http.delete(url);
   }
 }
