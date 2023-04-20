@@ -505,7 +505,7 @@ Creates a new Event item, returns the created Event item<br>
 
 ##### Input Fields:
 
->> **"name"** number <br>
+>> **"name"** string <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
 >> **"color"** string *Format: "color"* <br>
@@ -527,10 +527,9 @@ Creates a new Event item, returns the created Event item<br>
 
 >> **"id"** number <br>
 >> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -540,10 +539,9 @@ Creates a new Event item, returns the created Event item<br>
 {
     "id": 0,
     "name":"Watch pomos",
-    "date":"2021-03-26",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 0
+    "color": "blue"
 }
 ```
           
@@ -556,11 +554,10 @@ Returns a list of all stored Event items <br>
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"name"** string <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -571,18 +568,16 @@ Returns a list of all stored Event items <br>
     {
         "id": 0,
         "name":"Watch pomos",
-        "date":"2021-03-26",
         "start-time":"18-30",
         "end-time":"20-00",
-        "repeat": 0
+        "color": "blue"
     },
     {
         "id": 2,
         "name": "Visit doros",
-        "date": "2021-03-31",
         "start-time":"09-15",
         "end-time":"10-45",
-        "repeat": 2 //Note: Every Friday
+        "color": "orange"
     }
 ]
 ```
@@ -596,11 +591,10 @@ Returns the Event item with the id designated by the address
 ##### Output Fields:
 
 >> **"id"** number <br>
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"name"** string <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -610,10 +604,9 @@ Returns the Event item with the id designated by the address
 {
     "id": 0,
     "name": "Pay pomos",
-    "date": "2021-03-26",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 64 //Note: Every Sunday
+    "color": "blue"
 }
 ```
 #### Update
@@ -626,11 +619,10 @@ Modifies the Event item with the id designated by the address, returns the updat
 
 ##### Input Fields:
 
->> **"name"** number <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
+>> **"name"** string <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -639,10 +631,9 @@ Modifies the Event item with the id designated by the address, returns the updat
 ```json
 {
     "name":"Pay pomos",
-    "date":"2021-03-27",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 0
+    "color": "blue"
 }
 ```
  
@@ -650,10 +641,9 @@ Modifies the Event item with the id designated by the address, returns the updat
 
 >> **"id"** number <br>
 >> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -663,10 +653,9 @@ Modifies the Event item with the id designated by the address, returns the updat
 {
     "id": 0,
     "name": "Pay pomos",
-    "date": "2021-03-27",
     "start-time":"18-30",
     "end-time":"20-00",
-    "repeat": 0
+    "color": "blue"
 }
 ```
 
@@ -680,10 +669,9 @@ Deletes the Event items with the id designated by the address, returns the delet
 
 >> **"id"** number <br>
 >> **"name"** string <br>
->> **"date"** string *Format: "YYYY-MM-DD"* <br>
 >> **"start-time"** string *Format: "HH-MM"* <br>
 >> **"end-time"** string *Format: "HH-MM"* <br>
->> **"repeat"** number *Format: Binary flags (see Todo)* <br>
+>> **"color"** string <br>
 > 
 > Style: Raw JSON
 
@@ -693,11 +681,9 @@ Deletes the Event items with the id designated by the address, returns the delet
 {
     "id": 7,
     "name": "",
-    "date": "",
     "start-time": "",
     "end-time": "",
-    "time": 0,
-    "repeat": 0
+    "color": ""
 }
 ```
 
